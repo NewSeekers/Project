@@ -25,7 +25,7 @@ public class BoardController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("board doPost 들어옴");
-		actionDo(request, response);
+		actionDo(request, response); 
 	}
 	
 	private void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

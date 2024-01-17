@@ -45,7 +45,7 @@ public class BDto {
 		this.bTitle = bTitle;
 	}
 
-	public String getbName() {
+	public String getbName() { 
 		return bName;
 	}
 
