@@ -11,6 +11,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'NPSfontBold';
+    /* border: 1px solid black; */
 
 }
 
@@ -65,17 +66,165 @@ html {
     color: white;
 }
 
+#j_board_list {
+    width: 100%;
+    border-top: 2px solid black;
+}
+
+#j_board_list>ul {
+    border-bottom: 1px solid #ccc;
+}
+
+#j_board_list>ul.boarder_top {
+    border-bottom: 1px solid #ccc;
+}
+
+#j_board_list>ul:last-child {
+    border-bottom: 1px solid black;
+}
+
+#j_board_list>ul>li {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.j_board_top {
+    font-weight: 600;
+}
+
+.j_list_num {
+    width: 10%;
+}
+
+.j_list_title {
+    width: 45%;
+    text-align: left;
+}
+
+.j_list_writer {
+    width: 20%;
+}
+
+.j_list_date {
+    width: 10%;
+}
+
+.j_list_count {
+    width: 10%;
+}
+
+#j_board_page {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#j_board_page a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    /* 가운데로 보내기 위해 */
+    vertical-align: middle;
+    border-left: 0;
+    line-height: 100%;
+
+}
+
+#j_board_page a.j_bt {
+    padding-top: 10px;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+}
+
+#j_board_page a.j_num {
+    padding-top: 9px;
+    font-size: 1.4rem;
+}
+
+#j_board_page a.j_num.on {
+    border-color: #000;
+    background-color: #000;
+    color: #ccc;
+}
+
+#j_board_page a:first-child {
+    border-left: 1px solid #ccc;
+}
 
 
+/* ----------------------------------- view.html */
 
+.j_board_view {
+    width: 100%;
+    border-top: 2px solid #000;
+}
 
+.j_view_title {
+    padding: 20px 15px;
+    border-bottom: 1px dashed #ddd;
+    font-size: 2rem;
+}
+
+.j_view_info {
+    padding: 15px;
+    border-bottom: 1px solid #999;
+    /* font-size: 0px; */
+}
+
+/* 세로로 있던거 가로로 돌려놓음. */
+.j_view_info dl {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.j_view_info dl:first-child {
+    padding-left: 0;
+}
+
+/* 속성없애려고 content에 비워놓음.  */
+.j_view_info dl::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: block;
+    width: 1px;
+    height: 13px;
+    background: #ccc;
+}
+
+/* 사용자는 볼수없게 하려고 적는것. :: */
+.j_view_info dl:first-child::before {
+    display: none;
+}
+
+/* 블록처리하면 위아래로 배치되어있던게 가로로 들어옴 */
+.j_view_info dl dt,
+.j_view_info dl dd {
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.j_view_info dl dd {
+    margin-left: 10px;
+    color: #777;
+}
+
+.j_view_content {
+    padding: 15px;
+    border-bottom: 1px solid #000;
+    line-height: 160%;
+    font-size: 1.4rem;
+}
 
 /* ---------------------------------------  write.html */
 .j_board_write {
     border-top: 2px solid #000;
 }
-
-
 
 .j_write_title,
 .j_write_info {
@@ -150,18 +299,76 @@ html {
 
 @media (max-width: 686px) {
 
+    /* -----------board */
+    #j_board_wrap {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .j_list_num,
+    .j_list_writer,
+    .j_list_count {
+        display: none;
+    }
+
+    .j_list_date {
+        width: 40%;
+    }
+
+    .j_list_title {
+        text-indent: 10px;
+    }
+
+    .j_list_title {
+        text-indent: 0;
+    }
+
+    #j_board_page a {
+        width: 26px;
+        height: 26px;
+    }
+
+    #j_board_page a.j_bt {
+        padding-top: 7px;
+    }
+
+    #j_board_page a.j_num {
+        padding-top: 6px;
+    }
+
+    /* --------------------view */
+
+    .j_board_view .j_view_info dl {
+        width: 50%;
+        padding: 0;
+    }
+
+    .j_board_view .j_view_info dl:nth-child(-n+2) {
+        margin-bottom: 5px;
+    }
+
+    .j_board_view .j_view_info dl::before {
+        display: none;
+    }
+
+    .j_board_view .j_view_info dl dt,
+    .j_board_view .j_view_info dl dd {
+        font-size: 1.2rem;
+    }
 
     /* -----------------------write */
-    .board_write .write_info dl {
+    .j_board_write .j_write_info dl {
         width: 49%;
     }
 
-    .board_write .write_info dl:first-child {
+    .j_board_write .j_write_info dl:first-child {
         margin-right: 2%;
     }
 
-    .board_write .write_title dt,
-    .board_write .write_info dt {
+    .j_board_write .j_write_title dt,
+    .j_board_write .j_write_info dt {
         display: none;
     }
 

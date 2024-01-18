@@ -21,7 +21,7 @@ import boardCommand.BWriteCommand;
 /**
  * Servlet implementation class BoardController
  */
-@WebServlet("/board/*")
+@WebServlet({"/list.do","/write.do","/content_view.do"})
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,16 +48,19 @@ public class BoardController extends HttpServlet {
 		System.out.println("uri :" +uri);
 		String conPath = request.getContextPath();
 		System.out.println("conPath : "+conPath);
-		String servPath = request.getServletPath();
-		System.out.println("servPath : "+servPath);
-		String com = uri.substring(servPath.length());
+		String com = uri.substring(conPath.length());
+//		String board = "/board";
+//		String com = asdf.substring(board.length());
+//		System.out.println(com);
+		
 		
 		if(com.equals("/write_view.do")) {
 			viewPage = "write_view.jsp";
 		} else if(com.equals("/write.do")) {
 			command = new BWriteCommand();
 			command.execute(request, response);
-			viewPage = "list.do";
+			
+			response.sendRedirect("list.do");
 		} else if(com.equals("/list.do")){
 			command = new BListCommand();
 			command.execute(request, response);
@@ -86,8 +89,10 @@ public class BoardController extends HttpServlet {
 			viewPage = "./board/membersAll.jsp";
 		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
+		if(viewPage != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+		}
 		
 	}
 }

@@ -27,7 +27,7 @@ public class BDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "insert into mvc_board(bId, bTitle, bContent, bHit, bGroup, bStep, bIndent) values(mvc_board_seq.nextval,?,?,?,0,mvc_board_seq.currval,0,0)";
+			String query = "insert into mvc_board(bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) values(mvc_board_seq.nextval,?,?,?,0,mvc_board_seq.currval,0,0)";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, bName);
 			pstmt.setString(2, bTitle);
@@ -50,7 +50,6 @@ public class BDao {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		try {
 			con = dataSource.getConnection();
 			String query = "select bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent "
@@ -58,7 +57,7 @@ public class BDao {
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
+			while(rs.next()) {				
 				int bId = rs.getInt("bId");
 				String bName = rs.getString("bName");
 				String bTitle = rs.getString("bTitle");
