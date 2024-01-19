@@ -1,22 +1,26 @@
+var local = "강남구";
+console.log(local)
+
+
 
 var guName;
 var guNameValue;
 var arrestdata;
 var safetyChart
-//window.onload = function () {
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function () {
+
   guName = document.getElementById("selectbox");
   guNameValue = guName.options[guName.selectedIndex].value;
 
   //셀렉트박스 자치구 바뀔때마다 차트도 바꿔주는 함수
 
-  
   //차트 지우고 업데이트
   const removeData = (chart) => {
     chart.data.labels = [];
 
     chart.update();
   }
+
 
 
   const addData = (chart, local) => {
@@ -29,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
   //셀렉트박스 
   var selectregion = document.getElementById("selectbox");
   selectregion.addEventListener('input', function () {
-	local = $("#selectbox option:selected").val();
-     console.log("2nd" + local)
+    local = $("#selectbox option:selected").val();
+    // console.log("2nd" + local)
 
     addData(securityChart1, local);
     addData(securityChart2, local);
@@ -93,6 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       },
       maintainAspectRatio: false
+      // reponsive : false
+
     }
   });
 
@@ -117,8 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
       maintainAspectRatio: false
     }
   });
-
-
 
 
 
@@ -191,8 +195,8 @@ document.addEventListener('DOMContentLoaded', function() {
   })
 
 
-});
-//}
+//});
+}
 
 function guChange() {
   guName = document.getElementById("selectbox");

@@ -26,7 +26,7 @@
             <div class="headbar fixed-top ">
                 <nav class="navbar navbar-expand-md">
                     <div id="logo">
-                        <a href="#"><img src="./img/1logo.png" alt=""></a>
+                        <a href="./Index.jsp"><img src="./img/1logo.png" alt=""></a>
                     </div>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
@@ -46,8 +46,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./preivew.jsp">
+                                <a class="nav-link" href="./preview.jsp">
                                     <p>안전 미리보기</p>
+                                </a>
+                            </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="list.do">
+                                    <p>게시판</p>
                                 </a>
                             </li>
 
@@ -113,10 +118,10 @@
                                 <table id="board-table" class=" table table-bordered table-condensed table-hover">
                                     <thead>
                                         <tr class="success">
-                                            <th class="num"><a href="./edit.jsp">No</a></th>
-                                            <th class="title"><a href="./edit.jsp">제목</a></th>
-                                            <th class="writer"><a href="./edit.jsp">작성자</a></th>
-                                            <th class="date"><a href="./edit.jsp">작성일</a></th>
+                                            <th class="num"><a href="list.do">No</a></th>
+                                            <th class="title"><a href="list.do">제목</a></th>
+                                            <th class="writer"><a href="list.do">작성자</a></th>
+                                            <th class="date"><a href="list.do">작성일</a></th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -149,11 +154,16 @@
                                 <p>시를 읽으며 산책할 수 있는 시비 광장</p>
                                 <p>맨발로 걷기 좋은 공원.</p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp?region=강남구">[ 강남구 ] 청담근린공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 강남구 ] 청담근린공원
                                 </a></button>
                         </div>
                     </div>
-                    <!--    <button type="submit" class="btn"><a href="./gu_page.jsp">[ 강남구 ] 청담근린공원</a></button>
+                    <!--    
+                    <button type="button" class="btn"><a href="./gu_page.jsp?region=강남구">[ 강남구 ] 청담근린공원
+                                </a></button>
+                                
+                                
+                    <button type="submit" class="btn"><a href="./gu_page.jsp">[ 강남구 ] 청담근린공원</a></button>
                             <form name="mainClick" action="gu_page.jsp" method="get">
                              <input type="hidden" name="region" value="강남구">
                             <button type="submit" class="btn">[ 강남구 ] 청담근린공원</button>
@@ -167,11 +177,15 @@
                             <div>
                                 <p>시원스러운 음악분수와 맞은편에<br>개울이 조성<br>과거 OB 맥주 영등포공장 부지.</p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp?region=영등포구">[ 영등포구 ] 영등포공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 영등포구 ] 영등포공원
                                 </a></button>
                         </div>
                     </div>
                     <!--    
+                    <button type="button" class="btn"><a href="./gu_page.jsp?region=영등포구">[ 영등포구 ] 영등포공원
+                                </a></button>
+                                
+                    
                         <button type="button" class="btn"><a href="./gu_page.jsp">[ 영등포구 ]
                                 영등포공원
                             </a></button>
@@ -188,11 +202,14 @@
                                     <br>서울에 있는 청정계곡.
                                 </p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp?region=관악구">[ 관악구 ] 관악산 호수공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 관악구 ] 관악산 호수공원
                                 </a></button>
                         </div>
                     </div>
                 </div>
+                
+                <!-- <button type="button" class="btn"><a href="./gu_page.jsp?region=관악구">[ 관악구 ] 관악산 호수공원
+                                </a></button> -->
 
                 <div id="recomend_site2" class="col-lg-12 col-xl-12 col-xxl-5 row">
                     <div class="recommend col-lg-4">
@@ -202,11 +219,14 @@
                                 <p>전통정자와 산책로·주민 휴식 체육시설</p>
                                 <p>연희동 둘레길.</p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp?region=서대문구">[ 서대문구 ] 궁동근린공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 서대문구 ] 궁동근린공원
                                 </a></button>
                         </div>
                     </div>
-
+						<!-- 
+						 <button type="button" class="btn"><a href="./gu_page.jsp?region=서대문구">[ 서대문구 ] 궁동근린공원
+                                </a></button>
+						 -->
                     <div class="recommend col-lg-4">
                         <div id="recommend_img5"></div>
                         <div class="menu">
@@ -220,7 +240,10 @@
                     </div>
                 </div>
             </div>
-
+						<!--
+						<button type="button" class="btn"><a href="./gu_page.jsp">[ 구로구 ] 서울푸른수목원
+                                </a></button>
+						 -->
 
         </div>
 
