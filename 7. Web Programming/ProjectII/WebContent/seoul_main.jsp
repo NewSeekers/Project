@@ -183,13 +183,13 @@
                                 </div>
                             </span>
                             <select id="selector" onchange="">
-                                <option value="2004" selected="selected">2004</option>
+                                <option value="2004">2004</option>
                                 <option value="2007">2007</option>
                                 <option value="2010">2010</option>
                                 <option value="2013">2013</option>
                                 <option value="2016">2016</option>
                                 <option value="2019">2019</option>
-                                <option value="2022">2022</option>
+                                <option value="2022" selected="selected">2022</option>
                             </select>
                         </div>
                     </div>
