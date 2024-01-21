@@ -23,7 +23,7 @@ public class FrontController extends HttpServlet {
 		// TODO Auto-generated method stub
 		actionDo(request, response);
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -34,9 +34,9 @@ public class FrontController extends HttpServlet {
 
 	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("actionDo run");
+		System.out.println("프론트 컨트롤러 actionDo 실행");
 		
-		
+		System.out.println("왜이러는겨");
 		String viewPage = null;
 		String BCommand = null;
 		String MCommand = null;
@@ -45,25 +45,19 @@ public class FrontController extends HttpServlet {
 		
 		
 		String uri = request.getRequestURI();
-		System.out.println("유알아이"+uri);
+		System.out.println("uri: "+uri);
 		String ctxPath = request.getContextPath();
-		System.out.println("컨텍스트패스:"+ctxPath);
+		System.out.println("contextPath: "+ctxPath);
 		String com = uri.substring(ctxPath.length());
-		System.out.println(com);
-		String servPath = request.getServletPath();
-		System.out.println("서브패스"+servPath);
-		String serv = request.getPathInfo();
-		System.out.println("패스인포:"+serv);
-		
-		System.out.println(com.indexOf("/board"));
-		if(com.indexOf("/board")!=-1 ) {
-			com=com.substring(6);
-			System.out.println("이프문 안에서"+com);
-			System.out.println("인덱스오브실행");
-			request.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html charset=utf-8");
-			request.getRequestDispatcher("controller/BoardController.java").forward(request, response);
-			
+		System.out.println("com: "+com);
+				
+		if(com.equals("/modify.do")) {
+			System.out.println("modify.do");
+			request.getRequestDispatcher("/board"+com).forward(request, response);
+		}else if(com.equals("/callCrime.do")) {
+			System.out.println("프론트 callCrime.do 항목 실행");
+			request.getRequestDispatcher("/chart"+com).forward(request, response);
+			System.out.println("/chart"+com);
 		}
 		
 	}
