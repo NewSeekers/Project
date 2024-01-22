@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 
 <head>
@@ -14,7 +16,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="./css/gu_page.css">
 <link rel="stylesheet" href="./css/header.footer.css">
-<link rel="stylesheet" 
+<link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -28,7 +30,7 @@
 <body>
 
 
-<!-- -------------- header ---------------- -->
+	<!-- -------------- header ---------------- -->
 
 	<jsp:include page="./include/nav.jsp" />
 
@@ -36,9 +38,8 @@
 	<!-- -------gu_rank ------------------------------------------------------------------- -->
 
 	<%
-	request.setCharacterEncoding("UTF-8");
-	String region = request.getParameter("region");
-	
+		request.setCharacterEncoding("UTF-8");
+		String region = request.getParameter("region");
 	%>
 
 	<div id="screen1" class="container-fluid">
@@ -49,26 +50,53 @@
 				</div>
 
 				<div id="gu_box">
+					<%
+						ArrayList<String> guList = new ArrayList<String>();
+						guList.add("강남구");
+						guList.add("관악구");
+						guList.add("구로구");
+						guList.add("서대문구");
+						guList.add("영등포구");
+					%>
 					<div id="local_box">
 						<!-- <label for="local">dsf</label> -->
 						<select name="selectbox" id="selectbox" onchange="guChange()">
-							<option value="강남구" selected>강남구</option>
-							<option value="관악구">관악구</option>
-							<option value="구로구">구로구</option>
-							<option value="서대문구">서대문구</option>
-							<option value="영등포구">영등포</option>
+							<c:forEach var="gu" items="<%=guList%>">
+								<c:set var="selected" value="${gu eq region ? 'selected' : ''}" />
+								<option value="${gu}" ${selected}>${gu}</option>
+							</c:forEach>
 						</select>
 					</div>
 
 
 					<div id="gu_rank">치안등급 : 1</div>
-					<div id="gu_people">인구 수 : 5421  </div>
-					
+					<div id="gu_people">인구 수 : 5421</div>
+
 				</div>
 			</div>
 
 			<div id="gu_nameBox" class="col-lg-5">
-				<span id="gu_name"> <강남구></span>&nbsp;&nbsp;의 안전 알아보기
+				<span id="gu_name"> <c:choose>
+						<c:when test="${region eq '강남구'}">
+							<c:out value="<강남구>" />
+						</c:when>
+						<c:when test="${region eq '영등포구'}">
+							<c:out value="<영등포구>" />
+						</c:when>
+						<c:when test="${region eq '구로구'}">
+							<c:out value="<구로구>" />
+						</c:when>
+						<c:when test="${region eq '관악구'}">
+							<c:out value="<관악구>" />
+						</c:when>
+						<c:when test="${region eq '서대문구'}">
+							<c:out value="<서대문구>" />
+						</c:when>
+						<c:otherwise>
+							<c:out value="<강남구>" />
+						</c:otherwise>
+					</c:choose>
+				</span>&nbsp;&nbsp;의 안전 알아보기
 			</div>
 
 		</div>
@@ -158,8 +186,8 @@
 					<br>
 					<br>
 					<h4>
-						◎ 현장평균도착시간 : 4분 34초<br> ◎ 평균차량통행속도 : 23.1km/h
-						<br> ◎ 긴급출동 평균도착시간 내 도달 가능한 거리 : 1.758km
+						◎ 현장평균도착시간 : 4분 34초<br> ◎ 평균차량통행속도 : 23.1km/h 
+						<br> ◎ 긴급출동 평균도착시간 내 도달 가능한 거리 : 1.758km 
 						<br>
 					</h4>
 					</p>
@@ -179,7 +207,7 @@
 							<br>
 							<p>● 마우스 클릭 위치에 해당하는 자치구의 공원이 표시됩니다.</p>
 							<p>
-								● 공원을 클릭하면 반경 500m이내의 CCTV 및<br> 반경 1700m이내의 경찰서가 표시됩니다.
+								● 공원을 클릭하면 반경 500m이내의 CCTV 및<br> 반경 1700m이내의 경찰서가 표시됩니다. 
 							</p>
 							<p>&nbsp;&nbsp;(경찰서의 위치는 긴급출동이 가능한 범위를 기준으로 산정하였습니다.)</p>
 							<p>● 지도의 확대 및 축소는 지도 오른쪽 상단의 버튼을 통해서만 가능합니다.</p>
@@ -254,11 +282,11 @@
 
 
 
-<!-- ---------footer--------------------------->
+	<!-- ---------footer--------------------------->
 	<jsp:include page="./include/footer.jsp" />
 
 
-<!-- -------------- script ---------------- -->
+	<!-- -------------- script ---------------- -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 		integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
