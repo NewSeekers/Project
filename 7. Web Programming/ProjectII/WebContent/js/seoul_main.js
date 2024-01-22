@@ -23,10 +23,26 @@ let robArRate = [];
 let sexArRate = [];
 let thefArRate = [];
 let violArRate = [];
-
+let guGradeArr = [];
 var cctvCount = [];
 var lightCount = [];
 var policeCount = [];
+
+async function guGradeData() {
+    try {
+        const response = await fetch("./callGuGrade.do");
+        const jsonArray = await response.text();
+        const jsonData = JSON.parse(jsonArray);
+        jsonData.forEach(json => {
+            guGradeArr.push(Object.values(json));
+        });
+
+        return guGradeArr;
+
+    } catch (error) {
+        console.error("데이터를 불러오는 중 에러 발생: ", error);
+    }
+}
 
 
 async function fetchData() {
@@ -50,8 +66,7 @@ async function fetchData() {
     }
 }
 // fetchData 함수를 호출합니다.
-fetchData();
-ajaxArData();
+
 
 async function ajaxArData() {
     $.ajax({
@@ -79,24 +94,19 @@ async function ajaxArData() {
 }
 
 
-
-
-
-
-
-
+guGradeData();
 
 (async () => {
     await fetchData();
     await ajaxArData();
     chart1draw(currentValue);
-    console.log("yearCrime2022" + yearCrime(2022))
     chart2draw(currentValue);
     chart3draw(currentValue);
-
-    console.log("yeararrest2022" + yearArrest(2022))
     chart4draw(currentValue);
 })();
+
+
+
 
 var gradeColors = [
     ["#f9ddb1", "#f5c77e", "#f1b04c", "#ee9f27", "#ec9006"], //2004년//
@@ -122,46 +132,50 @@ map.setZoomable(false);
 
 var locate = JSON.parse(JSON.stringify(mapData));
 var units = locate.features; // json key값이 "features"인 것의 value를 통으로 가져온다.
+console.log("데이터있냐?" + guGradeArr)
 
-units.forEach((element) => {
-    var geo = element.geometry;
-    var coord = geo.coordinates[0];
-    guName = element.properties.SGG_NM;
-    guGrade = element.properties.GRADE;
-8
-    var path = [];
-    var points = [];
-    coord[0].forEach((point) => {
-        centerPoint = new Object();
-        centerPoint.x = point[1];
-        centerPoint.y = point[0];
-        points.push(centerPoint); // 1개 구의 좌표들
+function readyToPolygon() {
+    units.forEach((element, index) => {
+        var geo = element.geometry;
+        var coord = geo.coordinates[0];
+        guName = element.properties.SGG_NM;
+        guGrade = guGradeArr[index]
+        // guGrade = element.properties.GRADE;
+        console.log(guName + guGrade);
+        var path = [];
+        var points = [];
+        coord[0].forEach((point) => {
+            centerPoint = new Object();
+            centerPoint.x = point[1];
+            centerPoint.y = point[0];
+            points.push(centerPoint); // 1개 구의 좌표들
 
-        path.push(new kakao.maps.LatLng(point[1], point[0]));
+            path.push(new kakao.maps.LatLng(point[1], point[0]));
 
-        function centroid(points) {
-            var i, j, len, p1, p2, f, are, x, y;
+            function centroid(points) {
+                var i, j, len, p1, p2, f, are, x, y;
 
-            are = x = y = 0;
+                are = x = y = 0;
 
-            for (i = 0, len = points.length, j = len - 1; i < len; j = i++) {
-                p1 = points[i];
-                p2 = points[j];
+                for (i = 0, len = points.length, j = len - 1; i < len; j = i++) {
+                    p1 = points[i];
+                    p2 = points[j];
 
-                f = p1.y * p2.x - p2.y * p1.x;
-                x += (p1.x + p2.x) * f;
-                y += (p1.y + p2.y) * f;
-                are += f * 3;
+                    f = p1.y * p2.x - p2.y * p1.x;
+                    x += (p1.x + p2.x) * f;
+                    y += (p1.y + p2.y) * f;
+                    are += f * 3;
+                }
+                return new kakao.maps.LatLng(x / are, y / are);
             }
-            return new kakao.maps.LatLng(x / are, y / are);
-        }
 
-        guCenterPoint = centroid(points);
+            guCenterPoint = centroid(points);
+        });
+        var area = { guName, path, guGrade, guCenterPoint };
+        paths.push(path);
+        areas.push(area);
     });
-    var area = { guName, path, guGrade, guCenterPoint };
-    paths.push(path);
-    areas.push(area);
-});
+}
 
 backpoly();
 function backpoly() {
@@ -194,8 +208,8 @@ areas.forEach((point) => {
     guNames.push(temp);
 });
 
-displayAllArea();
-guNamesSet();
+
+
 function displayAllArea() {
     deletePolygon(polygons);
     deletePolygon(polygons2);
