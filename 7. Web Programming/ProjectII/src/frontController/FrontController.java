@@ -17,23 +17,28 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		actionDo(request, response);
 	}
- 
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		actionDo(request, response);
 	}
 
 	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+
 		System.out.println("프론트 컨트롤러 actionDo 실행");
 		
 		System.out.println("왜이러는겨");
@@ -66,7 +71,6 @@ public class FrontController extends HttpServlet {
 			
 		
 	}
-	
-	
-	
+
+	>>>>>>>a3f768a57fb48cf3ae4253bacfd63e706c3447fc
 }
