@@ -60,7 +60,7 @@ public class InfoController extends HttpServlet {
 		System.out.println("servletPath: " + servPath);
 		String com = uri.substring(servPath.length() + conPath.length());
 		System.out.println("com: " + com);
-
+ 
 		if (com.equals("/callGuGrade.do")) {
 			System.out.println("gg서비스 시작=*=*=*=*=*=*");
 			GuGrade gg = new GuGrade();
