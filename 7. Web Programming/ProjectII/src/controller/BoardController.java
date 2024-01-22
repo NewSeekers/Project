@@ -21,7 +21,7 @@ import boardCommand.BWriteCommand;
 /**
  * Servlet implementation class BoardController
  */
-@WebServlet({"/list.do","/write.do","/content_view.do"})
+//@WebServlet({"/list.do","/write.do","/content_view.do","/delete.do","/modify.do","/reply_view.do","/reply.do"})
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -21,46 +21,10 @@
     </head>
 
     <body>
-        <!-- 상단바 -->
-        <header>
-            <div class="headbar fixed-top ">
-                <nav class="navbar navbar-expand-md">
-                    <div id="logo">
-                        <a href="./Index.jsp"><img src="./img/1logo.png" alt=""></a>
-                    </div>
+    
+      <!-- header  -->
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
-                        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navMenu">
-                        <ul class="navbar-nav mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="./seoul_main.jsp">
-                                    <p>서울시안전지도</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./gu_page.jsp">
-                                    <p> 우리동네 돋보기 </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./preview.jsp">
-                                    <p>안전 미리보기</p>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                <a class="nav-link" href="list.do">
-                                    <p>게시판</p>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </header>
+	<jsp:include page="./include/nav.jsp" />
 
 
         <!-- 캐러셀 -->
@@ -207,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- <button type="button" class="btn"><a href="./gu_page.jsp?region=관악구">[ 관악구 ] 관악산 호수공원
                                 </a></button> -->
 
@@ -223,7 +187,7 @@
                                 </a></button>
                         </div>
                     </div>
-						<!-- 
+                    <!-- 
 						 <button type="button" class="btn"><a href="./gu_page.jsp?region=서대문구">[ 서대문구 ] 궁동근린공원
                                 </a></button>
 						 -->
@@ -240,7 +204,7 @@
                     </div>
                 </div>
             </div>
-						<!--
+            <!--
 						<button type="button" class="btn"><a href="./gu_page.jsp">[ 구로구 ] 서울푸른수목원
                                 </a></button>
 						 -->
@@ -288,10 +252,10 @@
         </div>
 
 
-        <!-- -------------- footer ---------------- -->
+        <!-- footer -->
         <jsp:include page="./include/footer.jsp" />
 
-        <!-- -------------- script ---------------- -->
+        <!-- script -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
             crossorigin="anonymous"></script>

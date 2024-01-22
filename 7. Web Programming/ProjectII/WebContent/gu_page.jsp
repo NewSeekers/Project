@@ -38,7 +38,6 @@
 	<%
 	request.setCharacterEncoding("UTF-8");
 	String region = request.getParameter("region");
-	
 	%>
 
 	<div id="screen1" class="container-fluid">

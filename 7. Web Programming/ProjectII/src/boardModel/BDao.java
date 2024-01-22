@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.naming.Context;
@@ -52,17 +53,19 @@ public class BDao {
 		ResultSet rs = null;
 		try {
 			con = dataSource.getConnection();
-			String query = "select bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent "
+			String query = "select bId, bTitle, bName, bContent, bDate, bHit, bGroup, bStep, bIndent "
 					+ "from mvc_board order by bGroup desc, bStep asc";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {				
 				int bId = rs.getInt("bId");
-				String bName = rs.getString("bName");
 				String bTitle = rs.getString("bTitle");
+				String bName = rs.getString("bName");
 				String bContent = rs.getString("bContent");
-				Timestamp bDate = rs.getTimestamp("bDate");
+				Timestamp dbDate = rs.getTimestamp("bDate");
+				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
+				String bDate = simpleDate.format(dbDate);
 				int bHit = rs.getInt("bHit");
 				int bGroup = rs.getInt("bGroup");
 				int bStep = rs.getInt("bStep");
@@ -104,7 +107,9 @@ public class BDao {
 				String bName = rs.getString("bName");
 				String bTitle = rs.getString("bTitle");
 				String bContent = rs.getString("bContent");
-				Timestamp bDate = rs.getTimestamp("bDate");
+				Timestamp dbDate = rs.getTimestamp("bDate");
+				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
+				String bDate = simpleDate.format(dbDate);
 				int bHit = rs.getInt("bHit");
 				int bGroup = rs.getInt("bGroup");
 				int bStep = rs.getInt("bStep");
@@ -155,12 +160,11 @@ public class BDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "update mvc_board set bName=?, bTitle=?, bContent=? where bId=?";
+			String query = "update mvc_board set bContent=? where bId=?";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, bName);
-			pstmt.setString(2, bTitle);
-			pstmt.setString(3, bContent);
-			pstmt.setInt(4, Integer.parseInt(bId));
+
+			pstmt.setString(1, bContent);
+			pstmt.setInt(2, Integer.parseInt(bId));
 			int rs = pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -210,10 +214,12 @@ public class BDao {
 			
 			if(rs.next()) {
 				int bId = rs.getInt("bId");
-				String bName = rs.getString("bName");
 				String bTitle = rs.getString("bTitle");
+				String bName = rs.getString("bName");
 				String bContent = rs.getString("bContent");
-				Timestamp bDate = rs.getTimestamp("bDate");
+				Timestamp dbDate = rs.getTimestamp("bDate");
+				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
+				String bDate = simpleDate.format(dbDate);
 				int bHit = rs.getInt("bHit");
 				int bGroup = rs.getInt("bGroup");
 				int bStep = rs.getInt("bStep");
@@ -239,7 +245,7 @@ public class BDao {
 		return dto;
 	}
 	
-	public void reply(String bId, String bName, String bTitle, String bContent, String bGroup, String bStep, String bIndent) {
+	public void reply(String bId, String bTitle, String bName, String bContent, String bGroup, String bStep, String bIndent) {
 		replyShape(bGroup, bStep);
 		
 		Connection con = null;
@@ -247,11 +253,11 @@ public class BDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "insert into mvc_board(bId, bName, bTitle, bContent, bGroup, bStep, bIndent) vlaues (mvc_board_seq.nextval,?,?,?,?,?,?";
+			String query = "insert into mvc_board(bId, bTitle,  bName, bContent, bGroup, bStep, bIndent) values (mvc_board_seq.nextval,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setString(1, bName);
-			pstmt.setString(2, bTitle);
+			pstmt.setString(1, bTitle);
+			pstmt.setString(2, bName);
 			pstmt.setString(3, bContent);
 			pstmt.setInt(4, Integer.parseInt(bGroup));
 			pstmt.setInt(5, Integer.parseInt(bStep)+1);
@@ -276,7 +282,7 @@ public class BDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "update mvc_board set bStep = bStep + 1 where bGroup=? and bStep>?";
+			String query = "update mvc_board set bStep = bStep+1 where bGroup=? and bStep>?";
 			//그룹은 같고 원래 글(step)보다 큰 것들의 step수를 하나씩 증가
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, Integer.parseInt(strGroup));

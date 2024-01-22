@@ -78,8 +78,7 @@ html {
     border-bottom: 1px solid #ccc;
 }
 
-.j_boarder_top {
-    width: 100%;
+#j_board_list>ul.boarder_top {
     border-bottom: 1px solid #ccc;
 }
 
@@ -89,15 +88,13 @@ html {
 
 #j_board_list>ul>li {
     display: inline-block;
-    padding: 15px;
+    padding: 15px 0;
     text-align: center;
     font-size: 1.2rem;
 }
 
-.j_board_top>li {
-    font-size: 1.6rem;
-    /* font-weight: 600; */
-
+.j_board_top {
+    font-weight: 600;
 }
 
 .j_list_num {
@@ -177,15 +174,14 @@ html {
 .j_view_info {
     padding: 15px;
     border-bottom: 1px solid #999;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 /* 세로로 있던거 가로로 돌려놓음. */
 .j_view_info tr {
     position: relative;
-    /* display: inline-block; */
-    padding: 10px;
-    margin-right: 20px;
+    display: inline-block;
+    padding: 0 20px;
 }
 
 .j_view_info tr:first-child {
@@ -336,7 +332,7 @@ html {
         width: 40%;
     }
 
-    /* .j_list_title {
+    .j_list_title {
         text-indent: 10px;
     }
 

@@ -11,10 +11,36 @@ window.onload = function () {
 
   guName = document.getElementById("selectbox");
   guNameValue = guName.options[guName.selectedIndex].value;
+  
+// json 패치
+  fetch('http://localhost:8181/ProjectII/guPage_chart?guNameValue='+guNameValue,{
+		method:'Get',
+		header:{
+			'Content-Type' : 'application/json'
+		}
+	})
+	.then(response => {
+		if(!response.ok){
+			throw new Error('Network response was not ok'+response.statusText);
+		}
+		return response.json();
+	})
+	.then(data => {
+		console.log(data);
+	})
+	.catch(error => {
+		console.error("Fetch error: "+error);
+	});
 
-  //셀렉트박스 자치구 바뀔때마다 차트도 바꿔주는 함수
 
-  //차트 지우고 업데이트
+  
+  
+  
+  
+
+  // 셀렉트박스 자치구 바뀔때마다 차트도 바꿔주는 함수
+
+  // 차트 지우고 업데이트
   const removeData = (chart) => {
     chart.data.labels = [];
 
@@ -30,7 +56,7 @@ window.onload = function () {
   };
 
 
-  //셀렉트박스 
+  // 셀렉트박스
   var selectregion = document.getElementById("selectbox");
   selectregion.addEventListener('input', function () {
     local = $("#selectbox option:selected").val();
@@ -44,26 +70,56 @@ window.onload = function () {
   });
 
 
-  var security_data = {
-    labels: ['평균', local],
-    //a 강남구의 범례
-    datasets: [{
-      label: [
-        ' 지역 '
-      ],
+  var security_CCTV = {
+		    labels: ['평균', local],
+		    // a 강남구의 범례
+		    datasets: [{
+		      label: [
+		        ' 지역 '
+		      ],
 
-      data: [75, 51],
-      backgroundColor: ['#43c2c2', '#4eddad'],
-    }]
-  };
+		      data: [75, 51],
+		      backgroundColor: ['#43c2c2', '#4eddad'],
+		    }]
+		  };
+		 
+  
+  var security_light = {
+		    labels: ['평균', local],
+		    // a 강남구의 범례
+		    datasets: [{
+		      label: [
+		        ' 지역 '
+		      ],
+
+		      data: [15, 51],
+		      backgroundColor: ['#43c2c2', '#4eddad'],
+		    }]
+		  };
+		
+  var security_police = {
+				    labels: ['평균', local],
+				    // a 강남구의 범례
+				    datasets: [{
+				      label: [
+				        ' 지역 '
+				      ],
+
+				      data: [35, 51],
+				      backgroundColor: ['#43c2c2', '#4eddad'],
+				    }]
+				  };  
+		  
+		  
+
   var ctx1 = document.getElementById('myChart1').getContext('2d');
   var securityChart1 = new Chart(ctx1, {
     type: 'bar',
-    data: security_data,
+    data: security_CCTV,
     options: {
 
       x: {
-        //차트 옵션, css같은 느낌 양식다름, 
+        // 차트 옵션, css같은 느낌 양식다름,
       },
       y: {
 
@@ -73,7 +129,7 @@ window.onload = function () {
           display: false,
         }
       },
-      //plugins안에 
+      // plugins안에
       maintainAspectRatio: false
 
     }
@@ -83,10 +139,10 @@ window.onload = function () {
   var ctx2 = document.getElementById('myChart2').getContext('2d');
   var securityChart2 = new Chart(ctx2, {
     type: 'bar',
-    data: security_data,
+    data: security_light,
     options: {
       x: {
-        //차트 옵션, css같은 느낌 양식다름, 
+        // 차트 옵션, css같은 느낌 양식다름,
       },
       y: {
 
@@ -106,10 +162,10 @@ window.onload = function () {
   var ctx3 = document.getElementById('myChart3').getContext('2d');
   var securityChart3 = new Chart(ctx3, {
     type: 'bar',
-    data: security_data,
+    data: security_police,
     options: {
       x: {
-        //차트 옵션, css같은 느낌 양식다름, 
+        // 차트 옵션, css같은 느낌 양식다름,
       },
       y: {
 
@@ -119,7 +175,7 @@ window.onload = function () {
           display: false,
         }
       },
-      //이게 사이즈 바꿔주는거
+      // 이게 사이즈 바꿔주는거
       maintainAspectRatio: false
     }
   });
@@ -195,7 +251,7 @@ window.onload = function () {
   })
 
 
-//});
+// });
 }
 
 function guChange() {
