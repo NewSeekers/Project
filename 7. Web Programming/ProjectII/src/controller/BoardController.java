@@ -51,6 +51,7 @@ public class BoardController extends HttpServlet {
 		String uri = request.getRequestURI();
 		System.out.println("uri :" + uri);
 		String conPath = request.getContextPath();
+
 		System.out.println("conPath : " + conPath);
 
 		String servPath = request.getServletPath();
@@ -59,6 +60,7 @@ public class BoardController extends HttpServlet {
 		System.out.println("com: " + com);
 
 		if (com.equals("/write_view.do")) {
+
 			viewPage = "write_view.jsp";
 		} else if (com.equals("/write.do")) {
 			command = new BWriteCommand();

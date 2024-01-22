@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+
 import chartCommand.GuPageChart;
 
 /**
@@ -46,6 +48,7 @@ public class ServiceController extends HttpServlet {
 		System.out.println("conPath : "+conPath);
 		String com = uri.substring(conPath.length());
 		System.out.println("com : "+com);
+		
 		if(com.equals("/guPage_chart")) {
 			System.out.println("받음");
 			response.setHeader("Access-Control-Allow-Origin","*");

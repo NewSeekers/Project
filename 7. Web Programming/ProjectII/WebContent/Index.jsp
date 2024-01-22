@@ -169,22 +169,11 @@
                                 <p>시를 읽으며 산책할 수 있는 시비 광장</p>
                                 <p>맨발로 걷기 좋은 공원.</p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 강남구 ] 청담근린공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp?region=강남구">[ 강남구 ] 청담근린공원
                                 </a></button>
                         </div>
                     </div>
-                    <!--    
-                    <button type="button" class="btn"><a href="./gu_page.jsp?region=강남구">[ 강남구 ] 청담근린공원
-                                </a></button>
-                                
-                                
-                    <button type="submit" class="btn"><a href="./gu_page.jsp">[ 강남구 ] 청담근린공원</a></button>
-                            <form name="mainClick" action="gu_page.jsp" method="get">
-                             <input type="hidden" name="region" value="강남구">
-                            <button type="submit" class="btn">[ 강남구 ] 청담근린공원</button>
-                        	</form>
 
--->
 
                     <div class="recommend col-lg-2">
                         <div id="recommend_img2"></div>
@@ -192,23 +181,11 @@
                             <div>
                                 <p>시원스러운 음악분수와 맞은편에<br>개울이 조성<br>과거 OB 맥주 영등포공장 부지.</p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 영등포구 ] 영등포공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp?region=영등포구">[ 영등포구 ] 영등포공원
                                 </a></button>
                         </div>
                     </div>
-                    <!--    
-                    <button type="button" class="btn"><a href="./gu_page.jsp?region=영등포구">[ 영등포구 ] 영등포공원
-                                </a></button>
-                                
-                    
-                        <button type="button" class="btn"><a href="./gu_page.jsp">[ 영등포구 ]
-                                영등포공원
-                            </a></button>
-                        <button type="button" class="btn"><a href="./gu_page.jsp">[
-                                관악구 ] 관악산 호수공원</a></button>
-                            
--->
-
+                
                     <div class="recommend col-lg-2">
                         <div id="recommend_img3"></div>
                         <div class="menu">
@@ -217,14 +194,11 @@
                                     <br>서울에 있는 청정계곡.
                                 </p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 관악구 ] 관악산 호수공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp?region=관악구">[ 관악구 ] 관악산 호수공원
                                 </a></button>
                         </div>
                     </div>
                 </div>
-
-                <!-- <button type="button" class="btn"><a href="./gu_page.jsp?region=관악구">[ 관악구 ] 관악산 호수공원
-                                </a></button> -->
 
                 <div id="recomend_site2" class="col-lg-12 col-xl-12 col-xxl-5 row">
                     <div class="recommend col-lg-4">
@@ -234,14 +208,11 @@
                                 <p>전통정자와 산책로·주민 휴식 체육시설</p>
                                 <p>연희동 둘레길.</p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 서대문구 ] 궁동근린공원
+                            <button type="button" class="btn"><a href="./gu_page.jsp?region=서대문구">[ 서대문구 ] 궁동근린공원
                                 </a></button>
                         </div>
                     </div>
-                    <!-- 
-						 <button type="button" class="btn"><a href="./gu_page.jsp?region=서대문구">[ 서대문구 ] 궁동근린공원
-                                </a></button>
-						 -->
+                    
                     <div class="recommend col-lg-4">
                         <div id="recommend_img5"></div>
                         <div class="menu">
@@ -249,16 +220,12 @@
                                 <p>서울시 최초로 조성되는 시립수목원</p>
                                 <p>도심 속 생태공원.</p>
                             </div>
-                            <button type="button" class="btn"><a href="./gu_page.jsp">[ 구로구 ] 서울푸른수목원
+                            <button type="button" class="btn"><a href="./gu_page.jsp?region=구로구">[ 구로구 ] 서울푸른수목원
                                 </a></button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--
-						<button type="button" class="btn"><a href="./gu_page.jsp">[ 구로구 ] 서울푸른수목원
-                                </a></button>
-						 -->
 
         </div>
 
