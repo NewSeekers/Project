@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import chartModel.CrimeDao;
 import chartModel.CrimeDto;
 
-public class SeoulChartCom implements CCommand {
+public class SeoulCrimelChart implements CCommand {
 
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
