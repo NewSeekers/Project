@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,15 +21,47 @@ public class FrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		actionDo(request, response);
 	}
-
+ 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		actionDo(request, response);
 	}
 
+	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("프론트 컨트롤러 actionDo 실행");
+		
+		System.out.println("왜이러는겨");
+		String viewPage = null;
+		String BCommand = null;
+		String MCommand = null;
+		String CCommand = null;
+		String ICommand = null;
+		
+		
+		String uri = request.getRequestURI();
+		System.out.println("uri: "+uri);
+		String ctxPath = request.getContextPath();
+		System.out.println("contextPath: "+ctxPath);
+		String com = uri.substring(ctxPath.length());
+		System.out.println("com: "+com);
+				
+		if(com.equals("/modify.do")) {
+			System.out.println("modify.do");
+			request.getRequestDispatcher("/board"+com).forward(request, response);
+		}else if(com.equals("/callCrime.do")) {
+			System.out.println("프론트 callCrime.do 항목 실행");
+			request.getRequestDispatcher("/chart"+com).forward(request, response);
+			System.out.println("/chart"+com);
+		}
+		
+	}
+	
+	
+	
 }

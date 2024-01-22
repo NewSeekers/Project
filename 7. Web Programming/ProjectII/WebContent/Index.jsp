@@ -79,19 +79,70 @@
 
                             <div id="j_board_list">
 
-                                <table id="board-table" class=" table table-bordered table-condensed table-hover">
-                                    <thead>
-                                        <tr class="success">
-                                            <th class="num"><a href="list.do">No</a></th>
-                                            <th class="title"><a href="list.do">제목</a></th>
-                                            <th class="writer"><a href="list.do">작성자</a></th>
-                                            <th class="date"><a href="list.do">작성일</a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                                <br>
-                            </div>
+
+    <div id="carousel1" class="carousel carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel1" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carousel1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="2000">
+                <img src="./img/carousel1.jpg" class="d-block w-100" alt="...">
+                <a href="./seoul_main.jsp"><button type="button" class="btn1 btn-outline-dark"> 바로가기 </button></a>
+
+            </div>
+            <div class="carousel-item">
+                <img src="./img/carousel2.jpg" class="d-block w-100" alt="...">
+                <a href="./gu_page.jsp"><button type="button" class="btn1 btn-outline-dark"> 바로가기 </button></a>
+
+            </div>
+            <div class="carousel-item">
+                <img src="./img/carousel3.jpg" class="d-block w-100" alt="...">
+                <a href="./preview.jsp"><button type="button" class="btn3 btn-outline-dark"> 바로가기</button></a>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="intro container mt-5 mb-5">
+        <div class="row">
+            <div class="intro1 col-md-6 px-5">
+                <h4 class="mb-4"><br>우리 사이트에서는<br>서울의 사회안전지수에 대해 알려드립니다.</h4>
+                <p class="container_ment mb-4">
+                    자치구별 치안 시설물과 범죄 • 검거 비율을<br>한눈에 볼 수 있게 시각적으로 제공합니다.
+                </p><a href="./seoul_main.jsp">
+                    <img class="img-fluid mb-4" src="./img/siteimg.png" alt=""></a>
+            </div>
+            <div class="intro2 col-md-6 px-5">
+                <h4 class="mb-4"><br>고객의견<br></h4>
+                <p class="container_ment mb-4">사용 고객에게 필요한 정보를 제공합니다.<br>시민들께서는 생활안전 정보를 활용해서 안전한 하루를 보내세요!</p>
+                <div class="row">
+                    <div class="table-responsive">
+
+                        <div id="j_board_list">
+
+                            <table id="board-table" class=" table table-bordered table-condensed table-hover">
+                                <thead>
+                                    <tr class="success">
+                                        <th class="num"><a href="./edit.jsp">No</a></th>
+                                        <th class="title"><a href="modify.do">제목</a></th>
+                                        <th class="writer"><a href="./edit.jsp">작성자</a></th>
+                                        <th class="date"><a href="./edit.jsp">작성일</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <br>
+
                         </div>
                     </div>
                 </div>
