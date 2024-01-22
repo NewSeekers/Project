@@ -10,60 +10,52 @@
 </head>
 
 <body>
-	<div id="j_board_wrap">
-		<div id="j_board_title">
-			<strong>답변페이지</strong>
-			<p>고객님 의견을 답변으로 작성해주세요.</p>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>고객의견</strong>
+			<p>고객님 의견의 답변을 빠르게 안내해드리겠습니다.</p>
 		</div>
-		<div class="j_board_write_wrap">
-
+		<div class="board_write_wrap">
 			<form action="reply.do" method="post">
-
 				<input type="hidden" name="bId" value="${reply_view.bId}"> <input
 					type="hidden" name="bGroup" value="${reply_view.bGroup}"> <input
 					type="hidden" name="bStep" value="${reply_view.bStep}"> <input
 					type="hidden" name="bIndent" value="${reply_view.bIndent}">
-				<div class="j_board_write">
-					<div class="j_write_title">
-						<div class="j_write_title">
-							<tr>
-								<td>번호</td>
-								<td>${reply_view.bId}</td>
-							</tr>
-						</div>
-						<div class="j_write_info">
-							<tr>
-								<td>히트</td>
-								<td>${reply_view.bHit}</td>
-							</tr>
-						</div>
-					
-						<div class="j_write_info">
-							<tr>
-								<td>제목</td>
-								<td><input type="text" name="bTitle"
-									value="${reply_view.bTitle}"></td>
-							</tr>
-						</div>
-							<div class="j_write_info">
-							<tr>
-								<td>이름</td>
-								<td><input type="text" name="bTitle"
-									value="${reply_view.bName}"></td>
-							</tr>
-						</div>
-						<div id="reply_content">
-							<tr>
-								<td><textarea rows="10" name="bContent">${reply_view.bContent}</textarea></td>
-							</tr>
-						</div>
-						<div id="j_reply_content"></div>
+				<div class="board_write">
+					<div class="title">
+						<dl>
+							<dt>제목</dt>
+							<dd>
+								<input type="text" name="bTitle" value="${reply_view.bTitle}">
+							</dd>
+						</dl>
 					</div>
-
+					<div class="info">
+						<dl>
+							<dt>글쓴이</dt>
+							<dd>
+								<input type="text" name="bName" value="${reply_view.bName}">
+							</dd>
+						</dl>
+						<dl>
+							<dt>번호</dt>
+							<dd>${reply_view.bId}</dd>
+						</dl>
+						<dl>
+							<dt>히트</dt>
+							<dd>${reply_view.bHit}</dd>
+						</dl>
+						<!-- <dl>
+                        <dt>비밀번호</dt>
+                        <dd><input type="password" placeholder="비밀번호 입력"></dd>
+                    </dl> -->
+					</div>
+					<div class="cont">
+						<textarea name="bContent">${reply_view.bContent}</textarea>
+					</div>
 				</div>
-				<div class="j_bt_wrap">
+				<div class="bt_wrap">
 					<input type="submit" value="답변"><a href="list.do">목록</a>
-
 				</div>
 			</form>
 		</div>

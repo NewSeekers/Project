@@ -21,7 +21,7 @@ import boardCommand.BWriteCommand;
 /**
  * Servlet implementation class BoardController
  */
-//@WebServlet({"/list.do","/write.do","/content_view.do","/delete.do","/modify.do","/reply_view.do","/reply.do"})
+@WebServlet("/board/*")
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,11 +48,12 @@ public class BoardController extends HttpServlet {
 		System.out.println("uri :" +uri);
 		String conPath = request.getContextPath();
 		System.out.println("conPath : "+conPath);
-		String com = uri.substring(conPath.length());
-//		String board = "/board";
-//		String com = asdf.substring(board.length());
-//		System.out.println(com);
+		String servPath = request.getServletPath();
+		System.out.println("servPath : "+servPath);
+		String com = uri.substring(servPath.length()+conPath.length());
+		System.out.println("com: "+com);
 		
+
 		
 		if(com.equals("/write_view.do")) {
 			viewPage = "write_view.jsp";

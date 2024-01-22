@@ -10,42 +10,42 @@
 </head>
 
 <body>
-	<div id="j_board_wrap">
-		<div id="j_board_title">
+	<div class="board_wrap">
+		<div class="board_title">
 			<strong>고객의견 수정</strong>
-			<p>수정사항을 입력해주세요.</p>
+			<p>고객님 의견의 수정사항을 입력해주세요.</p>
 		</div>
-		<div class="j_board_write_wrap">
+		<div class="board_write_wrap">
 			<form action="modify.do" method="post">
-				<div class="j_board_write">
-					<div class="j_write_title">
-						<tr>
-							<td>제목</td>
-							<td>${modify.bTitle}</td>
-						</tr>
+
+				<div class="board_write">
+					<div class="title">
+						<dl>
+							<dt>제목</dt>
+							<dd>${modify.bTitle}</dd>
+						</dl>
 					</div>
-					<div class="j_write_info">
-						<tr>
-							<td>글쓴이</td>
-							<td>${modify.bName}</td>
-						</tr>
-						<tr>
-							<td>작성일</td>
-							<td>${modify.bDate}</td>
-						</tr>
-						<tr>
-							<td>조회</td>
-							<td>${modify.bHit}</td>
-						</tr>
+					<div class="info">
+						<dl>
+							<dt>글쓴이</dt>
+							<dd>${modify.bName}</dd>
+						</dl>
+						<dl>
+							<dt>작성일</dt>
+							<dd>${modify.bDate}</dd>
+						</dl>
+						<dl>
+							<dt>히트</dt>
+							<dd>${modify.bHit}</dd>
+						</dl>
+
 					</div>
-					<div class="j_write_content">
-						<textarea name="bContent">
-                    ${modify.content}
-                    </textarea>
+					<div class="cont">
+						<textarea name="bContent">${modify.content}</textarea>
 					</div>
 				</div>
-				<div class="j_bt_wrap">
-					<input type="submit" value="수정" /><a href="list.do">취소</a>
+				<div class="bt_wrap">
+					<input type="submit" value="수정"><a href="list.do">취소</a>
 				</div>
 			</form>
 		</div>
