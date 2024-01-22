@@ -1,4 +1,4 @@
-package controller;
+package frontController;
 
 import java.io.IOException;
 
@@ -58,7 +58,12 @@ public class FrontController extends HttpServlet {
 			System.out.println("프론트 callCrime.do 항목 실행");
 			request.getRequestDispatcher("/chart"+com).forward(request, response);
 			System.out.println("/chart"+com);
+		}else if(com.equals("/callArrest.do")){
+			System.out.println("프론트 callArrest.do 항목 실행");
+			request.getRequestDispatcher("/chart"+com).forward(request, response);
+			System.out.println("/chart"+com);
 		}
+			
 		
 	}
 	

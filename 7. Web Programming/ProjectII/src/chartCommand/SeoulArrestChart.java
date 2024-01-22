@@ -1,6 +1,7 @@
 package chartCommand;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,7 +40,11 @@ public class SeoulArrestChart implements CCommand{
 		
 		//gson stringify
 		 String jsonString = new Gson().toJson(jsonArr);
-		
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(jsonString);
+			out.flush();
 		
 		
 	}

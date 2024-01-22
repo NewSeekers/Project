@@ -12,12 +12,22 @@ var centerpoint = [];
 var guCenterPoint;
 var guNames = [];
 var polygons2 = [];
-var crimeYearArr = [];
+var yearArrestArr = [];
 let homicideYear = [];
 let robberYear = [];
 let sexualYear = [];
 let theftYear = [];
 let violenceYear = [];
+let homiArRate = [];
+let robArRate = [];
+let sexArRate = [];
+let thefArRate = [];
+let violArRate = [];
+
+var cctvCount = [];
+var lightCount = [];
+var policeCount = [];
+
 
 async function fetchData() {
     try {
@@ -31,6 +41,7 @@ async function fetchData() {
             sexualYear.push(json.sexual);
             theftYear.push(json.theft);
             violenceYear.push(json.violence);
+
         });
 
         return homicideYear, robberYear, sexualYear, theftYear, violenceYear;
@@ -40,7 +51,32 @@ async function fetchData() {
 }
 // fetchData 함수를 호출합니다.
 fetchData();
+ajaxArData();
 
+async function ajaxArData() {
+    $.ajax({
+        type: 'POST',
+        url: "./callArrest.do",
+        contentType: 'application/json',
+        async: true,
+        success: function (datas) {
+            datas.myArrayList.forEach(array => {
+                homiArRate.push(array.map.homiArRate);
+                robArRate.push(array.map.robArRate);
+                sexArRate.push(array.map.sexArRate);
+                thefArRate.push(array.map.thefArRate);
+                violArRate.push(array.map.violArRate);
+            })
+
+            return homiArRate, robArRate, sexArRate, thefArRate, violArRate;
+        },
+        error: function (status, error) {
+            alert("데이터 불러오는데 실패했습니다.")
+            console.log(status + error);
+        }
+    });
+    return homiArRate, robArRate, sexArRate, thefArRate, violArRate;
+}
 
 
 
@@ -52,11 +88,13 @@ fetchData();
 
 (async () => {
     await fetchData();
-    console.log("yearCrime" + yearCrime(2022))
-    console.log("crimeYear" + crimeyear(2022))
+    await ajaxArData();
     chart1draw(currentValue);
+    console.log("yearCrime2022" + yearCrime(2022))
     chart2draw(currentValue);
     chart3draw(currentValue);
+
+    console.log("yeararrest2022" + yearArrest(2022))
     chart4draw(currentValue);
 })();
 
@@ -90,7 +128,7 @@ units.forEach((element) => {
     var coord = geo.coordinates[0];
     guName = element.properties.SGG_NM;
     guGrade = element.properties.GRADE;
-
+8
     var path = [];
     var points = [];
     coord[0].forEach((point) => {
@@ -342,13 +380,13 @@ function yearCrime(currentValue) {
 
 
 
-function crimeyear(currentValue) {
-    return (crimeYearArr = [
-        homicideYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        robberYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        sexualYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        theftYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        violenceYear[(parseInt(currentValue) - 2001) / 3 - 1],
+function yearArrest(currentValue) {
+    return (yearArrestArr = [
+        homiArRate[(parseInt(currentValue) - 2001) / 3 - 1],
+        robArRate[(parseInt(currentValue) - 2001) / 3 - 1],
+        sexArRate[(parseInt(currentValue) - 2001) / 3 - 1],
+        thefArRate[(parseInt(currentValue) - 2001) / 3 - 1],
+        violArRate[(parseInt(currentValue) - 2001) / 3 - 1],
     ]);
 }
 
@@ -366,7 +404,19 @@ const addData = (chart, currentValue) => {
     chart.data.labels = crimeType;
     chart.data.datasets.label = "crime";
     chart.data.datasets.forEach((dataset) => {
-        dataset.data = crimeyear(currentValue);
+        dataset.data = yearCrime(currentValue);
+        dataset.backgroundColor = colorset[(parseInt(currentValue) - 2001) / 3 - 1];
+    });
+
+    chart.update();
+};
+
+const addArData = (chart, currentValue) => {
+    removeData(chart);
+    chart.data.labels = crimeType;
+    chart.data.datasets.label = "crime";
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data = yearArrest(currentValue);
         dataset.backgroundColor = colorset[(parseInt(currentValue) - 2001) / 3 - 1];
     });
 
@@ -376,9 +426,6 @@ const addData = (chart, currentValue) => {
 // 슬라이더 값에 따른 맵 단계구분도 구현
 var slider = document.getElementById("slider");
 
-var cctvCount = ["126", "267", "547", "709", "1012", "1400", "2400"];
-var lightCount = ["123", "245", "324", "370", "404", "548", "809"];
-var policeCount = ["103", "130", "150", "168", "210", "254", "305"];
 
 // = slider.value;
 slider.addEventListener("input", function () {
@@ -433,7 +480,7 @@ slider.addEventListener("input", function () {
     addData(myChart2, currentValue);
 
     removeData(myChart4);
-    addData(myChart4, currentValue);
+    addArData(myChart4, currentValue);
 });
 
 // 셀렉트박스 값에 따른 맵 단계구분도 구현
@@ -475,7 +522,7 @@ selectbox.addEventListener("input", function () {
     addData(myChart2, currentValue);
 
     removeData(myChart4);
-    addData(myChart4, currentValue);
+    addArData(myChart4, currentValue);
 
     document.getElementById("cctvNum").innerText =
         cctvCount[(parseInt(currentValue) - 2001) / 3 - 1];
@@ -555,8 +602,8 @@ year = ["2004", "2007", "2010", "2013", "2016", "2019", "2022"]; // 범죄 발�
 
 crimeCount = ["4102", "3742", "3589", "3945", "3702", "3425", "2813"]; // 10만명당 범죄발생율
 
-year2 = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"];
-catchYear = ["79", "77", "87", "86", "83", "86", "87", "88", "87", "89", "75", "65", "60", "60", "61", "66", "72", "75", "74", "73", "72", "73", "73", "20"];
+year2 = ["2004", "2007", "2010", "2013", "2016", "2019", "2022"];
+
 
 
 
@@ -661,15 +708,16 @@ function chart3draw(currentValue) {
 
 
 function chart4draw(currentValue) {
+
     var ctx = document.getElementById("catchYearChart").getContext("2d");
     myChart4 = new Chart(ctx, {
         type: "line",
         data: {
-            labels: year2,
+            labels: crimeType,
             datasets: [
                 {
                     label: "CatchRate",
-                    data: catchYear,
+                    data: yearArrest(currentValue),
                     borderColor: "rgba(16,163,127,1)",
                     backgroundColor: "rgba(16,163,127,0.2)",
                     borderWidth: 1,
