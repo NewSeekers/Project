@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.BoardController;
+
 /**
  * Servlet implementation class FrontController
  */
@@ -37,8 +39,6 @@ public class FrontController extends HttpServlet {
 	}
 
 	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
 		System.out.println("프론트 컨트롤러 actionDo 실행");
 		
 		System.out.println("왜이러는겨");
@@ -56,9 +56,10 @@ public class FrontController extends HttpServlet {
 		String com = uri.substring(ctxPath.length());
 		System.out.println("com: "+com);
 				
-		if(com.equals("/modify.do")) {
-			System.out.println("modify.do");
-			request.getRequestDispatcher("/board"+com).forward(request, response);
+		if(com.equals("/list.do")) {
+			System.out.println("list.do");
+			BoardController boardController = new BoardController(request,response);
+//			request.getRequestDispatcher("/board"+com).forward(request, response);
 		}else if(com.equals("/callCrime.do")) {
 			System.out.println("프론트 callCrime.do 항목 실행");
 			request.getRequestDispatcher("/chart"+com).forward(request, response);
@@ -68,9 +69,5 @@ public class FrontController extends HttpServlet {
 			request.getRequestDispatcher("/chart"+com).forward(request, response);
 			System.out.println("/chart"+com);
 		}
-			
-		
 	}
-
-	>>>>>>>a3f768a57fb48cf3ae4253bacfd63e706c3447fc
 }
