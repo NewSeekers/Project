@@ -1,4 +1,3 @@
-// window.onload = function () {
 
 let level = "";
 var polygons = [];
@@ -13,7 +12,53 @@ var centerpoint = [];
 var guCenterPoint;
 var guNames = [];
 var polygons2 = [];
+var crimeYearArr = [];
+let homicideYear = [];
+let robberYear = [];
+let sexualYear = [];
+let theftYear = [];
+let violenceYear = [];
 
+async function fetchData() {
+    try {
+        const response = await fetch("./callCrime.do");
+        const jsonArray = await response.text();
+        const jsonData = JSON.parse(jsonArray);
+
+        jsonData.forEach(json => {
+            homicideYear.push(json.homicide);
+            robberYear.push(json.robber);
+            sexualYear.push(json.sexual);
+            theftYear.push(json.theft);
+            violenceYear.push(json.violence);
+        });
+
+        return homicideYear, robberYear, sexualYear, theftYear, violenceYear;
+    } catch (error) {
+        console.error("데이터를 불러오는 중 에러 발생: ", error);
+    }
+}
+// fetchData 함수를 호출합니다.
+fetchData();
+
+
+
+
+
+
+
+
+
+
+(async () => {
+    await fetchData();
+    console.log("yearCrime" + yearCrime(2022))
+    console.log("crimeYear" + crimeyear(2022))
+    chart1draw(currentValue);
+    chart2draw(currentValue);
+    chart3draw(currentValue);
+    chart4draw(currentValue);
+})();
 
 var gradeColors = [
     ["#f9ddb1", "#f5c77e", "#f1b04c", "#ee9f27", "#ec9006"], //2004년//
@@ -279,24 +324,25 @@ var colorset = [
     ["#FFEC67", "#FFE541", "#FFD902", "#DBB701", "#B79601", "#937600", "#7A6000"],
 ];
 
-var crimeYearArr = [];
-let homicideYear = [];
-let robberYear = [];
-let sexualYear = [];
-let theftYear = [];
-let violenceYear = [];
 
 
 
 
 
+function yearCrime(currentValue) {
+
+    return (crime = [
+        homicideYear[(parseInt(currentValue) - 2001) / 3 - 1],
+        robberYear[(parseInt(currentValue) - 2001) / 3 - 1],
+        sexualYear[(parseInt(currentValue) - 2001) / 3 - 1],
+        theftYear[(parseInt(currentValue) - 2001) / 3 - 1],
+        violenceYear[(parseInt(currentValue) - 2001) / 3 - 1],
+    ]);
+}
 
 
 
 function crimeyear(currentValue) {
-
-
-
     return (crimeYearArr = [
         homicideYear[(parseInt(currentValue) - 2001) / 3 - 1],
         robberYear[(parseInt(currentValue) - 2001) / 3 - 1],
@@ -380,11 +426,14 @@ slider.addEventListener("input", function () {
 
     displayAllArea();
 
-    removeData(myChart);
-    addData(myChart, currentValue);
+    removeData(myChart1);
+    addData(myChart1, currentValue);
 
-    removeData(myChartBar);
-    addData(myChartBar, currentValue);
+    removeData(myChart2);
+    addData(myChart2, currentValue);
+
+    removeData(myChart4);
+    addData(myChart4, currentValue);
 });
 
 // 셀렉트박스 값에 따른 맵 단계구분도 구현
@@ -419,11 +468,14 @@ selectbox.addEventListener("input", function () {
         ];
     displayAllArea();
 
-    removeData(myChart);
-    addData(myChart, currentValue);
+    removeData(myChart1);
+    addData(myChart1, currentValue);
 
-    removeData(myChartBar);
-    addData(myChartBar, currentValue);
+    removeData(myChart2);
+    addData(myChart2, currentValue);
+
+    removeData(myChart4);
+    addData(myChart4, currentValue);
 
     document.getElementById("cctvNum").innerText =
         cctvCount[(parseInt(currentValue) - 2001) / 3 - 1];
@@ -503,212 +555,138 @@ year = ["2004", "2007", "2010", "2013", "2016", "2019", "2022"]; // 범죄 발�
 
 crimeCount = ["4102", "3742", "3589", "3945", "3702", "3425", "2813"]; // 10만명당 범죄발생율
 
-year2 = [
-    "2000",
-    "2001",
-    "2002",
-    "2003",
-    "2004",
-    "2005",
-    "2006",
-    "2007",
-    "2008",
-    "2009",
-    "2010",
-    "2011",
-    "2012",
-    "2013",
-    "2014",
-    "2015",
-    "2016",
-    "2017",
-    "2018",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-];
-catchYear = [
-    "79",
-    "77",
-    "87",
-    "86",
-    "83",
-    "86",
-    "87",
-    "88",
-    "87",
-    "89",
-    "75",
-    "65",
-    "60",
-    "60",
-    "61",
-    "66",
-    "72",
-    "75",
-    "74",
-    "73",
-    "72",
-    "73",
-    "73",
-    "20",
-];
+year2 = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"];
+catchYear = ["79", "77", "87", "86", "83", "86", "87", "88", "87", "89", "75", "65", "60", "60", "61", "66", "72", "75", "74", "73", "72", "73", "73", "20"];
 
 
 
 
-function yearCrime(currentValue) {
-    return (crime = [
-        homicideYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        robberYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        sexualYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        theftYear[(parseInt(currentValue) - 2001) / 3 - 1],
-        violenceYear[(parseInt(currentValue) - 2001) / 3 - 1],
-    ]);
-}
 
 //첫번째 그래프
 
 // drawchart(2022);
 
-
-var ctx = document.getElementById("cRateChart").getContext("2d");
-myChart = new Chart(ctx, {
-
-    type: "doughnut",
-    data: {
-        labels: crimeType,
-        datasets: [
-            {
-                label: "Crime Rate",
-                data: yearCrime(currentValue),
-                backgroundColor: colorset[(parseInt(currentValue) - 2001) / 3 - 1],
-            },
-        ],
-    },
-    options: {
-        // responsive: false,
-        maintainAspectRatio: false,
-    },
-});
-
+function chart1draw(currentValue) {
+    var ctx = document.getElementById("cRateChart").getContext("2d");
+    myChart1 = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: crimeType,
+            datasets: [
+                {
+                    label: "Crime Rate",
+                    data: yearCrime(currentValue),
+                    backgroundColor: colorset[(parseInt(currentValue) - 2001) / 3 - 1],
+                },
+            ],
+        },
+        options: {
+            // responsive: false,
+            maintainAspectRatio: false,
+        },
+    });
+}
 
 // setTimeout(drawchart(2022), 5000);
 
 
+function chart2draw(currentValue) {
+    var ctx = document.getElementById("cNumChart").getContext("2d");
+    myChart2 = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: crimeType,
+            datasets: [
+                {
+                    label: "Number of Crime",
+                    data: yearCrime(currentValue),
+                    backgroundColor: colorset[(parseInt(currentValue) - 2001) / 3 - 1],
+                },
+            ],
+        },
+        options: {
+            // responsive: false,
+            maintainAspectRatio: false,
+        },
+    });
+}
 
-var ctx = document.getElementById("cNumChart").getContext("2d");
-var myChartBar = new Chart(ctx, {
-    type: "bar",
-    data: {
-        labels: crimeType,
-        datasets: [
-            {
-                label: "Number of Crime",
-                data: yearCrime(currentValue),
-                backgroundColor: colorset[(parseInt(currentValue) - 2001) / 3 - 1],
-            },
-        ],
-    },
-    options: {
-        // responsive: false,
-        maintainAspectRatio: false,
-    },
-});
 
 //세번째 그래프
-var ctx = document.getElementById("cYearChart").getContext("2d");
-var myChartLine = new Chart(ctx, {
-    type: "line",
-    data: {
-        labels: year,
-        datasets: [
-            {
-                label: "Homicide",
-                data: homicideYear,
-                borderColor: "darkorange",
-                borderWidth: 3,
-            },
-            {
-                label: "Robber",
-                data: robberYear,
-                borderColor: "blue",
-                borderWidth: 3,
-            },
-            {
-                label: "SexCrime",
-                data: sexualYear,
-                borderColor: "green",
-                borderWidth: 3,
-            },
-            {
-                label: "Theft",
-                data: theftYear,
-                borderColor: "navy",
-                borderWidth: 3,
-            },
-            {
-                label: "Violence",
-                data: violenceYear,
-                borderColor: "skyblue",
-                borderWidth: 3,
-            },
-        ],
-    },
-    options: {
-        // responsive: false,
-        maintainAspectRatio: false,
-    },
-});
-
-// 4번째그래프
-
-var ctx = document.getElementById("catchYearChart").getContext("2d");
-var myChartLine2 = new Chart(ctx, {
-    type: "line",
-    data: {
-        labels: year2,
-        datasets: [
-            {
-                label: "CatchRate",
-                data: catchYear,
-                borderColor: "rgba(16,163,127,1)",
-                backgroundColor: "rgba(16,163,127,0.2)",
-                borderWidth: 1,
-                fill: true,
-                tension: 0.4,
-            },
-        ],
-    },
-    options: {
-        // responsive: false,
-        maintainAspectRatio: false,
-    },
-});
-
-
-
-async function fetchData() {
-    fetch("./callCrime.do")
-        .then((response => response.text()))
-        .then((jsonArray) => {
-            const jsonData = JSON.parse(jsonArray);
-            console.log(jsonData)
-
-            jsonData.forEach(json => {
-                homicideYear.push(json.homicide);
-                robberYear.push(json.robber);
-                sexualYear.push(json.sexual);
-                theftYear.push(json.theft);
-                violenceYear.push(json.violence);
-            })
-        })
-
-
-
-        .catch((error) => console.error("데이터를 불러오는 중 에러 발생: ", error));
+function chart3draw(currentValue) {
+    var ctx = document.getElementById("cYearChart").getContext("2d");
+    myChart3 = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: year,
+            datasets: [
+                {
+                    label: "Homicide",
+                    data: homicideYear,
+                    borderColor: "darkorange",
+                    borderWidth: 3,
+                },
+                {
+                    label: "Robber",
+                    data: robberYear,
+                    borderColor: "blue",
+                    borderWidth: 3,
+                },
+                {
+                    label: "SexCrime",
+                    data: sexualYear,
+                    borderColor: "green",
+                    borderWidth: 3,
+                },
+                {
+                    label: "Theft",
+                    data: theftYear,
+                    borderColor: "navy",
+                    borderWidth: 3,
+                },
+                {
+                    label: "Violence",
+                    data: violenceYear,
+                    borderColor: "skyblue",
+                    borderWidth: 3,
+                },
+            ],
+        },
+        options: {
+            // responsive: false,
+            maintainAspectRatio: false,
+        },
+    });
 }
+
+
+function chart4draw(currentValue) {
+    var ctx = document.getElementById("catchYearChart").getContext("2d");
+    myChart4 = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: year2,
+            datasets: [
+                {
+                    label: "CatchRate",
+                    data: catchYear,
+                    borderColor: "rgba(16,163,127,1)",
+                    backgroundColor: "rgba(16,163,127,0.2)",
+                    borderWidth: 1,
+                    fill: true,
+                    tension: 0.4,
+                },
+            ],
+        },
+        options: {
+            // responsive: false,
+            maintainAspectRatio: false,
+        },
+    });
+}
+
+
+
 
 
 

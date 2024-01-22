@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 
-import chartCommand.SeoulChartCom;
+import chartCommand.SeoulCrimelChart;
 
 /**
  * Servlet implementation class ServiceController
@@ -43,7 +43,7 @@ public class ChartController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+   
 	
 	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		System.out.println("차트컨트롤러 actionDo 실행");
@@ -58,9 +58,11 @@ public class ChartController extends HttpServlet {
 		
 		
 		if(com.equals("/callCrime.do")) {
-			SeoulChartCom seoulcc = new SeoulChartCom();
+			SeoulCrimelChart seoulcc = new SeoulCrimelChart();
 			seoulcc.execute(request, response);
 			
+		}else if(com.equals("/callArrest.do")) {
+			SeoulArrestChart seoulac = new 
 		}
 		
 		
