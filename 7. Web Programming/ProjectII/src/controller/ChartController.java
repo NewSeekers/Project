@@ -57,7 +57,7 @@ public class ChartController extends HttpServlet {
 		String com = uri.substring(servPath.length()+conPath.length());
 		System.out.println("com: "+com);
 		
-		
+		 
 		if(com.equals("/callCrime.do")) {
 			SeoulCrimelChart seoulcc = new SeoulCrimelChart();
 			seoulcc.execute(request, response);
@@ -66,6 +66,8 @@ public class ChartController extends HttpServlet {
 			SeoulArrestChart seoulac = new SeoulArrestChart();
 			seoulac.execute(request, response);
 		}
+			
+		
 		
 		
 		

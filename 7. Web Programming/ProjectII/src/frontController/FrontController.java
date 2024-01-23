@@ -41,7 +41,7 @@ public class FrontController extends HttpServlet {
 	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("프론트 컨트롤러 actionDo 실행");
 		
-		System.out.println("왜이러는겨");
+		
 		String viewPage = null;
 		String BCommand = null;
 		String MCommand = null;
@@ -68,6 +68,10 @@ public class FrontController extends HttpServlet {
 			System.out.println("프론트 callArrest.do 항목 실행");
 			request.getRequestDispatcher("/chart"+com).forward(request, response);
 			System.out.println("/chart"+com);
+		}else if(com.equals("/callGuGrade.do")) {
+			System.out.println("프론트 callGuGrade.do 항목 실행");
+			request.getRequestDispatcher("/info"+com).forward(request, response);
 		}
 	}
+
 }
