@@ -75,5 +75,5 @@ public class FrontController extends HttpServlet {
 		
 	}
 
-	>>>>>>>a3f768a57fb48cf3ae4253bacfd63e706c3447fc
+
 }
