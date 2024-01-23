@@ -71,6 +71,15 @@ public class FrontController extends HttpServlet {
 		}else if(com.equals("/callGuGrade.do")) {
 			System.out.println("프론트 callGuGrade.do 항목 실행");
 			request.getRequestDispatcher("/info"+com).forward(request, response);
+		}else if(com.equals("/secuIndex.do")) {
+			System.out.println("프론트 secuIndex.do 항목 실행");
+			request.getRequestDispatcher("/info"+com).forward(request, response);
+		}else if(com.equals("/safety.do")) {
+			System.out.println("프론트 safety.do 항목 실행");
+			request.getRequestDispatcher("/info"+com).forward(request, response);
+		}else if(com.equals("/secuFaci.do")) {
+			System.out.println("프론트 secuFaci.do 항목 실행");
+			request.getRequestDispatcher("/info"+com).forward(request, response);
 		}
 	}
 

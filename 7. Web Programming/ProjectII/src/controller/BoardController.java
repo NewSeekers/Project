@@ -72,10 +72,6 @@ public class BoardController extends HttpServlet {
 			command = new BReplyCommand();
 			command.execute(request, response);
 			viewPage = "list.do";
-		} else if (com.equals("/write.do")) {
-			command = new BWriteCommand();
-			command.execute(request, response);
-			response.sendRedirect("list.do");
 		}
 
 		if (viewPage != null) {

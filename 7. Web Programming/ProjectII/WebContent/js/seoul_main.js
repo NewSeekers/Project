@@ -1,3 +1,4 @@
+// $(document).ready(function () {
 
 let level = "";
 var polygons = [];
@@ -27,23 +28,54 @@ let guGradeArr = [];
 var cctvCount = [];
 var lightCount = [];
 var policeCount = [];
+let crimeType = ["homicide", "robber", "sexcrime", "theft", "violence"]; // 범죄 유형
+let Year = ["2004", "2007", "2010", "2013", "2016", "2019", "2022"]; // 범죄 발생연도
+var gradeColors = [
+    ["#f9ddb1", "#f5c77e", "#f1b04c", "#ee9f27", "#ec9006"], //2004년//
+    ["#f7f5bc", "#fff172", "#ffe337", "#ffd000", "#ffb000"], //2007년//
+    ["#e7ef9e", "#dde878", "#cfde3d", "#c2cc37", "#a09f28"], //2010년//
+    ["#eeef20", "#d4d700", "#aacc00", "#80b918", "#55a630"], //2013년//
+    ["#c0dfd3", "#9ccbb8", "#7cb69d", "#60a18b", "#578b74"], //2016년//
+    ["#d8eaef", "#c0d5dd", "#acc8d7", "#88a9b7", "#537d90"], //2019년//
+    ["#aaf2ef", "#75e9e5", "#00d5d6", "#00bdd0", "#00a0b7"],
+];
+
+
+
+
+(async () => {
+    await fetchData();
+    await ajaxArData();
+    await secuFaciData();
+    await guGradeData();
+    await readyToPolygon();
+    await extractGuName();
+    await guNamesSet();
+    await displayAllArea();
+
+    chart1draw(currentValue);
+    chart2draw(currentValue);
+    chart3draw(currentValue);
+    chart4draw(currentValue);
+
+})();
 
 async function guGradeData() {
     try {
         const response = await fetch("./callGuGrade.do");
         const jsonArray = await response.text();
         const jsonData = JSON.parse(jsonArray);
+
         jsonData.forEach(json => {
+
             guGradeArr.push(Object.values(json));
         });
 
         return guGradeArr;
-
     } catch (error) {
         console.error("데이터를 불러오는 중 에러 발생: ", error);
     }
 }
-
 
 async function fetchData() {
     try {
@@ -57,7 +89,6 @@ async function fetchData() {
             sexualYear.push(json.sexual);
             theftYear.push(json.theft);
             violenceYear.push(json.violence);
-
         });
 
         return homicideYear, robberYear, sexualYear, theftYear, violenceYear;
@@ -65,9 +96,24 @@ async function fetchData() {
         console.error("데이터를 불러오는 중 에러 발생: ", error);
     }
 }
-// fetchData 함수를 호출합니다.
 
+async function secuFaciData() {
+    try {
+        const response = await fetch("./secuFaci.do");
+        const jsonArray = await response.text();
+        const jsonData = JSON.parse(jsonArray);
 
+        jsonData.forEach(json => {
+            cctvCount.push(json.cctv);
+            lightCount.push(json.lights);
+            policeCount.push(json.policestation);
+        });
+
+        return cctvCount, lightCount, policeCount;
+    } catch (error) {
+        console.error("데이터를 불러오는 중 에러 발생: ", error);
+    }
+}
 async function ajaxArData() {
     $.ajax({
         type: 'POST',
@@ -86,37 +132,14 @@ async function ajaxArData() {
             return homiArRate, robArRate, sexArRate, thefArRate, violArRate;
         },
         error: function (status, error) {
-            alert("데이터 불러오는데 실패했습니다.")
+
             console.log(status + error);
         }
     });
     return homiArRate, robArRate, sexArRate, thefArRate, violArRate;
 }
 
-
-guGradeData();
-
-(async () => {
-    await fetchData();
-    await ajaxArData();
-    chart1draw(currentValue);
-    chart2draw(currentValue);
-    chart3draw(currentValue);
-    chart4draw(currentValue);
-})();
-
-
-
-
-var gradeColors = [
-    ["#f9ddb1", "#f5c77e", "#f1b04c", "#ee9f27", "#ec9006"], //2004년//
-    ["#f7f5bc", "#fff172", "#ffe337", "#ffd000", "#ffb000"], //2007년//
-    ["#e7ef9e", "#dde878", "#cfde3d", "#c2cc37", "#a09f28"], //2010년//
-    ["#eeef20", "#d4d700", "#aacc00", "#80b918", "#55a630"], //2013년//
-    ["#c0dfd3", "#9ccbb8", "#7cb69d", "#60a18b", "#578b74"], //2016년//
-    ["#d8eaef", "#c0d5dd", "#acc8d7", "#88a9b7", "#537d90"], //2019년//
-    ["#aaf2ef", "#75e9e5", "#00d5d6", "#00bdd0", "#00a0b7"],
-]; //2022년//
+//2022년//
 
 var container = document.getElementById("s_map");
 var options = {
@@ -132,7 +155,6 @@ map.setZoomable(false);
 
 var locate = JSON.parse(JSON.stringify(mapData));
 var units = locate.features; // json key값이 "features"인 것의 value를 통으로 가져온다.
-console.log("데이터있냐?" + guGradeArr)
 
 function readyToPolygon() {
     units.forEach((element, index) => {
@@ -141,7 +163,7 @@ function readyToPolygon() {
         guName = element.properties.SGG_NM;
         guGrade = guGradeArr[index]
         // guGrade = element.properties.GRADE;
-        console.log(guName + guGrade);
+
         var path = [];
         var points = [];
         coord[0].forEach((point) => {
@@ -172,10 +194,17 @@ function readyToPolygon() {
             guCenterPoint = centroid(points);
         });
         var area = { guName, path, guGrade, guCenterPoint };
+
         paths.push(path);
         areas.push(area);
+
     });
+    return paths, areas;
 }
+
+
+
+
 
 backpoly();
 function backpoly() {
@@ -198,16 +227,20 @@ function backpoly() {
     backgroundPoly.setMap(map);
 }
 
-areas.forEach((point) => {
-    var content = "<div id=guNameBox>" + point.guName + "</div>";
-    var position = point.guCenterPoint;
-    var temp = new kakao.maps.CustomOverlay({
-        content: content,
-        position: position,
-    });
-    guNames.push(temp);
-});
 
+function extractGuName() {
+    areas.forEach((point) => {
+        var content = "<div id=guNameBox>" + point.guName + "</div>";
+
+        var position = point.guCenterPoint;
+        var temp = new kakao.maps.CustomOverlay({
+            content: content,
+            position: position,
+        });
+        guNames.push(temp);
+    });
+    return guNames;
+}
 
 
 function displayAllArea() {
@@ -258,12 +291,14 @@ function gradeSelec(buttonID) {
 function guNamesReset() {
     for (var i = 0; (len = guNames.length), i < len; i++) {
         guNames[i].setMap(null);
+
     }
 }
 
 function guNamesSet() {
     for (var i = 0; (len = guNames.length), i < len; i++) {
         guNames[i].setMap(map);
+
     }
 }
 
@@ -326,30 +361,29 @@ function displayArea(area) {
         customOverlay.setMap(null);
     });
 
-    kakao.maps.event.addListener(polygon, "click", function (mouseEvent) {
-        var center;
-        var level = map.getLevel();
+    // kakao.maps.event.addListener(polygon, "click", function (mouseEvent) {
+    //     var center;
+    //     var level = map.getLevel();
+    // if (level > 8) {
+    //     center = mouseEvent.latLng;
+    //     map.setLevel(level - 1);
+    //     map.panTo(center);
+    // }
+    // else {
+    //     center = mouseEvent.latLng;
+    //     map.setLevel(8);
+    //     map.panTo(center);
+    // }
 
-        // if (level > 8) {
-        //     center = mouseEvent.latLng;
-        //     map.setLevel(level - 1);
-        //     map.panTo(center);
-        // }
-        // else {
-        //     center = mouseEvent.latLng;
-        //     map.setLevel(8);
-        //     map.panTo(center);
-        // }
+    // var content = '<div class="info">' +
+    //     '   <div class="title">' + area.name + '</div>' +
+    //     '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
+    //     '<br>그래프삽입' + '</div>';
 
-        // var content = '<div class="info">' +
-        //     '   <div class="title">' + area.name + '</div>' +
-        //     '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
-        //     '<br>그래프삽입' + '</div>';
-
-        // infowindow.setContent(content);
-        // infowindow.setPosition(mouseEvent.latLng);
-        // infowindow.setMap(map);
-    });
+    // infowindow.setContent(content);
+    // infowindow.setPosition(mouseEvent.latLng);
+    // infowindow.setMap(map);
+    // });
 }
 
 function deletePolygon(polygons) {
@@ -359,10 +393,9 @@ function deletePolygon(polygons) {
     polygons = [];
 }
 
-var crimeType = ["homicide", "robber", "sexcrime", "theft", "violence"]; // 범죄 유형
-var Year = ["2004", "2007", "2010", "2013", "2016", "2019", "2022"]; // 범죄 발생연도
 
-var crimeCount = ["4102", "3742", "3589", "3945", "3702", "3425", "2813"]; // 10만명당 범죄발생율
+
+
 
 
 
@@ -375,6 +408,7 @@ var colorset = [
     ["#FFADF9", "#FE84FF", "#F266FF", "#DE33FF", "#AF25DB", "#8519B7", "#601093"],
     ["#FFEC67", "#FFE541", "#FFD902", "#DBB701", "#B79601", "#937600", "#7A6000"],
 ];
+
 
 
 
@@ -611,12 +645,7 @@ window.addEventListener("resize", function () {
     // }, delay);
 });
 
-crimeType = ["homicide", "robber", "sexcrime", "theft", "violence"]; // 범죄 유형
-year = ["2004", "2007", "2010", "2013", "2016", "2019", "2022"]; // 범죄 발생연도
 
-crimeCount = ["4102", "3742", "3589", "3945", "3702", "3425", "2813"]; // 10만명당 범죄발생율
-
-year2 = ["2004", "2007", "2010", "2013", "2016", "2019", "2022"];
 
 
 
@@ -679,7 +708,7 @@ function chart3draw(currentValue) {
     myChart3 = new Chart(ctx, {
         type: "line",
         data: {
-            labels: year,
+            labels: ["2004", "2007", "2010", "2013", "2016", "2019", "2022"],
             datasets: [
                 {
                     label: "Homicide",
@@ -827,44 +856,61 @@ sidebar.addEventListener("mouseenter", function () {
     });
 })();
 
-document.getElementById("yearOne").addEventListener("click", function () {
-    document.getElementById("sFirst").innerText = "종로구";
-    document.getElementById("sSec").innerText = "용산구";
-    document.getElementById("sThird").innerText = "서초구";
-    document.getElementById("sFourth").innerText = "송파구";
-    document.getElementById("sFifth").innerText = "수서구";
 
-    document.getElementById("tFirst").innerText = "양천구";
-    document.getElementById("tSec").innerText = "종로구";
-    document.getElementById("tThird").innerText = "금천구";
-    document.getElementById("tFourth").innerText = "강동구";
-    document.getElementById("tFifth").innerText = "마포구";
+async function secuIndex(year) {
+    let indexYear = document.getElementById(year).value;
+    try {
+        const response = await fetch("./secuIndex.do?year=" + indexYear);
+        const jsonArray = await response.text();
+        const jsonData = JSON.parse(jsonArray);
+
+        document.getElementById("sFirst").innerText = jsonData[0].guName;
+        document.getElementById("sSec").innerText = jsonData[1].guName;
+        document.getElementById("sThird").innerText = jsonData[2].guName;
+        document.getElementById("sFourth").innerText = jsonData[3].guName;
+        document.getElementById("sFifth").innerText = jsonData[4].guName;
+    } catch (error) {
+        console.error("데이터를 불러오는 중 에러 발생: ", error);
+    }
+}
+
+async function safety(year) {
+    let indexYear = document.getElementById(year).value;
+    try {
+        const response = await fetch("./safety.do?year=" + indexYear);
+        const jsonArray = await response.text();
+        const jsonData = JSON.parse(jsonArray);
+
+        document.getElementById("tFirst").innerText = jsonData[0].guName;
+        document.getElementById("tSec").innerText = jsonData[1].guName;
+        document.getElementById("tThird").innerText = jsonData[2].guName;
+        document.getElementById("tFourth").innerText = jsonData[3].guName;
+        document.getElementById("tFifth").innerText = jsonData[4].guName;
+    } catch (error) {
+        console.error("데이터를 불러오는 중 에러 발생: ", error);
+    }
+}
+document.getElementById("yearOne").addEventListener("click", function () {
+    let year = "yearOne"
+    secuIndex(year);
+    safety(year);
+
+
 });
 
 document.getElementById("yearTwo").addEventListener("click", function () {
-    document.getElementById("sFirst").innerText = "마포구";
-    document.getElementById("sSec").innerText = "성동구";
-    document.getElementById("sThird").innerText = "강남구";
-    document.getElementById("sFourth").innerText = "양천구";
-    document.getElementById("sFifth").innerText = "강동구";
+    let year = "yearTwo";
+    secuIndex(year);
+    safety(year);
 
-    document.getElementById("tFirst").innerText = "서초구";
-    document.getElementById("tSec").innerText = "노원구";
-    document.getElementById("tThird").innerText = "금천구";
-    document.getElementById("tFourth").innerText = "마포구";
-    document.getElementById("tFifth").innerText = "종로구";
 });
 
 document.getElementById("yearThree").addEventListener("click", function () {
-    document.getElementById("sFirst").innerText = "노원구";
-    document.getElementById("sSec").innerText = "서초구";
-    document.getElementById("sThird").innerText = "강남구";
-    document.getElementById("sFourth").innerText = "동작구";
-    document.getElementById("sFifth").innerText = "송파구";
+    let year = "yearThree"
+    secuIndex(year);
+    safety(year);
 
-    document.getElementById("tFirst").innerText = "도봉구";
-    document.getElementById("tSec").innerText = "서초구";
-    document.getElementById("tThird").innerText = "금천구";
-    document.getElementById("tFourth").innerText = "종로구";
-    document.getElementById("tFifth").innerText = "용산구";
 });
+
+// });
+

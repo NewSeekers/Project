@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import chartCommand.SeoulArrestChart;
-import chartCommand.SeoulCrimelChart;
 import infoCommand.GuGrade;
+import infoCommand.Safety;
+import infoCommand.SecuFaci;
+import infoCommand.SecuIndex;
 
 /**
  * Servlet implementation class InfoController
@@ -60,12 +61,24 @@ public class InfoController extends HttpServlet {
 		System.out.println("servletPath: " + servPath);
 		String com = uri.substring(servPath.length() + conPath.length());
 		System.out.println("com: " + com);
- 
+
 		if (com.equals("/callGuGrade.do")) {
-			System.out.println("gg서비스 시작=*=*=*=*=*=*");
+			System.out.println("gg서비스 시작");
 			GuGrade gg = new GuGrade();
 			gg.execute(request, response);
 
-		} 
+		}else if (com.contains("/secuIndex.do")) {
+			System.out.println("si서비스 시작=====");
+			SecuIndex si = new SecuIndex();
+			si.execute(request, response);
+		}else if (com.contains("/safety.do")) {
+			System.out.println("safe서비스 시작====");
+			Safety ps = new Safety();
+			ps.execute(request, response);
+		}else if (com.contains("/secuFaci.do")) {
+			System.out.println("secufaci서비스 시작====");
+			SecuFaci sf = new SecuFaci();
+			sf.execute(request, response);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
 <head>
@@ -203,17 +204,17 @@
 					<div
 						class=" col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-12 col-xxl-12">
 						<div id="cctvNumHead">CCTV</div>
-						<div id="cctvNum">300</div>
+						<div id="cctvNum">80005</div>
 					</div>
 					<div
 						class=" col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-12 col-xxl-12">
 						<div id="lightNumHead">보안등수</div>
-						<div id="lightNum">400</div>
+						<div id="lightNum">199538</div>
 					</div>
 					<div
 						class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-12 col-xxl-12">
 						<div id="policeNumHead">경찰관서수</div>
-						<div id="policeNum">10</div>
+						<div id="policeNum">438</div>
 					</div>
 				</div>
 			</div>
@@ -276,19 +277,19 @@
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="yearOne" data-bs-toggle="tab"
-					type="button" role="tab" aria-selected="true">
+					type="button"  role="tab" aria-selected="true" value="y2021">
 					<h4>2021</h4>
 				</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="yearTwo" data-bs-toggle="tab"
-					type="button" role="tab" aria-selected="false">
+					type="button"  role="tab" aria-selected="false" value="y2022">
 					<h4>2022</h4>
 				</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="yearThree" data-bs-toggle="tab"
-					type="button" role="tab" aria-selected="false">
+					type="button" role="tab" aria-selected="false" value="y2023">
 					<h4>2023</h4>
 				</button>
 			</li>
@@ -313,23 +314,23 @@
 					<div class="s_guNameTop col-lg-12">지역구</div>
 					<div class="group row">
 						<div class="s_rank col-5">1위</div>
-						<div id="sFirst" class="s_guName col-7">노원구&nbsp;&nbsp;&nbsp;</div>
+						<div id="sFirst" name="SIR1" class="s_guName col-7">중구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank col-5">2위</div>
-						<div id="sSec" class="s_guName col-7">서초구&nbsp;&nbsp;&nbsp;</div>
+						<div id="sSec" name="SIR2" class="s_guName col-7">종로구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank col-5">3위</div>
-						<div id="sThird" class="s_guName col-7">강남구&nbsp;&nbsp;&nbsp;</div>
+						<div id="sThird" name="SIR3" class="s_guName col-7">성동구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank col-5">4위</div>
-						<div id="sFourth" class="s_guName col-7">동작구&nbsp;&nbsp;&nbsp;</div>
+						<div id="sFourth" name="SIR4" class="s_guName col-7">성북구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank col-5">5위</div>
-						<div id="sFifth" class="s_guName col-7">송파구&nbsp;&nbsp;&nbsp;</div>
+						<div id="sFifth" name="SIR5" class="s_guName col-7">도봉구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 				</div>
 			</div>
@@ -343,23 +344,23 @@
 
 					<div class="group row">
 						<div class="s_rank1 col-5">1위</div>
-						<div id="tFirst" class="s_guName1 col-7">도봉구&nbsp;&nbsp;&nbsp;</div>
+						<div id="tFirst" class="s_guName1 col-7">서초구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank1 col-5">2위</div>
-						<div id="tSec" class="s_guName1 col-7">서초구&nbsp;&nbsp;&nbsp;</div>
+						<div id="tSec" class="s_guName1 col-7">송파구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank1 col-5">3위</div>
-						<div id="tThird" class="s_guName1 col-7">금천구&nbsp;&nbsp;&nbsp;</div>
+						<div id="tThird" class="s_guName1 col-7">성동구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank1 col-5">4위</div>
-						<div id="tFourth" class="s_guName1 col-7">종로구&nbsp;&nbsp;&nbsp;</div>
+						<div id="tFourth" class="s_guName1 col-7">양천구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 					<div class="group row">
 						<div class="s_rank1 col-5">5위</div>
-						<div id="tFifth" class="s_guName1 col-7">용산구&nbsp;&nbsp;&nbsp;</div>
+						<div id="tFifth" class="s_guName1 col-7">노원구&nbsp;&nbsp;&nbsp;</div>
 					</div>
 				</div>
 			</div>
@@ -398,7 +399,7 @@
 
 	<!--sidebar-->
 	<div id="sidebar">
-		<a href="./Index.html" id="home" data-bs-toggle="tooltip"
+		<a href="./Index.jsp" id="home" data-bs-toggle="tooltip"
 			data-bs-placement="right" title="홈으로"
 			data-bs-custom-class="custom-tooltip" class="fa fa-home"></a> <a
 			href="#" id="upsideIcon" data-bs-toggle="tooltip"
