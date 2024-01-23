@@ -41,7 +41,7 @@
 
 			<div id="s_head" style="margin-top: 68px">
 				<span class="section-title" id="s_title">[
-					&nbsp;&nbsp;2022년&nbsp; </span> <span id="s_subTitle">서울시안전등급지도&nbsp;&nbsp;]</span>
+					&nbsp;&nbsp;2022년&nbsp; </span> <span id="s_subTitle">[서울시안전등급지도&nbsp;&nbsp;]</span>
 			</div>
 		</div>
 		</div>
