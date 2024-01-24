@@ -71,6 +71,9 @@ public class FrontController extends HttpServlet {
 		}else if(com.equals("/callGuGrade.do")) {
 			System.out.println("프론트 callGuGrade.do 항목 실행");
 			request.getRequestDispatcher("/info"+com).forward(request, response);
+		}else if(com.contentEquals("/guPage_chart.do")) {
+			System.out.println("프론트 guPage_chart.do 항목 실행");
+			request.getRequestDispatcher("/chart"+com).forward(request, response);
 		}
 	}
 

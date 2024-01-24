@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.ArrayList"%>
+<c:set var="region" value="${param.region}" />
 <!DOCTYPE html>
 
 <head>
@@ -30,12 +31,11 @@
 <body>
 
 
-	<!-- -------------- header ---------------- -->
-
+	<!--  header  -->
 	<jsp:include page="./include/nav.jsp" />
 
 
-	<!-- -------gu_rank ------------------------------------------------------------------- -->
+	<!-- gu_rank  -->
 
 	<%
 		request.setCharacterEncoding("UTF-8");

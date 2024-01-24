@@ -13,7 +13,7 @@ window.onload = function () {
   guNameValue = guName.options[guName.selectedIndex].value;
   
 // json 패치
-  fetch('http://localhost:8181/ProjectII/guPage_chart?guNameValue='+guNameValue,{
+  fetch('http://localhost:8181/ProjectII/chart/guPage_chart.do' ,{
 		method:'Get',
 		header:{
 			'Content-Type' : 'application/json'
@@ -27,6 +27,8 @@ window.onload = function () {
 	})
 	.then(data => {
 		console.log(data);
+		document.getElementById('safetyChart').innerHTML = JSON.stringify(data);
+		
 	})
 	.catch(error => {
 		console.error("Fetch error: "+error);
@@ -183,10 +185,10 @@ window.onload = function () {
 
 
   arrestdata = {
-    labels: ['2004', '2007', '2010', '2013', '2015', '2018', '2022'],
+    labels: ['2004', '2007', '2010', '2013', '2016', '2019', '2022'],
     datasets: [{
       label: '검거 비율',
-      data: [3, 3.5, 4, 5, 4, 6, 7],
+      data: [7, 5, 2, 8, 4, 2, 3], //y축 초기값
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1
@@ -245,7 +247,7 @@ window.onload = function () {
     modalwindow.style.display = "none";
   })
 
-
+//돔 형식으로 바꾸려고 하다가 취소한 주석.
 // });
 }
 
@@ -270,6 +272,11 @@ function guChange() {
 
   safetyChart.update();
 }
+
+
+
+
+
 var modalwindow2 = document.querySelector("#policeq")
 modalwindow2.addEventListener('mouseover', function () {
   document.getElementById("modalContent2").style.display = "block";

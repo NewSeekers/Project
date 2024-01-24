@@ -3,6 +3,7 @@ package chartModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Collection;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -31,6 +32,45 @@ public class CDao {
 		}
 		return instance;
 	}
+	
+	
+	// 범죄율 차트 json
+	public JSONArray getArRate() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		JSONArray list = new JSONArray();
+		
+		try {
+			con = dataSource.getConnection();
+			String query = "select year, local, total_ar_rate from gu_crime where year in (2004, 2007, 2010, 2013, 2016, 2019, 2022)";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			System.out.println("getArRate 쿼리문 실행");
+			
+			while(rs.next()) {
+				JSONObject json = new JSONObject();
+				json.put("year", rs.getInt("year"));
+				json.put("local", rs.getInt("local"));
+				json.put("total_ar_rate", rs.getInt("total_ar_rate"));
+				
+				list.put(json);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(con!=null)con.close();
+			}catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
 	
 	public JSONArray getChart() {
 		Connection con=null;

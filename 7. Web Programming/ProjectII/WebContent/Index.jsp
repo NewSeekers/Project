@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 
 <!doctype html>
-<html lang="en">
+
 
 <head>
     <meta charset="utf-8">
@@ -23,7 +23,6 @@
 
 <body>
     <!-- 상단바 -->
-	
 	<jsp:include page="./include/nav.jsp" />
 
 
@@ -123,13 +122,6 @@
                             </a></button>
                     </div>
                 </div>
-<!--    <button type="submit" class="btn"><a href="./gu_page.jsp">[ 강남구 ] 청담근린공원</a></button>
-                            <form name="mainClick" action="gu_page.jsp" method="get">
-                             <input type="hidden" name="region" value="강남구">
-                            <button type="submit" class="btn">[ 강남구 ] 청담근린공원</button>
-                        	</form>
-
--->
 
                 <div class="recommend col-lg-2">
                     <div id="recommend_img2"></div>
@@ -141,14 +133,7 @@
                             </a></button>
                     </div>
                 </div>
-<!--    
-                        <button type="button" class="btn"><a href="./gu_page.jsp">[ 영등포구 ]
-                                영등포공원
-                            </a></button>
-                        <button type="button" class="btn"><a href="./gu_page.jsp">[
-                                관악구 ] 관악산 호수공원</a></button>
-                            
--->
+
 
                 <div class="recommend col-lg-2">
                     <div id="recommend_img3"></div>
@@ -184,7 +169,7 @@
                             <p>서울시 최초로 조성되는 시립수목원</p>
                             <p>도심 속 생태공원.</p>
                         </div>
-                        <button type="button" class="btn"><a href="./gu_page.jsp">[ 구로구 ] 서울푸른수목원
+                        <button type="button" class="btn"><a href="./gu_page.jsp?region=구로구">[ 구로구 ] 서울푸른수목원
                             </a></button>
                     </div>
                 </div>
