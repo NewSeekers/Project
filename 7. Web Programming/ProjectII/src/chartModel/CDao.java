@@ -43,7 +43,8 @@ public class CDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "select year, local, total_ar_rate from gu_crime where year in (2004, 2007, 2010, 2013, 2016, 2019, 2022)";
+			String query = "select gu_crime.local, gu_crime.total_ar_rate, gu_name.guname " + 
+					"from gu_crime join gu_name on gu_crime.local = gu_name.local; where year in (2004, 2007, 2010, 2013, 2016, 2019, 2022)";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			System.out.println("getArRate 쿼리문 실행");

@@ -27,7 +27,7 @@ window.onload = function () {
 	})
 	.then(data => {
 		console.log(data);
-		document.getElementById('safetyChart').innerHTML = JSON.stringify(data);
+		
 		
 	})
 	.catch(error => {
