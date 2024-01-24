@@ -1,4 +1,3 @@
-// $(document).ready(function () {
 
 let level = "";
 var polygons = [];
@@ -41,8 +40,6 @@ var gradeColors = [
 ];
 
 
-
-
 (async () => {
     await fetchData();
     await ajaxArData();
@@ -60,6 +57,7 @@ var gradeColors = [
 
 })();
 
+// 자치구 연도별 치안등급 DB pull
 async function guGradeData() {
     try {
         const response = await fetch("./callGuGrade.do");
@@ -77,6 +75,7 @@ async function guGradeData() {
     }
 }
 
+// 자치구 연도별 범죄발생 수 DB pull
 async function fetchData() {
     try {
         const response = await fetch("./callCrime.do");
@@ -97,6 +96,7 @@ async function fetchData() {
     }
 }
 
+// 서울시 연도별 치안시설 수 DB pull
 async function secuFaciData() {
     try {
         const response = await fetch("./secuFaci.do");
@@ -114,6 +114,8 @@ async function secuFaciData() {
         console.error("데이터를 불러오는 중 에러 발생: ", error);
     }
 }
+
+// 전체 범죄 검거율 DB pull
 async function ajaxArData() {
     $.ajax({
         type: 'POST',
@@ -139,8 +141,7 @@ async function ajaxArData() {
     return homiArRate, robArRate, sexArRate, thefArRate, violArRate;
 }
 
-//2022년//
-
+// 메인 카카오맵 단계구분도
 var container = document.getElementById("s_map");
 var options = {
     center: new kakao.maps.LatLng(37.5642135, 127.0016985),
@@ -156,13 +157,13 @@ map.setZoomable(false);
 var locate = JSON.parse(JSON.stringify(mapData));
 var units = locate.features; // json key값이 "features"인 것의 value를 통으로 가져온다.
 
+// 카카오맵 폴리곤 json데이터 좌표 정리
 function readyToPolygon() {
     units.forEach((element, index) => {
         var geo = element.geometry;
         var coord = geo.coordinates[0];
         guName = element.properties.SGG_NM;
         guGrade = guGradeArr[index]
-        // guGrade = element.properties.GRADE;
 
         var path = [];
         var points = [];
@@ -174,15 +175,12 @@ function readyToPolygon() {
 
             path.push(new kakao.maps.LatLng(point[1], point[0]));
 
-            function centroid(points) {
+            function centroid(points) { // 중앙 좌표 계산
                 var i, j, len, p1, p2, f, are, x, y;
-
                 are = x = y = 0;
-
                 for (i = 0, len = points.length, j = len - 1; i < len; j = i++) {
                     p1 = points[i];
                     p2 = points[j];
-
                     f = p1.y * p2.x - p2.y * p1.x;
                     x += (p1.x + p2.x) * f;
                     y += (p1.y + p2.y) * f;
@@ -190,22 +188,16 @@ function readyToPolygon() {
                 }
                 return new kakao.maps.LatLng(x / are, y / are);
             }
-
             guCenterPoint = centroid(points);
         });
         var area = { guName, path, guGrade, guCenterPoint };
-
         paths.push(path);
         areas.push(area);
-
     });
     return paths, areas;
 }
 
-
-
-
-
+// 단계구분도 배경
 backpoly();
 function backpoly() {
     backgroundPath = [
@@ -214,7 +206,6 @@ function backpoly() {
         new kakao.maps.LatLng(36, 128.5),
         new kakao.maps.LatLng(36, 125.4),
     ];
-
     var backgroundPoly = new kakao.maps.Polygon({
         map: map,
         path: backgroundPath,
@@ -227,7 +218,7 @@ function backpoly() {
     backgroundPoly.setMap(map);
 }
 
-
+// json 자치구 이름 추출
 function extractGuName() {
     areas.forEach((point) => {
         var content = "<div id=guNameBox>" + point.guName + "</div>";
@@ -242,7 +233,7 @@ function extractGuName() {
     return guNames;
 }
 
-
+// 폴리곤 제거 및 재생성
 function displayAllArea() {
     deletePolygon(polygons);
     deletePolygon(polygons2);
@@ -254,6 +245,7 @@ function displayAllArea() {
     guNamesSet();
 }
 
+// 단계구분도 버튼 함수
 function gradeSelec(buttonID) {
     var button = document.getElementById(buttonID);
     btnValue = button.value;
@@ -288,20 +280,22 @@ function gradeSelec(buttonID) {
     }
 }
 
+
+// 단계구분도 구 이름 삭제 및 생성 함수
 function guNamesReset() {
     for (var i = 0; (len = guNames.length), i < len; i++) {
         guNames[i].setMap(null);
-
     }
 }
 
 function guNamesSet() {
     for (var i = 0; (len = guNames.length), i < len; i++) {
         guNames[i].setMap(map);
-
     }
 }
 
+
+// 단계구분도 버튼 클릭시 윤곽선 생성 함수
 function displayStroke(area) {
     var polygon2 = new kakao.maps.Polygon({
         map: map,
@@ -315,6 +309,8 @@ function displayStroke(area) {
     polygons2.push(polygon2);
 }
 
+
+// 단계구분도 기초좌표로부터 최초 생성
 function displayArea(area) {
     var polygon = new kakao.maps.Polygon({
         map: map,
@@ -361,43 +357,15 @@ function displayArea(area) {
         customOverlay.setMap(null);
     });
 
-    // kakao.maps.event.addListener(polygon, "click", function (mouseEvent) {
-    //     var center;
-    //     var level = map.getLevel();
-    // if (level > 8) {
-    //     center = mouseEvent.latLng;
-    //     map.setLevel(level - 1);
-    //     map.panTo(center);
-    // }
-    // else {
-    //     center = mouseEvent.latLng;
-    //     map.setLevel(8);
-    //     map.panTo(center);
-    // }
-
-    // var content = '<div class="info">' +
-    //     '   <div class="title">' + area.name + '</div>' +
-    //     '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
-    //     '<br>그래프삽입' + '</div>';
-
-    // infowindow.setContent(content);
-    // infowindow.setPosition(mouseEvent.latLng);
-    // infowindow.setMap(map);
-    // });
 }
 
+// 단계구분도 폴리곤 삭제
 function deletePolygon(polygons) {
     for (var i = 0; i < polygons.length; i++) {
         polygons[i].setMap(null);
     }
     polygons = [];
 }
-
-
-
-
-
-
 
 var colorset = [
     ["#00456c", "#00588a", "#006ca7", "#0080c6", "#0092e0", "#00adf3", "#33baff"],
@@ -410,13 +378,8 @@ var colorset = [
 ];
 
 
-
-
-
-
-
+// 연도 선택에 따른 범죄 수 및 검거 수 배열 인덱싱
 function yearCrime(currentValue) {
-
     return (crime = [
         homicideYear[(parseInt(currentValue) - 2001) / 3 - 1],
         robberYear[(parseInt(currentValue) - 2001) / 3 - 1],
@@ -425,8 +388,6 @@ function yearCrime(currentValue) {
         violenceYear[(parseInt(currentValue) - 2001) / 3 - 1],
     ]);
 }
-
-
 
 function yearArrest(currentValue) {
     return (yearArrestArr = [
@@ -438,6 +399,8 @@ function yearArrest(currentValue) {
     ]);
 }
 
+
+// 차트 데이터 삭제 (업데이트용)
 const removeData = (chart) => {
     chart.data.labels = [];
     chart.data.datasets.forEach((dataset) => {
@@ -447,6 +410,7 @@ const removeData = (chart) => {
     chart.update();
 };
 
+// 차트 데이터 추가 갱신 (업데이트용)
 const addData = (chart, currentValue) => {
     removeData(chart);
     chart.data.labels = crimeType;
@@ -455,10 +419,10 @@ const addData = (chart, currentValue) => {
         dataset.data = yearCrime(currentValue);
         dataset.backgroundColor = colorset[(parseInt(currentValue) - 2001) / 3 - 1];
     });
-
     chart.update();
 };
 
+// 검거율 차트 데이터 갱신 (업데이트용)
 const addArData = (chart, currentValue) => {
     removeData(chart);
     chart.data.labels = crimeType;
@@ -467,23 +431,22 @@ const addArData = (chart, currentValue) => {
         dataset.data = yearArrest(currentValue);
         dataset.backgroundColor = colorset[(parseInt(currentValue) - 2001) / 3 - 1];
     });
-
     chart.update();
 };
 
+
 // 슬라이더 값에 따른 맵 단계구분도 구현
 var slider = document.getElementById("slider");
-
-
 // = slider.value;
 slider.addEventListener("input", function () {
     currentValue = slider.value;
+    // 타이틀에 연도 반영    
     document.querySelector("#s_title").innerHTML = currentValue + "년";
     document.getElementById("chartTitle1").innerHTML =
         currentValue + "년 범죄비율";
     document.getElementById("chartTitle2").innerHTML =
         currentValue + "년 범죄 발생수";
-
+    //단계구분도 버튼 색상        
     document.getElementById("btn1").style.backgroundColor =
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][
         document.getElementById("btn1").value - 1
@@ -504,21 +467,21 @@ slider.addEventListener("input", function () {
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][
         document.getElementById("btn5").value - 1
         ];
-
+    //CCTV 수
     document.getElementById("cctvNum").innerText =
         cctvCount[(parseInt(currentValue) - 2001) / 3 - 1];
     document.getElementById("lightNum").innerText =
         lightCount[(parseInt(currentValue) - 2001) / 3 - 1];
     document.getElementById("policeNum").innerText =
         policeCount[(parseInt(currentValue) - 2001) / 3 - 1];
-
+    //치안시설물 제목
     document.getElementById("cctvNumHead").style.backgroundColor =
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][0];
     document.getElementById("lightNumHead").style.backgroundColor =
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][0];
     document.getElementById("policeNumHead").style.backgroundColor =
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][0];
-
+    //단계구분도 갱신
     displayAllArea();
 
     removeData(myChart1);
@@ -531,7 +494,7 @@ slider.addEventListener("input", function () {
     addArData(myChart4, currentValue);
 });
 
-// 셀렉트박스 값에 따른 맵 단계구분도 구현
+// 셀렉트박스 값에 따른 맵 단계구분도 구현 _ 내부내용 상동
 var selectbox = document.querySelector("#selector");
 selectbox.addEventListener("input", function () {
     currentValue = $("#selector option:selected").val();
@@ -645,17 +608,7 @@ window.addEventListener("resize", function () {
     // }, delay);
 });
 
-
-
-
-
-
-
-
-//첫번째 그래프
-
-// drawchart(2022);
-
+//범죄비율 도넛그래프
 function chart1draw(currentValue) {
     var ctx = document.getElementById("cRateChart").getContext("2d");
     myChart1 = new Chart(ctx, {
@@ -677,9 +630,7 @@ function chart1draw(currentValue) {
     });
 }
 
-// setTimeout(drawchart(2022), 5000);
-
-
+//범죄발생수 막대그래프
 function chart2draw(currentValue) {
     var ctx = document.getElementById("cNumChart").getContext("2d");
     myChart2 = new Chart(ctx, {
@@ -701,8 +652,7 @@ function chart2draw(currentValue) {
     });
 }
 
-
-//세번째 그래프
+//연도별 범죄 발생 수 그래프
 function chart3draw(currentValue) {
     var ctx = document.getElementById("cYearChart").getContext("2d");
     myChart3 = new Chart(ctx, {
@@ -743,15 +693,13 @@ function chart3draw(currentValue) {
             ],
         },
         options: {
-            // responsive: false,
             maintainAspectRatio: false,
         },
     });
 }
 
-
+// 연도별 검거율 그래프
 function chart4draw(currentValue) {
-
     var ctx = document.getElementById("catchYearChart").getContext("2d");
     myChart4 = new Chart(ctx, {
         type: "line",
@@ -776,22 +724,7 @@ function chart4draw(currentValue) {
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 치안만족도 및 사회안전지수 이펙트 구현부
 let observer = new IntersectionObserver((e) => {
     e.forEach((content) => {
         if (content.isIntersecting) {
@@ -822,6 +755,8 @@ icon2.addEventListener("mouseout", () => {
     modal2.classList.add("hidden");
 });
 
+
+//사이드바 구현부
 const sidebar = document.getElementById("sidebar");
 const homeIcon = document.getElementById("home");
 const chartIcon = document.getElementById("chartIcon");
@@ -829,7 +764,7 @@ const rankIcon = document.getElementById("rankIcon");
 const upIcon = document.getElementById("upsideIcon");
 
 sidebar.addEventListener("mouseleave", function () {
-    // this.style.width = '60px';
+
     // 아이콘 원래대로 변경
     homeIcon.className = "fa fa-home";
     chartIcon.className = "fa-solid fa-chart-simple";
@@ -845,8 +780,6 @@ sidebar.addEventListener("mouseenter", function () {
     upIcon.className = "fa-solid fa-arrow-up";
 });
 
-// }
-
 (function () {
     var tooltipTriggerList = [].slice.call(
         document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -856,6 +789,9 @@ sidebar.addEventListener("mouseenter", function () {
     });
 })();
 
+
+
+// 치안만족도 및 사회안전지수 DB데이터 pulling
 
 async function secuIndex(year) {
     let indexYear = document.getElementById(year).value;
@@ -894,23 +830,18 @@ document.getElementById("yearOne").addEventListener("click", function () {
     let year = "yearOne"
     secuIndex(year);
     safety(year);
-
-
 });
 
 document.getElementById("yearTwo").addEventListener("click", function () {
     let year = "yearTwo";
     secuIndex(year);
     safety(year);
-
 });
 
 document.getElementById("yearThree").addEventListener("click", function () {
     let year = "yearThree"
     secuIndex(year);
     safety(year);
-
 });
 
-// });
 

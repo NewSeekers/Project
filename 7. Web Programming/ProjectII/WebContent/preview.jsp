@@ -78,7 +78,7 @@
                         </ul>
                     </div>
                     <div class="box-1-gu">
-                        <div class="col-sm-6 col-md-6 guName" id="gutext">강남구</div>
+                        <div class="col-sm-6 col-md-6 guName" id="gutext">자치구를 먼저 선택해주세요</div>
                         <ul class="col-sm-6 col-md-6 rank-people">
                             <li><span id="rank-text"> &nbsp;&nbsp;안전등급:</span><span id="grade">1</span></li><br>
                             <li><span id="people"> &nbsp;&nbsp;인구수:</span><span id="population">1234</span></li>
