@@ -3,15 +3,24 @@ package boardModel;
 import java.sql.Timestamp;
 
 public class BDto {
-	int bId;
-	String bTitle;
-	String bName;
-	String bContent;
-	String bDate;
-	int bHit;
-	int bGroup;
-	int bStep;
-	int bIndent;
+	private int rnum;
+	private int bId;
+	private String bTitle;
+	private String bName;
+	private String bContent;
+	private String bDate;
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+	private int bHit;
+	private int bGroup;
+	private int bStep;
+	private int bIndent;
 	
 	public BDto () {
 		

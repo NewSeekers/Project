@@ -9,7 +9,7 @@
 <!-- -------------- css ---------------- -->
 <link rel="stylesheet" href="./css/board.css">
 <link rel="stylesheet" href="./css/header.footer.css">
-<!-- -------------- bootstrap ---------------- -->
+<!-- -------------- bootstrap ---------- -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -47,7 +47,7 @@
                         <div>
                             <div class="num">${dto.bId}</div>
                             <div class="title"><c:forEach begin="1"
-                                    end="${dto.bIndent}">--</c:forEach> <a
+                                    end="${dto.bIndent}">RE : </c:forEach> <a
                                 href="content_view.do?bId=${dto.bId}">${dto.bTitle}</a></div>
                             <div class="writer">${dto.bName}</div>
                             <!-- <li class="j_list_title"><a href="content_view.do?bId=${dto.bId}">${dto.bName}</a></li> -->
@@ -55,21 +55,42 @@
                             <div class="count">${dto.bHit}</div>
                         </div>
                     </c:forEach>
+                </div>
 
-                </div>
-                <div class="board_page">
-                    <a href="#" class="bt first">
-                        << </a>
-                            <a href="#" class="bt prev">
-                                < </a>
-                                    <a href="#" class="num on">1</a>
-                                    <a href="#" class="num">2</a>
-                                    <a href="#" class="num">3</a>
-                                    <a href="#" class="num">4</a>
-                                    <a href="#" class="num">5</a>
-                                    <a href="#" class="bt next">></a>
-                                    <a href="#" class="bt last">>></a>
-                </div>
+                <c:set var="currentPage" value="${param.page}" />
+         
+        <div class="board_page">
+
+            <a href="list.do?page=1" class="bt first"> << </a>
+
+            <c:choose>
+               <c:when test="${currentPage > 1}">
+                  <a href="list.do?page=${currentPage - 1}" class="bt prev"> < </a>
+               </c:when>
+               <c:otherwise>
+                  <a class="bt prev"> < </a>
+               </c:otherwise>
+            </c:choose>
+
+            <c:forEach var="pageNumber" begin="${startPage}" end="${endPage}">
+               <c:set var="onClass"
+                  value="${pageNumber eq currentPage ? 'on' : ''}" />
+               <a href="list.do?page=${pageNumber}" class="num ${onClass}">${pageNumber}</a>
+            </c:forEach>
+
+            <c:choose>
+               <c:when test="${currentPage < endPage}">
+                  <a href="list.do?page=${currentPage + 1}" class="bt next"> > </a>
+               </c:when>
+               <c:otherwise>
+                  <a class="bt next"> > </a>
+               </c:otherwise>
+            </c:choose>
+
+            <a href="list.do?page=${endPage}" class="bt last"> >> </a>
+
+         </div>
+                
                 <div class="bt_wrap">
                     <a href="./write_view.jsp" class="on">글쓰기</a>
                 </div>

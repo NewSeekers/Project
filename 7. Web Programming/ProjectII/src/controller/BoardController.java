@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,6 @@ import boardCommand.BDeleteCommand;
 import boardCommand.BListCommand;
 import boardCommand.BModifyCommand;
 import boardCommand.BReplyCommand;
-import boardCommand.BReplyViewCommand;
 import boardCommand.BWriteCommand;
 
 /**
@@ -23,82 +23,83 @@ import boardCommand.BWriteCommand;
  */
 
 @WebServlet("/board/*")
-
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("board doGet 들어옴");
+		System.out.println("board doGet 진입");
 		actionDo(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("board doPost 들어옴");
+		System.out.println("board doPost 진입");
 		actionDo(request, response);
 	}
 
 	private void actionDo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("board actionDo 들어옴");
-
 		request.setCharacterEncoding("UTF-8");
 
 		String viewPage = null;
-		BCommand command = null;
+		BCommand bc = null;
 
 		String uri = request.getRequestURI();
-		System.out.println("uri :" + uri);
 		String conPath = request.getContextPath();
-
-		System.out.println("conPath : " + conPath);
-
 		String servPath = request.getServletPath();
+		String com = uri.substring((conPath).length());
+
+		System.out.println("uri :" + uri);
+		System.out.println("conPath : " + conPath);
 		System.out.println("servPath : " + servPath);
-		String com = uri.substring(servPath.length() + conPath.length());
 		System.out.println("com: " + com);
 
 		if (com.equals("/write_view.do")) {
-
-			viewPage = "write_view.jsp";
-		} else if (com.equals("/write.do")) {
-			command = new BWriteCommand();
-			command.execute(request, response);
-
-			response.sendRedirect("list.do");
-		} else if (com.equals("/list.do")) {
-			command = new BListCommand();
-			command.execute(request, response);
-			viewPage = "list.jsp";
-		} else if (com.equals("/content_view.do")) {
-			command = new BContentCommand();
-			command.execute(request, response);
-			viewPage = "content_view.jsp";
-		} else if (com.equals("/modify.do")) {
-			command = new BModifyCommand();
-			command.execute(request, response);
-			viewPage = "list.do";
-		} else if (com.equals("/delete.do")) {
-			command = new BDeleteCommand();
-			command.execute(request, response);
-			viewPage = "list.do";
-		} else if (com.equals("/reply_view.do")) {
-			command = new BReplyViewCommand();
-			command.execute(request, response);
-			viewPage = "reply_view.jsp";
-		} else if (com.equals("/reply.do")) {
-			command = new BReplyCommand();
-			command.execute(request, response);
-			viewPage = "list.do";
-		} else if (com.equals("/membersAll.do")) {
-			viewPage = "./board/membersAll.jsp";
-		}
+			viewPage = "../write_view.jsp";
+		} else if (com.contains("/write.do")) {
+			System.out.println("board 컨트롤러 : write 실행");
+			bc = new BWriteCommand();
+			bc.execute(request, response);
+			response.sendRedirect("list.do?/page=1");
+		} else if (com.contains("/list.do")) {
+			System.out.println("board 컨트롤러 : list 실행");
+			bc = new BListCommand();
+			bc.execute(request, response);
+			viewPage="../list.jsp?page=1";
+		} else if (com.contains("/modify.do")) {
+			System.out.println("board 컨트롤러 : modify 실행");
+			BModifyCommand bmc = new BModifyCommand();
+			int result =bmc.execute(request, response); 
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script> if (" + (result == 1) + ") {alert(\"수정에 성공했습니다.\")} else if (" + (result == 0) + ") {alert(\"수정에 실패했습니다.\")}; location.href='"+"list.do"+"';</script>");
+		} else if (com.contains("/delete.do")) {
+			System.out.println("board 컨트롤러 : delete 실행");
+			bc = new BDeleteCommand();
+			bc.execute(request, response);
+			viewPage = "list.do?/page=1";
+		} else if (com.contains("/reply.do")) {
+			System.out.println("board 컨트롤러 : reply 실행");
+			bc = new BReplyCommand();
+			bc.execute(request, response);
+			viewPage = "list.do?/page=1";
+		} else if (com.contains("content_view.do")) {
+			System.out.println("board 컨트롤러 : content_view 실행");
+			bc = new BContentCommand();
+			bc.execute(request, response);
+			viewPage ="../content_view.jsp";
+		} else if (com.contains("reply_view.do")) {
+			System.out.println("board 컨트롤러 : reply_view 실행");
+			viewPage ="../reply_view.do";
+		} 
+			
 
 		if (viewPage != null) {
+			System.out.println("Forwarding to " + viewPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+
 			dispatcher.forward(request, response);
 		}
-
 	}
 }

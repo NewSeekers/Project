@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 
+import chartCommand.CCommand;
+import chartCommand.SeoulArrestChart;
 import chartCommand.SeoulCrimelChart;
 
 /**
@@ -56,14 +58,17 @@ public class ChartController extends HttpServlet {
 		String com = uri.substring(servPath.length()+conPath.length());
 		System.out.println("com: "+com);
 		
-		
+		 
 		if(com.equals("/callCrime.do")) {
-			SeoulCrimelChart seoulcc = new SeoulCrimelChart();
+			CCommand seoulcc = new SeoulCrimelChart();
 			seoulcc.execute(request, response);
 			
 		}else if(com.equals("/callArrest.do")) {
-			SeoulArrestChart seoulac = new 
+			CCommand seoulac = new SeoulArrestChart();
+			seoulac.execute(request, response);
 		}
+			
+		
 		
 		
 		

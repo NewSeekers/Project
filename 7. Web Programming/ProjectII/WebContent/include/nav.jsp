@@ -25,7 +25,7 @@
 				<li class="nav-item"><a class="nav-link" href="./preview.jsp">
 						<p>안전 미리보기</p>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="list.do">
+				<li class="nav-item"><a class="nav-link" href="list.do?page=1">
 						<p>게시판</p>
 				</a></li>
 			</ul>

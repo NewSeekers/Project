@@ -40,7 +40,7 @@
                 </div>
                 <div class="bt_wrap">
                     <input type="submit" value="글쓰기" />
-                    <a href="list.do">취소</a>
+                    <a href="list.do?/page=1">취소</a>
                 </div>
             </form>
         </div>

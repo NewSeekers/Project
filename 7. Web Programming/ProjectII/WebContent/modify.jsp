@@ -17,35 +17,38 @@
 		</div>
 		<div class="board_write_wrap">
 			<form action="modify.do" method="post">
-
+				<input type="hidden" name="bId" value="${param.bId}">
+				<input type="hidden" name="bName" value="${param.bName}">
+				<input type="hidden" name="bDate" value="${param.bDate}">
+				<input type="hidden" name="bHit" value="${param.bHit}">
 				<div class="board_write">
 					<div class="title">
 						<dl>
 							<dt>제목</dt>
-							<dd>${modify.bTitle}</dd>
+							<dd><input type="text" name="bTitle" value="${param.bTitle}"></dd>
 						</dl>
 					</div>
 					<div class="info">
 						<dl>
 							<dt>글쓴이</dt>
-							<dd>${modify.bName}</dd>
+							<dd>${param.bName}</dd>
 						</dl>
 						<dl>
 							<dt>작성일</dt>
-							<dd>${modify.bDate}</dd>
+							<dd>${param.bDate}</dd>
 						</dl>
 						<dl>
 							<dt>히트</dt>
-							<dd>${modify.bHit}</dd>
+							<dd>${param.bHit}</dd>
 						</dl>
 
 					</div>
 					<div class="cont">
-						<textarea name="bContent">${modify.content}</textarea>
+						<textarea name="bContent">${param.bContent}</textarea>
 					</div>
 				</div>
 				<div class="bt_wrap">
-					<input type="submit" value="수정"><a href="list.do">취소</a>
+					<input type="submit" value="수정"><a href="list.do?/page=1">취소</a>
 				</div>
 			</form>
 		</div>

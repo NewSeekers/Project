@@ -1,22 +1,26 @@
 package boardCommand;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import boardModel.BDao;
 
-public class BModifyCommand implements BCommand {
+public class BModifyCommand {
 
-	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public int execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String bId = request.getParameter("bId");
-		String bName = request.getParameter("bName");
 		String bTitle = request.getParameter("bTitle");
 		String bContent = request.getParameter("bContent");
 		
 		BDao dao = new BDao();
-		dao.modify(bId, bName, bTitle, bContent);
+		int result = dao.modify(bId, bTitle, bContent);
+		System.out.println(result+"<<<<<result");
 		
+		
+		return result;
 	}
 
 }
