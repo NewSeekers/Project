@@ -72,6 +72,8 @@ public class ChartController extends HttpServlet {
 			System.out.println("차트컨트롤러 guPage_chart.do 받음");
 			response.setHeader("Access-Control-Allow-Origin","*");
 			response.setContentType("application/json");
+			System.out.println("json요청받음");
+			
 			GuPageChart guPage = new GuPageChart();
 			JSONArray list = guPage.execute(request, response);
 			PrintWriter out = response.getWriter();

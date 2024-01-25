@@ -12,7 +12,9 @@ public class GuPageChart implements CCommandGuPage {
 	@Override
 	public JSONArray execute(HttpServletRequest request, HttpServletResponse response) {
 		CDao dao =  CDao.getInstance();
-		JSONArray list = dao.getArRate();
+		String guNameValue = request.getParameter("guNameValue");
+		JSONArray list = dao.getArRate(guNameValue);
+		
 		return list;
 	}
 }

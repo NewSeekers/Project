@@ -1,4 +1,4 @@
-var local = "강남구";
+var local = "";
 console.log(local)
 
 
@@ -11,28 +11,36 @@ window.onload = function () {
 
   guName = document.getElementById("selectbox");
   guNameValue = guName.options[guName.selectedIndex].value;
-  
-// json 패치
-  fetch('http://localhost:8181/ProjectII/chart/guPage_chart.do' ,{
-		method:'Get',
-		header:{
-			'Content-Type' : 'application/json'
-		}
-	})
-	.then(response => {
-		if(!response.ok){
-			throw new Error('Network response was not ok'+response.statusText);
-		}
-		return response.json();
-	})
-	.then(data => {
-		console.log(data);
-		
-		
-	})
-	.catch(error => {
-		console.error("Fetch error: "+error);
-	});
+  local = guNameValue;
+  // json 패치
+  fetch('http://localhost:8181/ProjectII/chart/guPage_chart.do?guNameValue=' + guNameValue, {
+    method: 'Get',
+    header: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok' + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      datas = []
+
+      //Object.values(data);
+      console.log("list" + Object.values(data));
+      console.log(data);
+      
+      for(let i=0; i<data.length;i++){
+    	  datas.push(data[i].total_ar_rate);
+      }
+      chartDraw(datas);
+
+    })
+    .catch(error => {
+      console.error("Fetch error: " + error);
+    });
 
 
   // 셀렉트박스 자치구 바뀔때마다 차트도 바꿔주는 함수
@@ -68,46 +76,46 @@ window.onload = function () {
 
 
   var security_CCTV = {
-		    labels: ['평균', local],
-		    // a 강남구의 범례
-		    datasets: [{
-		      label: [
-		        ' 지역 '
-		      ],
+    labels: ['평균', local],
+    // a 강남구의 범례
+    datasets: [{
+      label: [
+        ' 지역 '
+      ],
 
-		      data: [75, 51],
-		      backgroundColor: ['#43c2c2', '#4eddad'],
-		    }]
-		  };
-		 
-  
+      data: [75, 51],
+      backgroundColor: ['#43c2c2', '#4eddad'],
+    }]
+  };
+
+
   var security_light = {
-		    labels: ['평균', local],
-		    // a 강남구의 범례
-		    datasets: [{
-		      label: [
-		        ' 지역 '
-		      ],
+    labels: ['평균', local],
+    // a 강남구의 범례
+    datasets: [{
+      label: [
+        ' 지역 '
+      ],
 
-		      data: [15, 51],
-		      backgroundColor: ['#43c2c2', '#4eddad'],
-		    }]
-		  };
-		
+      data: [15, 51],
+      backgroundColor: ['#43c2c2', '#4eddad'],
+    }]
+  };
+
   var security_police = {
-				    labels: ['평균', local],
-				    // a 강남구의 범례
-				    datasets: [{
-				      label: [
-				        ' 지역 '
-				      ],
+    labels: ['평균', local],
+    // a 강남구의 범례
+    datasets: [{
+      label: [
+        ' 지역 '
+      ],
 
-				      data: [35, 51],
-				      backgroundColor: ['#43c2c2', '#4eddad'],
-				    }]
-				  };  
-		  
-		  
+      data: [35, 51],
+      backgroundColor: ['#43c2c2', '#4eddad'],
+    }]
+  };
+
+
 
   var ctx1 = document.getElementById('myChart1').getContext('2d');
   var securityChart1 = new Chart(ctx1, {
@@ -183,26 +191,26 @@ window.onload = function () {
   // ----------------------------------------------------------
 
 
+  function chartDraw(data) {
 
-  arrestdata = {
-    labels: ['2004', '2007', '2010', '2013', '2016', '2019', '2022'],
-    datasets: [{
-      label: '검거 비율',
-      data: [7, 5, 2, 8, 4, 2, 3], //y축 초기값
-      fill: false,
-      borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
-    }]
-  };
-  var ctx = document.getElementById('safetyChart').getContext('2d');
-  safetyChart = new Chart(ctx, {
-    type: 'line',
-    data: arrestdata,
-    options: {
-      maintainAspectRatio: false
-    }
-  });
-
+    var ctx = document.getElementById('safetyChart').getContext('2d');
+    safetyChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2004', '2007', '2010', '2013', '2016', '2019', '2022'],
+        datasets: [{
+          label: '검거 비율',
+          data: data, //y축 초기값
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }]
+      },
+      options: {
+        maintainAspectRatio: false
+      }
+    });
+  }
 
 
 
@@ -247,29 +255,28 @@ window.onload = function () {
     modalwindow.style.display = "none";
   })
 
-//돔 형식으로 바꾸려고 하다가 취소한 주석.
-// });
+  //돔 형식으로 바꾸려고 하다가 취소한 주석.
+  // });
 }
 
 function guChange() {
+
   guName = document.getElementById("selectbox");
-
   guNameValue = guName.options[guName.selectedIndex].value;
-
   document.getElementById("gu_name").innerText = "<" + guNameValue + ">  ";
 
   if (guNameValue === "강남구") {
-    arrestdata.datasets[0].data = [7, 5, 2, 8, 4, 2, 3];
+    datas[0].data;
   } else if (guNameValue === "관악구") {
-    arrestdata.datasets[0].data = [4, 6, 5, 4, 3, 2, 4];
+//    arrestdata.datasets[0].data = [4, 6, 5, 4, 3, 2, 4];
+	  datas[1].data;
   } else if (guNameValue === "구로구") {
-    arrestdata.datasets[0].data = [7, 3, 5, 6, 3, 5, 1];
+	  datas[2].data;
   } else if (guNameValue === "서대문구") {
-    arrestdata.datasets[0].data = [7, 3, 5, 8, 5, 9, 1];
+	  datas[3].data;
   } else if (guNameValue === "영등포구") {
-    arrestdata.datasets[0].data = [7, 9, 2, 5, 3, 2, 1];
+	  datas[4].data;
   }
-
   safetyChart.update();
 }
 

@@ -35,7 +35,7 @@ public class CDao {
 	
 	
 	// 범죄율 차트 json
-	public JSONArray getArRate() {
+	public JSONArray getArRate(String guNameValue) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -43,18 +43,20 @@ public class CDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "select gu_crime.local, gu_crime.total_ar_rate, gu_name.guname " + 
-					"from gu_crime join gu_name on gu_crime.local = gu_name.local; where year in (2004, 2007, 2010, 2013, 2016, 2019, 2022)";
+			String query = "SELECT total_ar_rate, year FROM gu_crime WHERE gu_crime.year IN (2004, 2007, 2010, 2013, 2016, 2019, 2022) AND gu_crime.local IN ( SELECT gu_name.local FROM gu_name WHERE guname =?)";
+			
 			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, guNameValue);
 			rs = pstmt.executeQuery();
 			System.out.println("getArRate 쿼리문 실행");
 			
 			while(rs.next()) {
+				
 				JSONObject json = new JSONObject();
 				json.put("year", rs.getInt("year"));
-				json.put("local", rs.getInt("local"));
+				//json.put("local", rs.getInt("local"));
 				json.put("total_ar_rate", rs.getInt("total_ar_rate"));
-				
+			
 				list.put(json);
 			}
 			
