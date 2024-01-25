@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import infoCommand.GuGrade;
+import infoCommand.ICommand;
 import infoCommand.Safety;
 import infoCommand.SecuFaci;
 import infoCommand.SecuIndex;
@@ -21,10 +22,6 @@ import infoCommand.SecuIndex;
 public class InfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,10 +33,6 @@ public class InfoController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -53,6 +46,7 @@ public class InfoController extends HttpServlet {
 
 	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		System.out.println("info컨트롤러 actionDo 실행*************");
+		
 		String uri = request.getRequestURI();
 		System.out.println("uri: " + uri);
 		String conPath = request.getContextPath();
@@ -62,23 +56,24 @@ public class InfoController extends HttpServlet {
 		String com = uri.substring(servPath.length() + conPath.length());
 		System.out.println("com: " + com);
 
+		ICommand ic = null;
+		
 		if (com.equals("/callGuGrade.do")) {
 			System.out.println("gg서비스 시작");
-			GuGrade gg = new GuGrade();
-			gg.execute(request, response);
-
+			ic = new GuGrade();
+			ic.execute(request, response);
 		}else if (com.contains("/secuIndex.do")) {
 			System.out.println("si서비스 시작=====");
-			SecuIndex si = new SecuIndex();
-			si.execute(request, response);
+			ic = new SecuIndex();
+			ic.execute(request, response);
 		}else if (com.contains("/safety.do")) {
 			System.out.println("safe서비스 시작====");
-			Safety ps = new Safety();
-			ps.execute(request, response);
+			ic = new Safety();
+			ic.execute(request, response);
 		}else if (com.contains("/secuFaci.do")) {
 			System.out.println("secufaci서비스 시작====");
-			SecuFaci sf = new SecuFaci();
-			sf.execute(request, response);
+			ic = new SecuFaci();
+			ic.execute(request, response);
 		}
 	}
 }

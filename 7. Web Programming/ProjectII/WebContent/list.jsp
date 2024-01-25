@@ -47,7 +47,7 @@
                         <div>
                             <div class="num">${dto.bId}</div>
                             <div class="title"><c:forEach begin="1"
-                                    end="${dto.bIndent}">--</c:forEach> <a
+                                    end="${dto.bIndent}">RE : </c:forEach> <a
                                 href="content_view.do?bId=${dto.bId}">${dto.bTitle}</a></div>
                             <div class="writer">${dto.bName}</div>
                             <!-- <li class="j_list_title"><a href="content_view.do?bId=${dto.bId}">${dto.bName}</a></li> -->
@@ -55,7 +55,6 @@
                             <div class="count">${dto.bHit}</div>
                         </div>
                     </c:forEach>
-
                 </div>
                 <div class="board_page">
                     <a href="#" class="bt first">
@@ -70,6 +69,35 @@
                                     <a href="#" class="bt next">></a>
                                     <a href="#" class="bt last">>></a>
                 </div>
+                <br><br><br><br>
+                <ul class="pagination justify-content-center" style="margin:20px 0">	
+	<c:if test="${pagination.previousPageGroup}">
+	<li class="page-item"><a class="page-link" href="FindPostList.do?pageNo=${pagination.startPageOfPageGroup-1}">Previous</a></li>
+	</c:if>
+	<c:forEach begin="${pagination.startPageOfPageGroup}" 
+	end="${pagination.endPageOfPageGroup}" var="page">
+	<c:choose>
+		<c:when test="${pagination.nowPage==page}">
+		<li class="page-item active"><a class="page-link" href="FindPostList.do?pageNo=${page}">${page}</a></li>
+		</c:when>
+		<c:otherwise>
+		<li class="page-item"><a class="page-link" href="FindPostList.do?pageNo=${page}">${page}</a></li>	
+		</c:otherwise>
+	</c:choose>	
+	</c:forEach>		
+	<c:if test="${pagination.nextPageGroup}">
+  	<li class="page-item"><a class="page-link" href="FindPostList.do?pageNo=${pagination.endPageOfPageGroup+1}">Next</a></li>   
+  	</c:if>  
+</ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 <div class="bt_wrap">
                     <a href="./write_view.jsp" class="on">글쓰기</a>
                 </div>

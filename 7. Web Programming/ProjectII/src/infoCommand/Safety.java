@@ -10,7 +10,7 @@ import org.json.JSONArray;
 
 import infoModel.SafetyDao;
 
-public class Safety {
+public class Safety implements ICommand{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		String year = request.getParameter("year");
 		System.out.println(year);
