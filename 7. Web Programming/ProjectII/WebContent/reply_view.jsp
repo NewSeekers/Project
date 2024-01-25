@@ -75,7 +75,7 @@
 					</div>
 				</div>
 				<div class="bt_wrap">
-					<input type="submit" value="답변"><a href="list.do">목록</a>
+					<input type="submit" value="답변"><a href="list.do?/page=1">목록</a>
 				</div>
 			</form>
 		</div>

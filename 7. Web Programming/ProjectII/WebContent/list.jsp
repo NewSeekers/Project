@@ -56,47 +56,40 @@
                         </div>
                     </c:forEach>
                 </div>
-                <div class="board_page">
-                    <a href="#" class="bt first">
-                        << </a>
-                            <a href="#" class="bt prev">
-                                < </a>
-                                    <a href="#" class="num on">1</a>
-                                    <a href="#" class="num">2</a>
-                                    <a href="#" class="num">3</a>
-                                    <a href="#" class="num">4</a>
-                                    <a href="#" class="num">5</a>
-                                    <a href="#" class="bt next">></a>
-                                    <a href="#" class="bt last">>></a>
-                </div>
-                <br><br><br><br>
-                <ul class="pagination justify-content-center" style="margin:20px 0">	
-	<c:if test="${pagination.previousPageGroup}">
-	<li class="page-item"><a class="page-link" href="FindPostList.do?pageNo=${pagination.startPageOfPageGroup-1}">Previous</a></li>
-	</c:if>
-	<c:forEach begin="${pagination.startPageOfPageGroup}" 
-	end="${pagination.endPageOfPageGroup}" var="page">
-	<c:choose>
-		<c:when test="${pagination.nowPage==page}">
-		<li class="page-item active"><a class="page-link" href="FindPostList.do?pageNo=${page}">${page}</a></li>
-		</c:when>
-		<c:otherwise>
-		<li class="page-item"><a class="page-link" href="FindPostList.do?pageNo=${page}">${page}</a></li>	
-		</c:otherwise>
-	</c:choose>	
-	</c:forEach>		
-	<c:if test="${pagination.nextPageGroup}">
-  	<li class="page-item"><a class="page-link" href="FindPostList.do?pageNo=${pagination.endPageOfPageGroup+1}">Next</a></li>   
-  	</c:if>  
-</ul>
-                
-                
-                
-                
-                
-                
-                
-                
+
+                <c:set var="currentPage" value="${param.page}" />
+         
+        <div class="board_page">
+
+            <a href="list.do?page=1" class="bt first"> << </a>
+
+            <c:choose>
+               <c:when test="${currentPage > 1}">
+                  <a href="list.do?page=${currentPage - 1}" class="bt prev"> < </a>
+               </c:when>
+               <c:otherwise>
+                  <a class="bt prev"> < </a>
+               </c:otherwise>
+            </c:choose>
+
+            <c:forEach var="pageNumber" begin="${startPage}" end="${endPage}">
+               <c:set var="onClass"
+                  value="${pageNumber eq currentPage ? 'on' : ''}" />
+               <a href="list.do?page=${pageNumber}" class="num ${onClass}">${pageNumber}</a>
+            </c:forEach>
+
+            <c:choose>
+               <c:when test="${currentPage < endPage}">
+                  <a href="list.do?page=${currentPage + 1}" class="bt next"> > </a>
+               </c:when>
+               <c:otherwise>
+                  <a class="bt next"> > </a>
+               </c:otherwise>
+            </c:choose>
+
+            <a href="list.do?page=${endPage}" class="bt last"> >> </a>
+
+         </div>
                 
                 <div class="bt_wrap">
                     <a href="./write_view.jsp" class="on">글쓰기</a>

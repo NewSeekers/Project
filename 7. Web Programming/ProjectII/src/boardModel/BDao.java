@@ -46,20 +46,30 @@ public class BDao {
 			}
 		}
 	}
-	public ArrayList<BDto> list(){
+	public ArrayList<BDto> list(int currentPage){
 		System.out.println("BDAO : list Method 실행");
 		ArrayList<BDto> dtos = new ArrayList<BDto>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int showListNum = 10;
+		int startRowNum = showListNum*(currentPage-1)+1;
+		int endRowNum = showListNum*currentPage;
+		System.out.println("startRowNum"+startRowNum);
+		System.out.println("endRowNum"+endRowNum);
+		
 		try {
 			con = dataSource.getConnection();
-			String query = "select bId, bTitle, bName, bContent, bDate, bHit, bGroup, bStep, bIndent "
-					+ "from mvc_board order by bGroup desc, bStep asc";
+			String Query="select bId, bTitle, bName, bContent, bDate, bHit, bGroup, bStep, bIndent "
+			+ "from mvc_board order by bGroup desc, bStep asc";
+			String query = "SELECT bid, btitle, bcontent, bDate, bhit, bname, bGroup, bStep, bIndent FROM (SELECT bid, btitle, bcontent, bGroup, bDate, bStep, bIndent, bhit, ROW_NUMBER() OVER (order by bGroup desc, bStep asc) AS rnum, bname FROM mvc_board) WHERE rnum BETWEEN ? AND ?";
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRowNum);
+			pstmt.setInt(2, endRowNum);
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {				
+			while(rs.next()) {
+				
 				int bId = rs.getInt("bId");
 				String bTitle = rs.getString("bTitle");
 				String bName = rs.getString("bName");
