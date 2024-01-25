@@ -655,6 +655,7 @@ function chart2draw(currentValue) {
 //연도별 범죄 발생 수 그래프
 function chart3draw(currentValue) {
     var ctx = document.getElementById("cYearChart").getContext("2d");
+
     myChart3 = new Chart(ctx, {
         type: "line",
         data: {

@@ -16,8 +16,13 @@
 			<p>고객님 의견의 답변을 빠르게 안내해드리겠습니다.</p>
 		</div>
 		<div class="board_view_wrap">
-			<form action="modify.do" method="post">
+			<form action="modify.jsp" method="post">
 				<input type="hidden" name="bId" value="${content_view.bId}">
+				<input type="hidden" name="bName" value="${content_view.bName}">
+				<input type="hidden" name="bTitle" value="${content_view.bTitle}">
+				<input type="hidden" name="bDate" value="${content_view.bDate}">
+				<input type="hidden" name="bHit" value="${content_view.bHit}">
+
 				<div class="board_view">
 					<div class="title">${content_view.bTitle}</div>
 					<div class="info">
@@ -46,7 +51,9 @@
 					<input type="submit" value="수정">&nbsp;&nbsp; <a
 						href="delete.do?bId=${content_view.bId}">삭제</a>&nbsp;&nbsp; <a
 						href="list.do">목록보기</a>&nbsp;&nbsp; <a
-						href="reply_view.do?bId=${content_view.bId}">답변</a>
+						href="reply_view.jsp?bId=${content_view.bId}&bName=${content_view.bName}&bTitle=${content_view.bTitle}
+						&bDate=${content_view.bDate}&bHit=${content_view.bHit}&bContent=${content_view.bContent}
+						&bGroup=${content_view.bGroup}&bIndent=${content_view.bIndent}&bStep=${content_view.bStep}">답변</a>
 					<!-- <a href="list.do" class="on">목록</a>-->
 					<!--<a href="/edit.html">수정</a>-->
 				</div>

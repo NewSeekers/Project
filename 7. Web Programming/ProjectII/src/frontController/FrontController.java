@@ -39,15 +39,11 @@ public class FrontController extends HttpServlet {
 	}
 
 	public void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		System.out.println("프론트 컨트롤러 actionDo 실행");
-		
-		
+	
 		String viewPage = null;
-		String BCommand = null;
-		String MCommand = null;
-		String CCommand = null;
-		String ICommand = null;
-		
 		
 		String uri = request.getRequestURI();
 		System.out.println("uri: "+uri);
@@ -57,30 +53,54 @@ public class FrontController extends HttpServlet {
 		System.out.println("com: "+com);
 				
 		if(com.equals("/list.do")) {
-			System.out.println("list.do");
-			BoardController boardController = new BoardController(request,response);
-//			request.getRequestDispatcher("/board"+com).forward(request, response);
+			System.out.println("프론트 list.do 항목 실행");
+//			BoardController boardController = new BoardController(request,response);
+			viewPage="/board"+com;
 		}else if(com.equals("/callCrime.do")) {
 			System.out.println("프론트 callCrime.do 항목 실행");
-			request.getRequestDispatcher("/chart"+com).forward(request, response);
+			viewPage="/chart"+com;
 			System.out.println("/chart"+com);
 		}else if(com.equals("/callArrest.do")){
 			System.out.println("프론트 callArrest.do 항목 실행");
-			request.getRequestDispatcher("/chart"+com).forward(request, response);
+			viewPage="/chart"+com;
 			System.out.println("/chart"+com);
 		}else if(com.equals("/callGuGrade.do")) {
 			System.out.println("프론트 callGuGrade.do 항목 실행");
-			request.getRequestDispatcher("/info"+com).forward(request, response);
+			viewPage="/info"+com;
 		}else if(com.equals("/secuIndex.do")) {
 			System.out.println("프론트 secuIndex.do 항목 실행");
-			request.getRequestDispatcher("/info"+com).forward(request, response);
+			viewPage="/info"+com;
 		}else if(com.equals("/safety.do")) {
 			System.out.println("프론트 safety.do 항목 실행");
-			request.getRequestDispatcher("/info"+com).forward(request, response);
+			viewPage="/info"+com;
 		}else if(com.equals("/secuFaci.do")) {
 			System.out.println("프론트 secuFaci.do 항목 실행");
-			request.getRequestDispatcher("/info"+com).forward(request, response);
+			viewPage="/info"+com;
+		}else if(com.equals("/write.do")) {
+			System.out.println("프론트 write.do 항목 실행");
+			viewPage="/board"+com;
+		}else if(com.equals("/write_view.do")) {
+			System.out.println("프론트 write_view.do 항목 실행");
+			viewPage="/board"+com;
+		}else if(com.equals("/modify.do")) {
+			System.out.println("프론트 modify.do 항목 실행");
+			viewPage="/board"+com;
+		}else if(com.equals("/delete.do")) {
+			System.out.println("프론트 delete.do 항목 실행");
+			viewPage="/board"+com;
+		}else if(com.equals("/reply.do")) {
+			System.out.println("프론트 reply.do 항목 실행");
+			viewPage="/board"+com;
+		}else if(com.equals("/content_view.do")) {
+			System.out.println("프론트 content_view.do 항목 실행");
+			viewPage="/board"+com;
+		}else if(com.equals("/reply_view.do")) {
+			System.out.println("프론트 reply_view.do 항목 실행");
+			viewPage="/board"+com;
 		}
+		
+		if(viewPage != null) {
+		request.getRequestDispatcher(viewPage).forward(request, response);}
 	}
 
 }

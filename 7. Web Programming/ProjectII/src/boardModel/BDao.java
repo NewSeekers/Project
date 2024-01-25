@@ -47,6 +47,7 @@ public class BDao {
 		}
 	}
 	public ArrayList<BDto> list(){
+		System.out.println("BDAO : list Method 실행");
 		ArrayList<BDto> dtos = new ArrayList<BDto>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -154,18 +155,18 @@ public class BDao {
 		}
 	}
 	
-	public void modify(String bId, String bName, String bTitle, String bContent) {
+	public int modify(String bId, String bTitle, String bContent) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+		int result = 0;
 		try {
 			con = dataSource.getConnection();
-			String query = "update mvc_board set bContent=? where bId=?";
+			String query = "update mvc_board set bContent=?, bTitle=? where bId=?";
 			pstmt = con.prepareStatement(query);
-
 			pstmt.setString(1, bContent);
-			pstmt.setInt(2, Integer.parseInt(bId));
-			int rs = pstmt.executeUpdate();
+			pstmt.setString(2, bTitle);
+			pstmt.setInt(3, Integer.parseInt(bId));
+			result = pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -176,7 +177,9 @@ public class BDao {
 				e2.printStackTrace();
 			}
 		}
+		return result;
 	}
+
 	public void delete(String bId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -263,7 +266,7 @@ public class BDao {
 			pstmt.setInt(5, Integer.parseInt(bStep)+1);
 			pstmt.setInt(6, Integer.parseInt(bIndent)+1);
 			
-			int rn = pstmt.executeUpdate();
+			int rn = pstmt.executeUpdate(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -279,7 +282,6 @@ public class BDao {
 	public void replyShape(String strGroup,String strStep) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
 		try {
 			con = dataSource.getConnection();
 			String query = "update mvc_board set bStep = bStep+1 where bGroup=? and bStep>?";
@@ -300,4 +302,32 @@ public class BDao {
 			}
 		}
 	}
+	
+	
+	public int getLIstSize() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int size = 0;
+		try {
+			con = dataSource.getConnection();
+			String query = "select count(*) from MVC_BOARD";
+			pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				size=rs.getInt("COUNT(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt !=null) pstmt.close();
+				if(con != null) con.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return size;
+	}
+	
+	
 }
