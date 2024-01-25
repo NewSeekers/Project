@@ -424,7 +424,7 @@
 
 	<!--javascript for kakao start-->
 	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f88a678b17a1251fe4f54b241accf2b6&libraries&libraries=services"></script>
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b6db9027784dedc18bbafd22614168f8&libraries&libraries=services"></script>
 	<!--javascript for kakao end-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

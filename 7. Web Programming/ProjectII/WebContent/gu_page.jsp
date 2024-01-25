@@ -21,7 +21,7 @@
 	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f88a678b17a1251fe4f54b241accf2b6&libraries=services,drawing"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b6db9027784dedc18bbafd22614168f8&libraries=services,drawing"></script>
 <script src="./json/seoul_park.json" type="text/javascript"></script>
 <script src="./json/policeOffice.geojson" type="text/javascript"></script>
 <script src="./json/SeoulCCTV.json" type="text/javascript"></script>

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class EncoderFilter
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class EncoderFilter implements Filter {
 	ServletContext ctx;
 	public void init(FilterConfig fConfig) throws ServletException {
