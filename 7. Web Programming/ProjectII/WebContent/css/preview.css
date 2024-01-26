@@ -251,7 +251,7 @@
 
 #chartTitle {
     /* background-color: #0eb9bc; */
-    margin: 150px 0px 50px 0px;
+    margin: 0px 0px 0px 0px;
     font-size: 1.3rem;
     text-align: center;
 }
@@ -399,7 +399,7 @@
 }
 
 #chart {
-    height: 400px;
+    height: 300px;
 }
 
 #abc {

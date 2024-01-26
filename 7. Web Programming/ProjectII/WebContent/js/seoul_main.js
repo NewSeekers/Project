@@ -49,7 +49,7 @@ var gradeColors = [
     await extractGuName();
     await guNamesSet();
     await displayAllArea();
-
+    yearArrest(currentValue);
     chart1draw(currentValue);
     chart2draw(currentValue);
     chart3draw(currentValue);
@@ -66,7 +66,8 @@ async function guGradeData() {
 
         jsonData.forEach(json => {
 
-            guGradeArr.push(Object.values(json));
+            guGradeArr.push([json["y2004"], json["y2007"], json["y2010"], json["y2013"], json["y2016"], json["y2019"], json["y2022"]]);
+
         });
 
         return guGradeArr;

@@ -61,29 +61,29 @@ public class BoardController extends HttpServlet {
 			System.out.println("board 컨트롤러 : write 실행");
 			bc = new BWriteCommand();
 			bc.execute(request, response);
-			response.sendRedirect("list.do");
+			response.sendRedirect("list.do?page=1");
 		} else if (com.contains("/list.do")) {
 			System.out.println("board 컨트롤러 : list 실행");
 			bc = new BListCommand();
 			bc.execute(request, response);
-			viewPage="../list.jsp";
+			viewPage="../list.jsp?page=1";
 		} else if (com.contains("/modify.do")) {
 			System.out.println("board 컨트롤러 : modify 실행");
 			BModifyCommand bmc = new BModifyCommand();
 			int result =bmc.execute(request, response); 
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script> if (" + (result == 1) + ") {alert(\"수정에 성공했습니다.\")} else if (" + (result == 0) + ") {alert(\"수정에 실패했습니다.\")}; location.href='"+"list.do"+"';</script>");
+			out.println("<script> if (" + (result == 1) + ") {alert(\"수정에 성공했습니다.\")} else if (" + (result == 0) + ") {alert(\"수정에 실패했습니다.\")}; location.href='"+"list.do?page=1"+"';</script>");
 		} else if (com.contains("/delete.do")) {
 			System.out.println("board 컨트롤러 : delete 실행");
 			bc = new BDeleteCommand();
 			bc.execute(request, response);
-			viewPage = "list.do";
+			viewPage = "list.do?page=1";
 		} else if (com.contains("/reply.do")) {
 			System.out.println("board 컨트롤러 : reply 실행");
 			bc = new BReplyCommand();
 			bc.execute(request, response);
-			viewPage = "list.do";
+			viewPage = "list.do?page=1";
 		} else if (com.contains("content_view.do")) {
 			System.out.println("board 컨트롤러 : content_view 실행");
 			bc = new BContentCommand();

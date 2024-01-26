@@ -144,7 +144,7 @@
                 <div class="row" id="abc">
                     <div class="rank col-md-12 col-lg-5 p-3">
                         <div id="rankbox" class=" bg-info bg-opacity-10 border border-info  border-3 rounded-pill">
-                            <span class="guName">강남구</span><span>예상 치안 등급:</span><span>2</span>
+                            <span class="guName">강남구</span><span>예상 치안 등급:</span><span id="predGuGrade"></span>
                         </div>
                     </div>
                     <div class="resultTitle col-md-12 col-lg-5">결과해석</div>
@@ -344,13 +344,13 @@
     <!--sidebar-->
     <div id="sidebar">
 
-        <a href="./Index.html" id="home" data-bs-toggle="tooltip" data-bs-placement="right" title="홈으로"
+        <a href="./Index.jsp" id="home" data-bs-toggle="tooltip" data-bs-placement="right" title="홈으로"
             data-bs-custom-class="custom-tooltip" class="fa fa-home"></a>
         <a href="#" id="upsideIcon" data-bs-toggle="tooltip" data-bs-placement="right" title="상단으로"
             data-bs-custom-class="custom-tooltip" class="fa-solid fa-arrow-up"></a>
-        <a href="#safety_rank" id="rankIcon" data-bs-toggle="tooltip" data-bs-placement="right" title="우리동네 안전체감도 알아보기"
+        <a href="#chartTitle" id="rankIcon" data-bs-toggle="tooltip" data-bs-placement="right" title="범죄율 변화"
             data-bs-custom-class="custom-tooltip" class="fa-solid fa-chart-column"></a>
-        <a href="#media" id="siteIcon" data-bs-toggle="tooltip" data-bs-placement="right" title="우리동네 공원찾기"
+        <a href="#text" id="siteIcon" data-bs-toggle="tooltip" data-bs-placement="right" title="우리동네 공원찾기"
             data-bs-custom-class="custom-tooltip" class="fa-solid fa-link"></a>
     </div>
 

@@ -83,7 +83,7 @@ const districtData = {
     }
 };
 
-
+console.log("gangnam" + districtData["gangnam"]["facilitySelector"]["cctvCount"]);
 
 document.addEventListener('DOMContentLoaded', function () {
     const button = document.getElementById('showHideButton');

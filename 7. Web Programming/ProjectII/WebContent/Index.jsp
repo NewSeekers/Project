@@ -83,7 +83,7 @@
                             <table id="board-table" class=" table table-bordered table-condensed table-hover">
                                 <thead>
                                     <tr class="success">
-                                        <th class="num"><a href="list.do">No</a></th>
+                                        <th class="num"><a href="list.do?page=1">No</a></th>
                                         <th class="title"><a href="./edit.jsp">제목</a></th>
                                         <th class="writer"><a href="./edit.jsp">작성자</a></th>
                                         <th class="date"><a href="./edit.jsp">작성일</a></th>

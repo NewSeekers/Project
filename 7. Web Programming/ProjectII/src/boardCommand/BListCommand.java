@@ -16,21 +16,31 @@ public class BListCommand implements BCommand {
 		BDao dao = new BDao();
 		int listSize = dao.getLIstSize();
 		System.out.println("리스트사이즈"+listSize);
-		int pageBtnNum = -1;
+		
+		int currentPage = Integer.parseInt(request.getParameter("page"));
 		int showListNum = 10;
+		int showPBtnNum = 5;
+		int pageBtnNum= 0; 
 		if(listSize != 0) {
-		pageBtnNum = (int) Math.ceil(listSize/showListNum);
+			pageBtnNum = (int) Math.ceil(listSize/showListNum);
 		}
-		request.setAttribute("pageBtnNum", pageBtnNum);
+		ArrayList<BDto> dtos = dao.list(currentPage);
 		
+		int startPage = Math.max(1, currentPage - showPBtnNum / 2);
+		int endPage = Math.min(listSize, startPage + showPBtnNum -1);
 		
-		
-		
-		
-		
-		ArrayList<BDto> dtos = dao.list();
 		request.setAttribute("list", dtos);
+		request.setAttribute("pageBtnNum", pageBtnNum);
+		request.setAttribute("showPBtnNum", showPBtnNum);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
 		
+		
+		
+		
+		
+		
+	
 		
 		
 		

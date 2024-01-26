@@ -46,17 +46,28 @@ public class BDao {
 			}
 		}
 	}
-	public ArrayList<BDto> list(){
+	public ArrayList<BDto> list(int currentPage){
 		System.out.println("BDAO : list Method 실행");
 		ArrayList<BDto> dtos = new ArrayList<BDto>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int showListNum = 10;
 		try {
+			int startRow = (currentPage -1) *showListNum + 1 ;
+			int endRow = startRow + showListNum -1;
 			con = dataSource.getConnection();
-			String query = "select bId, bTitle, bName, bContent, bDate, bHit, bGroup, bStep, bIndent "
-					+ "from mvc_board order by bGroup desc, bStep asc";
+			String query = "SELECT bId, bTitle, bContent, bDate, bHit, bName, bGroup, bStep, bIndent\r\n" + 
+					"FROM (\r\n" + 
+					"    SELECT bId, bTitle, bContent, bDate, bHit, bName, bGroup, bStep, bIndent,\r\n" + 
+					"           ROW_NUMBER() OVER (ORDER BY bId DESC) AS rnum\r\n" + 
+					"    FROM MVC_BOARD\r\n" + 
+					") \r\n" + 
+					"WHERE rnum BETWEEN ? AND ?";
+					System.out.println(query);
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {				

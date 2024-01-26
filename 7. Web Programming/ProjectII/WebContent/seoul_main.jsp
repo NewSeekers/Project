@@ -40,7 +40,7 @@
 			<jsp:include page="./include/nav.jsp" />
 
 			<div id="s_head" style="margin-top: 68px">
-				<span class="section-title" id="s_title">[
+				<span class="section-title" id="s_title">
 					&nbsp;&nbsp;2022년&nbsp; </span> <span id="s_subTitle">[서울시안전등급지도&nbsp;&nbsp;]</span>
 			</div>
 		</div>
@@ -182,13 +182,13 @@
 								</div>
 							</div>
 						</span> <select id="selector" onchange="">
-							<option value="2004" selected="selected">2004</option>
+							<option value="2004">2004</option>
 							<option value="2007">2007</option>
 							<option value="2010">2010</option>
 							<option value="2013">2013</option>
 							<option value="2016">2016</option>
 							<option value="2019">2019</option>
-							<option value="2022">2022</option>
+							<option value="2022" selected="selected">2022</option>
 						</select>
 					</div>
 				</div>

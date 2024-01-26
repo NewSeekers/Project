@@ -72,7 +72,7 @@ function shownearcctv(latLng) {
         });
         nearcctvmarkers.push(marker);
     }
-    
+
 }
 
 //remove cctvmarker
@@ -141,7 +141,7 @@ function polimarker(latLng) {
         if (linelength < 1700) { nearpolice.push(element) }
     })
     for (var i = 0; i < nearpolice.length; i++) {
-        var imageSrc = "./img/policemarker.png";
+        var imageSrc = "./img/police_office_icon.png";
         var imageSize = new kakao.maps.Size(32, 37);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
         var marker = new kakao.maps.Marker({

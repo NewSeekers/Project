@@ -50,7 +50,7 @@
 				<div class="bt_wrap">
 					<input type="submit" value="수정">&nbsp;&nbsp; <a
 						href="delete.do?bId=${content_view.bId}">삭제</a>&nbsp;&nbsp; <a
-						href="list.do">목록보기</a>&nbsp;&nbsp; <a
+						href="list.do?page=1">목록보기</a>&nbsp;&nbsp; <a
 						href="reply_view.jsp?bId=${content_view.bId}&bName=${content_view.bName}&bTitle=${content_view.bTitle}
 						&bDate=${content_view.bDate}&bHit=${content_view.bHit}&bContent=${content_view.bContent}
 						&bGroup=${content_view.bGroup}&bIndent=${content_view.bIndent}&bStep=${content_view.bStep}">답변</a>
