@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>고객의견 작성</title>
-        <link rel="stylesheet" href="./css/board.css">
-    </head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>고객의견 작성</title>
+<!-- css -->
+<link rel="stylesheet" href="./css/board.css">
+<link rel="stylesheet" href="./css/header.footer.css">
 
-    <body>
+</head>
+
+<body>
 
 	<div class="board_wrap">
 		<div class="board_title">
@@ -46,12 +50,11 @@
 					</div>
 				</div>
 				<div class="bt_wrap">
-					<input type="submit" class="on">보내기
-					<a href="/list.do">취소</a>
+					<input type="submit" class="on">보내기 <a href="/list.do">취소</a>
 				</div>
 			</form>
 		</div>
 	</div>
-    </body>
+</body>
 
-    </html>
+</html>

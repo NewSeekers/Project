@@ -5,15 +5,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 
-import chartModel.CDao;
+import chartModel.CGuPageDao;
 
 public class GuPageChart implements CCommandGuPage {
 
 	@Override
 	public JSONArray execute(HttpServletRequest request, HttpServletResponse response) {
-		CDao dao =  CDao.getInstance();
-		JSONArray list = dao.getChart();
-		return list;
+		CGuPageDao dao =  CGuPageDao.getInstance();
+		String guNameValue = request.getParameter("guNameValue");
+		JSONArray ar_rate = dao.getArRate(guNameValue);
+		
+		return ar_rate;
 	}
 
 }

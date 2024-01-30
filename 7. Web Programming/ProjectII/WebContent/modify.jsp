@@ -6,10 +6,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>고객의견 작성</title>
+<!-- css -->
 <link rel="stylesheet" href="./css/board.css">
+<link rel="stylesheet" href="./css/header.footer.css">
+<!-- bootstrap -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+	crossorigin="anonymous">
 </head>
 
 <body>
+
+	<!-- header -->
+	<jsp:include page="./include/nav.jsp" />
+
 	<div class="board_wrap">
 		<div class="board_title">
 			<strong>고객의견 수정</strong>
@@ -17,15 +29,17 @@
 		</div>
 		<div class="board_write_wrap">
 			<form action="modify.do" method="post">
-				<input type="hidden" name="bId" value="${param.bId}">
-				<input type="hidden" name="bName" value="${param.bName}">
-				<input type="hidden" name="bDate" value="${param.bDate}">
-				<input type="hidden" name="bHit" value="${param.bHit}">
+				<input type="hidden" name="bId" value="${param.bId}"> <input
+					type="hidden" name="bName" value="${param.bName}"> <input
+					type="hidden" name="bDate" value="${param.bDate}"> <input
+					type="hidden" name="bHit" value="${param.bHit}">
 				<div class="board_write">
 					<div class="title">
 						<dl>
 							<dt>제목</dt>
-							<dd><input type="text" name="bTitle" value="${param.bTitle}"></dd>
+							<dd>
+								<input type="text" name="bTitle" value="${param.bTitle}">
+							</dd>
 						</dl>
 					</div>
 					<div class="info">
@@ -37,10 +51,7 @@
 							<dt>작성일</dt>
 							<dd>${param.bDate}</dd>
 						</dl>
-						<dl>
-							<dt>히트</dt>
-							<dd>${param.bHit}</dd>
-						</dl>
+
 
 					</div>
 					<div class="cont">
@@ -53,7 +64,17 @@
 			</form>
 		</div>
 	</div>
+
+
+	<!-- footer -->
+	<jsp:include page="./include/footer.jsp" />
+	<!-- bootstrap -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>
+
 </html>

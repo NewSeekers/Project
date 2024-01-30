@@ -6,10 +6,10 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>고객의견 목록</title>
-<!-- -------------- css ---------------- -->
+<!-- css -->
 <link rel="stylesheet" href="./css/board.css">
 <link rel="stylesheet" href="./css/header.footer.css">
-<!-- -------------- bootstrap ---------- -->
+<!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -85,6 +85,9 @@
     </div>
 
 
+	<!-- footer -->
+	<jsp:include page="./include/footer.jsp" />
+	<!-- bootstrap -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
 	integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
