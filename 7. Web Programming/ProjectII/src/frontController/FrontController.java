@@ -104,8 +104,10 @@ public class FrontController extends HttpServlet {
 			System.out.println("프론트 guPage_perceivedSafety.do 항목 실행");
 			viewPage="/chart"+com;
 		}else if(com.equals("/guPage_secufacil.do")) {
-			System.out.println("guPage_secufacil.do");
 			System.out.println("프론트 guPage_secufacil.do 항목 실행");
+			viewPage="/chart"+com;
+		}else if(com.equals("/guPage_secuGrade.do")) {
+			System.out.println("프론트 guPage_secuGrade.do 항목 실행");
 			viewPage="/chart"+com;
 		}
 		

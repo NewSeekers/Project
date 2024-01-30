@@ -70,8 +70,10 @@
 					</div>
 
 
-					<div id="gu_rank">치안등급 : 1</div>
-					<div id="gu_people">인구 수 : 5421</div>
+					<div>치안등급 : <div id="gu_rank">치안등급 : 1</div></div>
+					<div>인구 수 : <div id="gu_people">5421</div></div>
+					<!-- <div id="gu_rank">치안등급 : 1</div>
+					<div id="gu_people">인구 수 : 5421</div> -->
 
 				</div>
 			</div>

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import chartCommand.CCommand;
 import chartCommand.GuPageChart;
 import chartCommand.GuPagePerceivedSafety;
+import chartCommand.GuPageSecuGrade;
 import chartCommand.GuPageSecufacil;
 import chartCommand.SeoulArrestChart;
 import chartCommand.SeoulCrimelChart;
@@ -99,9 +100,17 @@ public class ChartController extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(secufacil.toString());
 			out.flush();
+		}else if(com.equals("/guPage_secuGrade.do")) {
+			System.out.println("guPage_secufacil.do 받음");
+			response.setHeader("Access-Control-Allow-Origin","*");
+			response.setContentType("application/json");
+			GuPageSecuGrade guPage = new GuPageSecuGrade();
+			JSONObject secuGrade = guPage.execute(request, response);
+			System.out.println("secufacil"+secuGrade);
+			PrintWriter out = response.getWriter();
+			out.print(secuGrade.toString());
+			out.flush();
 		}
-			
-		
 		
 		
 		

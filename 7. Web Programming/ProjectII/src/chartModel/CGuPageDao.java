@@ -11,6 +11,8 @@ import javax.sql.DataSource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import chartCommand.GuPageSecuGrade;
+
 public class CGuPageDao {
 	DataSource dataSource;
 	private static CGuPageDao instance;
@@ -130,7 +132,6 @@ public class CGuPageDao {
 	        	secufacil.put("avg_cctv", rs.getString("avg_cctv"));
 	        	secufacil.put("avg_lights", rs.getString("avg_lights"));
 	        	secufacil.put("avg_policestation", rs.getString("avg_policestation"));
-	        	
 	        }
 	        
 	    } catch (Exception e) {
@@ -145,10 +146,34 @@ public class CGuPageDao {
 	            e1.printStackTrace();
 	        }
 	    }
-		
 		return secufacil;
 	}
 
 
-	
+	public JSONObject getSecugrade(String guNameValue) {
+		Connection con;
+		PreparedStatement pstmt;
+		ResultSet rs;
+		JSONObject secuGrade = new JSONObject();
+		try {
+			con = dataSource.getConnection();
+			String query = "SELECT gu_name.guname, gu_env.population, gu_secugrade.y2022 FROM gu_name JOIN gu_env ON gu_name.local = gu_env.local"
+					+ " JOIN gu_secugrade ON gu_name.local = gu_secugrade.local WHERE gu_name.guname = ? and gu_env.year='2022'";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, guNameValue);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				secuGrade.put("guname",rs.getString("guname"));
+				secuGrade.put("population",rs.getString("population"));
+				secuGrade.put("secugrade",rs.getString("y2022"));
+			}
+			if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		} 
+		return secuGrade;
+	}
 }
