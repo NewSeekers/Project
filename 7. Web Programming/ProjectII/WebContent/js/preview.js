@@ -157,27 +157,33 @@ dropdownItems.forEach(item => {
 
             if (value == "cctv") {
                 compos[index].textContent = "CCTV";
-                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1].toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 crBoxes[index].setAttribute('data-condition', 1)
             } else if (value == "lights") {
                 compos[index].textContent = "보안등";
-                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1].toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 crBoxes[index].setAttribute('data-condition', 1)
             } else if (value == "policeStation") {
                 compos[index].textContent = "경찰관서"
-                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1].toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 crBoxes[index].setAttribute('data-condition', 1)
             } else if (value == "pub") {
                 compos[index].textContent = "주점";
-                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1].toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 crBoxes[index].setAttribute('data-condition', 1)
             } else if (value == "single") {
                 compos[index].textContent = "1인가구";
-                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1].toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 crBoxes[index].setAttribute('data-condition', 1)
             } else if (value == "policeman") {
                 compos[index].textContent = "경찰관";
-                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1].toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 crBoxes[index].setAttribute('data-condition', 1)
             }
         })
@@ -187,17 +193,23 @@ dropdownItems.forEach(item => {
             valuesArray = Object.keys(facilitySelectors2);
             valuesArray.forEach((value, index) => {
                 if (value == "cctv") {
-                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1].toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 } else if (value == "lights") {
-                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1].toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 } else if (value == "policeStation") {
-                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1].toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 } else if (value == "pub") {
-                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1].toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 } else if (value == "single") {
-                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1].toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 } else if (value == "policeman") {
-                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1].toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 }
             })
             TotalBtnCountCount = 0;
@@ -366,7 +378,8 @@ plusBtns.forEach(function (plusBtn) {
             } else if (facility == "policeman") {
                 pm = newFacilData;
             }
-            plusBtn.parentElement.parentElement.querySelector('.count').innerText = newFacilData;
+            plusBtn.parentElement.parentElement.querySelector('.count').innerText = newFacilData.toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             FacilityData.push(newFacilData);
             chartLabelData.push(newFacilData);
             myChart.data.labels = chartLabelData;
@@ -497,7 +510,8 @@ minusBtns.forEach(function (minusBtn) {
                 pm = newFacilData;
             }
 
-            minusBtn.parentElement.parentElement.querySelector('.count').innerText = newFacilData;
+            minusBtn.parentElement.parentElement.querySelector('.count').innerText = newFacilData.toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             FacilityData.push(newFacilData);
             chartLabelData.push(newFacilData);
 

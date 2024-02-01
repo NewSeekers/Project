@@ -473,11 +473,14 @@ slider.addEventListener("input", function () {
         ];
     //CCTV 수
     document.getElementById("cctvNum").innerText =
-        cctvCount[(parseInt(currentValue) - 2001) / 3 - 1];
+        cctvCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("lightNum").innerText =
-        lightCount[(parseInt(currentValue) - 2001) / 3 - 1];
+        lightCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("policeNum").innerText =
-        policeCount[(parseInt(currentValue) - 2001) / 3 - 1];
+        policeCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     //치안시설물 제목
     document.getElementById("cctvNumHead").style.backgroundColor =
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][0];
@@ -540,11 +543,14 @@ selectbox.addEventListener("input", function () {
     addArData(myChart4, currentValue);
 
     document.getElementById("cctvNum").innerText =
-        cctvCount[(parseInt(currentValue) - 2001) / 3 - 1];
+        cctvCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
+        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("lightNum").innerText =
-        lightCount[(parseInt(currentValue) - 2001) / 3 - 1];
+        lightCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
+        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("policeNum").innerText =
-        policeCount[(parseInt(currentValue) - 2001) / 3 - 1];
+        policeCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
+        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
     document.getElementById("cctvNumHead").style.backgroundColor =
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][0];

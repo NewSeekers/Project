@@ -154,16 +154,19 @@
     font-weight: bold;
 }
 
-.box-1,
+
 .box-2 {
     /* border: 3px solid rgb(25, 155, 198); */
-    box-shadow: 0px 2px 4px rgb(79, 79, 79);
-    border-radius: 10px;
+    
+    
     margin-bottom: 20px;
 }
 
 .box-1 {
     height: 150px;
+    box-shadow: 0px 2px 4px rgb(79, 79, 79);
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 #gutext {
@@ -429,11 +432,13 @@
 }
 
 .rank {
+    /* display: flex; */
     border: 12px;
     /* margin: 10px 0px 10px 60px; */
     border-width: 2px;
-    /* width: 300px; */
+    width: 300px;
     height: 100px;
+    padding: 0px;
 }
 
 #rankbox {
@@ -457,22 +462,18 @@
     margin-left: 5px;
 }
 
-.gradingButton {
+/* .gradingButton {
     padding-top: 60px;
-    /* background-color: #0eb9bc; */
 }
-
+*/
 .gradingButton button {
-    /* width: 100px; */
-    /* margin-left: 20px; */
-    /* border-color: rgba(255, 255, 255, 0); */
-    float: left;
-    border-radius: 15px;
-    font-size: 1rem;
-    box-shadow: 4px 2px 4px #6c757d;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    border: 0px solid white;
+    box-shadow: 1px 1px 2px 1px #d8dbdf;
     padding: 3px;
-    /* background-color: #0eb9bc; */
-}
+} 
 
 .gradingButton button:hover {
     /* background-color: #329aba; */
