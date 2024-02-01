@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 crBox.classList.remove('show'); // class 'show' has css element
             }
         });
+        document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
+        document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
     });
 });
 
@@ -120,6 +122,9 @@ dropdownItems.forEach(item => {
         minusBtnCount = 0;
         dropdownValue = this.value;
         guName = this.innerText;
+        document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
+        document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
+
 
         districtData = await PredData(dropdownValue);
         districtData2 = await PredData(dropdownValue);
@@ -204,6 +209,15 @@ dropdownItems.forEach(item => {
             setCCData();
             removeChart();
             showchart();
+            document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
+            document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
+            var results = document.querySelectorAll('#result');
+            var flucs = document.querySelectorAll('#fluc');
+            document.getElementById('predGuGrade').innerText = "";
+            for (i = 0; i < 5; i++) {
+                results[i].innerText = "";
+                flucs[i].innerText = "";
+            }
         })
 
         compos.forEach(box => {
@@ -217,8 +231,12 @@ dropdownItems.forEach(item => {
                 plusBtnCount = 0;
                 minusBtnCount = 0;
                 chartLabelData = [];
+                document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
+                document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
             })
         })
+
+
     });
 });
 
@@ -303,7 +321,6 @@ var pm;
 var facilityLabels = {};
 plusBtns.forEach(function (plusBtn) {
     plusBtn.addEventListener('click', function () {
-        console.log("single값 2차확인" + single)
         var text = plusBtn.parentElement.parentElement.querySelector('.compo').textContent.trim();
         var facility = changeFacilName(text);
 
@@ -356,6 +373,8 @@ plusBtns.forEach(function (plusBtn) {
 
             myChart.update();
             plusBtnCount++;
+            document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
+
             TotalBtnCount++;
 
             linearFomula(dropdownValue);
@@ -377,8 +396,6 @@ plusBtns.forEach(function (plusBtn) {
                 violStd = districtCrime["violence"][(districtCrime["violence"].length - 1)]
                 theStd = districtCrime["theft"][(districtCrime["theft"].length - 1)]
                 crimestd = [homiStd, robStd, sexStd, theStd, violStd];
-                console.log("범죄기준값" + crimestd)
-                console.log("나중범죄값" + crimeafter)
                 var results = document.querySelectorAll('#result');
                 var flucs = document.querySelectorAll('#fluc');
 
@@ -393,6 +410,39 @@ plusBtns.forEach(function (plusBtn) {
                     flucs[index].innerText = "감소"
                 }
             })
+
+            if (!lights) { lights = 6842.9 }
+            if (!pub) { pub = 216.6 }
+            if (!ps) { ps = 18.5 }
+            if (!cctv) { cctv = 1042.6 }
+            if (!single) { single = 40495.1 }
+            if (!pm) { pm = 802.1 }
+
+            var popCount = districtData["population"][9];
+            var sumCrimeData = newhomicide + newrobber + newsexual + newtheft + newviolence;
+            var crimeScore = 50 - (((sumCrimeData / popCount * 100000) - 525.13) / (3831.84 - 525.13) * 50);
+            var facilScore = (((lights / popCount * 100000) - 705.08) / (6753.43 - 705.08) * 0.5)
+                + (5.1 - (((pub / popCount * 100000) - 11.54) / (414.49 - 11.54) * 5.1))
+                + (((ps / popCount * 100000) - 1.41) / (15.77 - 1.41) * 35.8)
+                + (((cctv / popCount * 100000) - 2.36) / (1549.11 - 2.36) * 2.1)
+                + (0.1 - (((single / popCount * 100000) - 2682.57) / (29015.45 - 2682.57) * 0.1))
+                + (((pm / popCount * 100000) - 90.42) / (779.14 - 90.42) * 6.4)
+            var totalScore = crimeScore + facilScore;
+            var newGrade;
+            if (totalScore >= 59) {
+                newGrade = 1;
+            } else if (totalScore >= 56.5) {
+                newGrade = 2;
+            } else if (totalScore >= 54.4) {
+                newGrade = 3;
+            } else if (totalScore >= 51.58) {
+                newGrade = 4;
+            } else {
+                newGrade = 5;
+            }
+
+            document.getElementById('predGuGrade').innerText = newGrade;
+
         }
     });
 });
@@ -415,7 +465,6 @@ minusBtns.forEach(function (minusBtn) {
 
             if (facilityLabels[facility] === undefined) {
                 // facilityLabels = {};
-                console.log("퍼실라벨실행됨?" + facilityLabels)
                 if (facility == "cctv") {
                     facilityLabels.cctv = districtData["facilitySelector"][0][facility].slice();
                 } else if (facility == "lights") {
@@ -447,7 +496,6 @@ minusBtns.forEach(function (minusBtn) {
             } else if (facility == "policeman") {
                 pm = newFacilData;
             }
-            console.log("single3차확인" + single)
 
             minusBtn.parentElement.parentElement.querySelector('.count').innerText = newFacilData;
             FacilityData.push(newFacilData);
@@ -455,6 +503,7 @@ minusBtns.forEach(function (minusBtn) {
 
             myChart.update();
             minusBtnCount++;
+            document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
             TotalBtnCount++;
 
             linearFomula(dropdownValue);
@@ -491,6 +540,38 @@ minusBtns.forEach(function (minusBtn) {
                     flucs[index].innerText = "감소"
                 }
             })
+            if (!lights) { lights = 6842.9 }
+            if (!pub) { pub = 216.6 }
+            if (!ps) { ps = 18.5 }
+            if (!cctv) { cctv = 1042.6 }
+            if (!single) { single = 40495.1 }
+            if (!pm) { pm = 802.1 }
+
+            var popCount = districtData["population"][9];
+            var sumCrimeData = newhomicide + newrobber + newsexual + newtheft + newviolence;
+            var crimeScore = 50 - (((sumCrimeData / popCount * 100000) - 525.13) / (3831.84 - 525.13) * 50);
+            var facilScore = (((lights / popCount * 100000) - 705.08) / (6753.43 - 705.08) * 0.5)
+                + (5.1 - (((pub / popCount * 100000) - 11.54) / (414.49 - 11.54) * 5.1))
+                + (((ps / popCount * 100000) - 1.41) / (15.77 - 1.41) * 35.8)
+                + (((cctv / popCount * 100000) - 2.36) / (1549.11 - 2.36) * 2.1)
+                + (0.1 - (((single / popCount * 100000) - 2682.57) / (29015.45 - 2682.57) * 0.1))
+                + (((pm / popCount * 100000) - 90.42) / (779.14 - 90.42) * 6.4)
+            var totalScore = crimeScore + facilScore;
+            var newGrade;
+            if (totalScore >= 59) {
+                newGrade = 1;
+            } else if (totalScore >= 56.5) {
+                newGrade = 2;
+            } else if (totalScore >= 54.4) {
+                newGrade = 3;
+            } else if (totalScore >= 51.58) {
+                newGrade = 4;
+            } else {
+                newGrade = 5;
+            }
+
+            document.getElementById('predGuGrade').innerText = newGrade;
+
 
         }
 
@@ -499,28 +580,14 @@ minusBtns.forEach(function (minusBtn) {
 
     })
 
-
-
-
-
     var homiStd;
     var robStd;
     var sexStd;
     var violStd;
     var theStd;
-
     var crimestd;
 
 })
-
-
-
-
-
-
-
-
-
 
 var modal = document.querySelector("#exp_img")
 modal.addEventListener('mouseover', function () {
@@ -546,12 +613,10 @@ sidebar.addEventListener('mouseenter', function () {
 
 
 $(document).ready(function () {
-    // Function to handle the tooltip text
     function getTooltipText(operation) {
         return operation === 'plus' ? '+5%' : '-5%';
     }
 
-    // Function to add tooltip to the buttons
     function addTooltip(button, operation) {
         $(button).tooltip({
             title: getTooltipText(operation),
@@ -561,7 +626,6 @@ $(document).ready(function () {
         });
     }
 
-    // Add tooltips to btnplus and btnminus buttons
     $('.btnplus').each(function () {
         addTooltip(this, 'plus');
     });
