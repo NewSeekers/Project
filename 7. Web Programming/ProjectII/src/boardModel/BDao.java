@@ -190,7 +190,35 @@ public class BDao {
 		}
 		return result;
 	}
-
+	
+	public BDto getPostById(String bId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BDto post = null;
+		try {
+			con = dataSource.getConnection();
+			String query = "select * from mvc_board where bId=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, bId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				post = new BDto();
+				post.setbId(rs.getInt("bId"));
+				post.setbTitle(rs.getString("bTitle"));
+				post.setbContent(rs.getString("bContent"));
+				post.setbName(rs.getString("bName"));
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return post;
+	}
+	
 	public void delete(String bId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

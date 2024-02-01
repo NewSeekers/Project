@@ -6,10 +6,10 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>고객의견 목록</title>
-<!-- -------------- css ---------------- -->
+<!-- css -->
 <link rel="stylesheet" href="./css/board.css">
 <link rel="stylesheet" href="./css/header.footer.css">
-<!-- -------------- bootstrap ---------- -->
+<!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -23,41 +23,42 @@
 
 
 
-	<body>
+<body>
 
-		<!-- header  -->
-		<jsp:include page="./include/nav.jsp" />
+	<!-- header  -->
+	<jsp:include page="./include/nav.jsp" />
 
-		<div class="board_wrap">
-        <div class="board_title">
-            <strong>고객의견</strong>
-            <p>고객님의 의견을 빠르게 안내해드리겠습니다.</p>
-        </div>
-        <div class="board_list_wrap">
-            
-                <div class="board_list">
-                    <div class="top">
-                        <div class="num">번호</div>
-                        <div class="title">제목</div>
-                        <div class="writer">글쓴이</div>
-                        <div class="date">작성일</div>
-                        <div class="count">조회</div>
-                    </div>
-                    <c:forEach items="${list}" var="dto">
-                        <div>
-                            <div class="num">${dto.bId}</div>
-                            <div class="title"><c:forEach begin="1"
-                                    end="${dto.bIndent}">RE : </c:forEach> <a
-                                href="content_view.do?bId=${dto.bId}">${dto.bTitle}</a></div>
-                            <div class="writer">${dto.bName}</div>
-                            <!-- <li class="j_list_title"><a href="content_view.do?bId=${dto.bId}">${dto.bName}</a></li> -->
-                            <div class="date">${dto.bDate}</div>
-                            <div class="count">${dto.bHit}</div>
-                        </div>
-                    </c:forEach>
-                </div>
-                
-                <c:set var="currentPage" value="${param.page}" />
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>고객의견</strong>
+			<p>고객님의 의견을 빠르게 안내해드리겠습니다.</p>
+		</div>
+		<div class="board_list_wrap">
+
+			<div class="board_list">
+				<div class="top">
+					<div class="num">번호</div>
+					<div class="title">제목</div>
+					<div class="writer">글쓴이</div>
+					<div class="date">작성일</div>
+					<div class="count">조회</div>
+				</div>
+				<c:forEach items="${list}" var="dto">
+					<div>
+						<div class="num">${dto.bId}</div>
+						<div class="title">
+							<c:forEach begin="1" end="${dto.bIndent}">RE : </c:forEach>
+							<a href="content_view.do?bId=${dto.bId}">${dto.bTitle}</a>
+						</div>
+						<div class="writer">${dto.bName}</div>
+						<!-- <li class="j_list_title"><a href="content_view.do?bId=${dto.bId}">${dto.bName}</a></li> -->
+						<div class="date" id="board_list_date">${dto.bDate}</div>
+						<div class="count">${dto.bHit}</div>
+					</div>
+				</c:forEach>
+			</div>
+
+			<c:set var="currentPage" value="${param.page}" />
 			<div class="board_page">
 
 				<a href="list.do?page=1" class="bt first"> << </a> <a
@@ -75,20 +76,34 @@
 					href="list.do?page=${pageBtnNum}" class="bt last"> >> </a>
 
 			</div>
-                
-                
-                
-                <div class="bt_wrap">
-                    <a href="./write_view.jsp" class="on">글쓰기</a>
-                </div>
-        </div>
-    </div>
 
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-	integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-	crossorigin="anonymous"></script>
+
+			<div class="bt_wrap">
+				<c:if test="${not empty sessionScope.ValidMem}">
+					<div class="bt_wrap">
+						<a href="./write_view.jsp" class="on">글쓰기</a>
+					</div>
+				</c:if>
+
+
+				<c:if test="${empty sessionScope.ValidMem}">
+					<div class="bt_wrap">
+						<a href="./login.do">글쓰기</a>
+					</div>
+				</c:if>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- footer -->
+	<jsp:include page="./include/footer.jsp" />
+	<!-- bootstrap -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

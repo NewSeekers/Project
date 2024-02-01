@@ -97,9 +97,39 @@ public class FrontController extends HttpServlet {
 		}else if(com.equals("/reply_view.do")) {
 			System.out.println("프론트 reply_view.do 항목 실행");
 			viewPage="/board"+com;
+
 		}else if(com.equals("/callPredict.do")) {
 			System.out.println("프론트 callPredict.do 항목 실행");
 			viewPage="/chart"+com;
+
+		}else if(com.equals("/guPage_chart.do")) {
+			System.out.println("프론트 guPage_chart.do 항목 실행");
+			viewPage="/chart"+com;
+		}else if(com.equals("/guPage_perceivedSafety.do")) {
+			System.out.println("프론트 guPage_perceivedSafety.do 항목 실행");
+			viewPage="/chart"+com;
+		}else if(com.equals("/guPage_secufacil.do")) {
+			System.out.println("프론트 guPage_secufacil.do 항목 실행");
+			viewPage="/chart"+com;
+		}else if(com.equals("/guPage_secuGrade.do")) {
+			System.out.println("프론트 guPage_secuGrade.do 항목 실행");
+			viewPage="/chart"+com;
+		}else if(com.equals("/join.do")) {
+//			System.out.println("프론트 join.do 항목 실행");
+			viewPage="/member"+com;
+		}else if(com.equals("/login.do")) {
+//			System.out.println("프론트 login.do 항목 실행");
+			viewPage="/member"+com;
+		}else if(com.equals("/logout.do")) {
+//			System.out.println("프론트 logout.do 항목 실행");
+			viewPage="/member"+com;
+		}else if(com.equals("/modifyLogin.do")) {
+			System.out.println("프론트 modifyLogin.do 항목 실행");
+			viewPage="/member"+com;
+		}else if(com.equals("/loginOk.do")) {
+//			System.out.println("프론트 join.do 항목 실행");
+			viewPage="/member"+com;
+
 		}
 		
 		if(viewPage != null) {
