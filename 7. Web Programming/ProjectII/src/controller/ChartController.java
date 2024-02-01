@@ -14,10 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import chartCommand.CCommand;
+
+import chartCommand.PredictChart;
+
 import chartCommand.GuPageChart;
 import chartCommand.GuPagePerceivedSafety;
 import chartCommand.GuPageSecuGrade;
 import chartCommand.GuPageSecufacil;
+
 import chartCommand.SeoulArrestChart;
 import chartCommand.SeoulCrimelChart;
 
@@ -72,6 +76,11 @@ public class ChartController extends HttpServlet {
 		}else if(com.equals("/callArrest.do")) {
 			CCommand seoulac = new SeoulArrestChart();
 			seoulac.execute(request, response);
+
+		}else if(com.contains("/callPredict.do")) {
+			CCommand pred = new PredictChart();
+			pred.execute(request, response);
+
 		}else if(com.equals("/guPage_chart.do")) {
 			response.setHeader("Access-Control-Allow-Origin","*");
 			response.setContentType("application/json");
@@ -110,6 +119,7 @@ public class ChartController extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(secuGrade.toString());
 			out.flush();
+
 		}
 		
 		

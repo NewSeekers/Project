@@ -147,6 +147,8 @@ var container = document.getElementById("s_map");
 var options = {
     center: new kakao.maps.LatLng(37.5642135, 127.0016985),
     level: 9,
+    disableDoubleClickZoom: true
+
 };
 var map = new kakao.maps.Map(container, options),
     customOverlay = new kakao.maps.CustomOverlay({}),
@@ -154,6 +156,7 @@ var map = new kakao.maps.Map(container, options),
     infowindow = new kakao.maps.InfoWindow({ removable: true });
 map.setDraggable(false);
 map.setZoomable(false);
+
 
 var locate = JSON.parse(JSON.stringify(mapData));
 var units = locate.features; // json key값이 "features"인 것의 value를 통으로 가져온다.
