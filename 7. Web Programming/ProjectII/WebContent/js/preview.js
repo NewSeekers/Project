@@ -570,3 +570,19 @@ $(document).ready(function () {
         addTooltip(this, 'minus');
     });
 });
+
+
+
+
+
+
+
+//popup 띄우는 함수
+function openPopup() {
+    // 함수 동작 테스트 
+    //alert("팝업 테스트");
+
+    //window.open("[팝업을 띄울 파일명 path]", "[별칭]", "[팝업 옵션]")
+    window.open("previewPopup.jsp", "mypopup", "width=800, height=650, top=200, left=100, resizeable = no");
+}
+
