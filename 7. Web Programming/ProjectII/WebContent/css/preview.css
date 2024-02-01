@@ -18,7 +18,7 @@
     padding: 0;
     /* box-sizing: border-box; */
     font-family: 'NPSfontBold';
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 #wrap {
@@ -291,7 +291,14 @@
     justify-content: center;
 }
 
+.btnLeftBox{
+    display: flex;
+    justify-content: center;
+}
 
+#minusBtnLeft{
+    margin-left: 100px;    
+}
 
 .btnplus,
 .btnminus {
@@ -356,6 +363,12 @@
     font-weight: bold;
     /* margin-top: 10px; */
 }
+
+#predGuGrade {
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
 
 #chart {
     height: 300px;
@@ -443,7 +456,7 @@
     /* width: 300px; */
     /* padding: 10px; */
     text-align: center;
-    margin: 150px 0px 50px 0px;
+    margin: 100px 0px 50px 0px;
     font-size: 2rem;
     /* box-shadow: 3px 1px 3px gray; */
 }

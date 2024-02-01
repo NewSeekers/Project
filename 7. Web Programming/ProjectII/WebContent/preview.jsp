@@ -169,6 +169,9 @@
 							</div>
 						</div>
 					</div>
+					<div class="btnLeftBox">
+						<div id="plusBtnLeft"></div><div id="minusBtnLeft"></div>
+					</div>
 				</div>
 			</div>
 
@@ -189,7 +192,7 @@
 					<div class="rank col-md-12 col-lg-5 p-3">
 						<div id="rankbox"
 							class=" bg-info bg-opacity-10 border border-info  border-3 rounded-pill">
-							<span class="guName">강남구</span><span>예상 치안 등급:</span><span
+							<span class="guName"></span><span>예상 치안 등급:</span><span
 								id="predGuGrade"></span>
 						</div>
 					</div>
@@ -248,16 +251,13 @@
 							style="-bs-border-opacity: 20%;"></div>
 					</div>
 					<div><br><br>					
-						본 해석은 범죄와 치안시설물들의 상관도에 따른 분석이라 인과관계를 파악 할 수 없습니다.
-						<br>예를 들어, 범죄 다발지역이라 치안 시설을 추가 했는지 
-						<br>치안시설을 추가했기에 범죄발생이 억제되는지를 알기 어렵다는 것입니다.
-						<br> 따라서 본 분석은 범죄와 치안시설물 간의 영향력으로 이해해주시면 감사하겠습니다.
+						위 해석은 인과관계를 설명하지 않습니다.
 					</div>
 				</div>
 			</div>
 
 			<div id="text">
-				<i class="bi bi-bell"> 안전한 우리동네를 위한 추천 사이트</i>
+				<i class="bi-bell"></i><span> 안전한 우리동네를 위한 추천 사이트</span>
 			</div>
 
 

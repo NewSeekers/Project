@@ -23,7 +23,7 @@
 						<p>우리동네 돋보기</p>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="./preview.jsp">
-						<p>안전 미리보기</p>
+						<p>예측서비스</p>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="list.do?page=1">
 						<p>고객의견</p>
