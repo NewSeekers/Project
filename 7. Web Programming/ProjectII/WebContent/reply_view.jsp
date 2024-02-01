@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
+	<%@page import="memberModel.MemberDto"%>
+<%@page import="memberModel.MemberDao"%>
+<%
+	String id = (String) session.getAttribute("id");
+	MemberDao dao = MemberDao.getInstance();
+	MemberDto dto = dao.getMember(id);
+%>
 <!DOCTYPE html>
 <html>
 
@@ -18,7 +25,7 @@
 </head>
 
 <body>
-	<!-- -------------- header ---------------- -->
+	<!-- header -->
 	<jsp:include page="./include/nav.jsp" />
 
 	<div class="board_wrap">
@@ -73,7 +80,8 @@
 						<dl>
 							<dt>글쓴이</dt>
 							<dd>
-								<input type="text" name="bName">
+								<input type="hidden" name="bName" value="<%= dto.getId() %>>">
+								<%=dto.getId() %>
 							</dd>
 						</dl>
 						<!-- <dl>
