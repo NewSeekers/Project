@@ -40,7 +40,8 @@ public class BoardController extends HttpServlet {
 
 	private void actionDo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 
 		String viewPage = null;
 		BCommand bc = null;
@@ -71,7 +72,7 @@ public class BoardController extends HttpServlet {
 			System.out.println("board 컨트롤러 : modify 실행");
 			BModifyCommand bmc = new BModifyCommand();
 			int result =bmc.execute(request, response); 
-			response.setContentType("text/html; charset=UTF-8");
+			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script> if (" + (result == 1) + ") {alert(\"수정에 성공했습니다.\")} else if (" + (result == 0) + ") {alert(\"수정에 실패했습니다.\")}; location.href='"+"list.do?page=1"+"';</script>");
 		} else if (com.contains("/delete.do")) {
@@ -88,6 +89,7 @@ public class BoardController extends HttpServlet {
 			System.out.println("board 컨트롤러 : content_view 실행");
 			bc = new BContentCommand();
 			bc.execute(request, response);
+			
 			viewPage ="../content_view.jsp";
 		} else if (com.contains("reply_view.do")) {
 			System.out.println("board 컨트롤러 : reply_view 실행");

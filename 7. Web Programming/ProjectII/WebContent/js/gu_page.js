@@ -126,6 +126,55 @@ window.onload = function () {
 
 
 
+  
+  
+  
+  
+  
+  fetch('https://data.ojp.usdoj.gov/resource/6c73-b7iq.json', {
+	    method: 'Get',
+	    headers: {
+	      'Content-Type': 'application/json'
+	    }
+	  })
+	    .then(response => {
+	      if (!response.ok) {
+	        throw new Error('Network response was not ok' + response.statusText);
+	      }
+	      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
+	      return response.json();
+	    })
+	    .then(data => {
+	      
+	      console.log(data);
+
+	    })
+	    .catch(error => {
+	      console.error("Fetch error: " + error);
+	    });
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   const addData = (chart, data1, data2, guNameValue) => {
     // removeData(chart);

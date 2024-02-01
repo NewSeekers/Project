@@ -14,7 +14,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navMenu">
-			<ul class="navbar-nav mb-2 mb-lg-0">
+			<ul class="navbar-nav lg-2">
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="./seoul_main.jsp">
 						<p>서울시 안전지도</p>
@@ -28,8 +28,28 @@
 				<li class="nav-item"><a class="nav-link" href="list.do?page=1">
 						<p>게시판</p>
 				</a></li>
+				<!-- 세션 체크 -->
+				<%
+					if (session.getAttribute("ValidMem") != null) {
+				%>
+				<!-- 사용자가 로그인한 경우 -->
+				<li class="nav-item"><a class="nav-link" id="myPageButton"
+					data-bs-toggle="modal" data-bs-target="#myPageModal">
+						<p>마이페이지</p>
+				</a></li>
+
+
+				<%
+					} else {
+				%>
+				<!-- 로그인하지 않은 경우 -->
+				<li class="nav-item"><a class="nav-link" href="login.do">
+						<p>로그인</p>
+				</a></li>
+				<%
+					}
+				%>
 			</ul>
 		</div>
 	</nav>
 </div>
-

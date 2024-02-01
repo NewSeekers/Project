@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="memberModel.MemberDto"%>
+<%@page import="memberModel.MemberDao"%>
+<%
+	String id = (String) session.getAttribute("id");
+	MemberDao dao = MemberDao.getInstance();
+	MemberDto dto = dao.getMember(id);
+	request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html>
 
 <head>
