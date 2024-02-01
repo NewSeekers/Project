@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 
 import chartCommand.CCommand;
+import chartCommand.PredictChart;
 import chartCommand.SeoulArrestChart;
 import chartCommand.SeoulCrimelChart;
 
@@ -66,6 +67,9 @@ public class ChartController extends HttpServlet {
 		}else if(com.equals("/callArrest.do")) {
 			CCommand seoulac = new SeoulArrestChart();
 			seoulac.execute(request, response);
+		}else if(com.contains("/callPredict.do")) {
+			CCommand pred = new PredictChart();
+			pred.execute(request, response);
 		}
 			
 		

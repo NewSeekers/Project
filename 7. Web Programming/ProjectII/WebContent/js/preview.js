@@ -1,89 +1,19 @@
-const districtData = {
-    gangnam: {
-        facilitySelector: {
-            cctvCount: [100, 110, 120, 130, 140, 150, 160, 170],
-            light: [200, 220, 240, 260, 280, 300, 320, 340],
-        },
-        crimeData: {
-            murder: [118, 114, 116, 115, 114, 113, 112, 113],
-            robbery: [40, 30, 38, 33, 30, 24, 25, 20],
-            sexualAssault: [100, 80, 70, 80, 60, 40, 30, 40],
-            assault: [130, 122, 110, 80, 90, 70, 60, 50],
-            theft: [230, 210, 220, 200, 180, 170, 130, 160]
-        },
-        grade: 2,
-        population: 561100
-    },
-    gwanak: {
-        facilitySelector: {
-            cctvCount: [80, 90, 80, 90, 100, 110, 120, 130],
-            single: [150, 160, 170, 180, 190, 200, 210, 220],
-            pub: [2, 6, 4, 5, 6, 6, 6, 7],
-        },
+var districtData;
+var districtData2;
+async function PredData(dropdownValue) {
+    return await getData(dropdownValue);
+}
 
-        crimeData: {
-            murder: [87, 76, 65, 54, 43, 32, 21, 10],
-            robbery: [97, 86, 75, 64, 53, 42, 31, 20],
-            sexualAssault: [102, 91, 81, 71, 60, 50, 40, 30],
-            assault: [34, 34, 35, 36, 37, 38, 39, 40],
-            theft: [124, 113, 102, 92, 81, 71, 60, 50]
-        },
-        grade: 3,
-        population: 487038
-    },
-    guro: {
-        facilitySelector: {
-            light: [865, 750, 635, 520, 405, 290, 175, 60],
-            pub: [88, 86, 85, 84, 83, 82, 81, 80],
-        },
-        crimeData: {
-            murder: [612, 537, 462, 388, 313, 239, 164, 90],
-            robbery: [858, 749, 641, 533, 424, 316, 208, 100],
-            sexualAssault: [23, 35, 47, 60, 72, 85, 97, 110],
-            assault: [68, 76, 85, 94, 103, 112, 121, 130],
-            theft: [123, 125, 127, 130, 132, 135, 137, 140]
-        },
-        grade: 2,
-        population: 405075
-    },
-    youngdeungpo: {
-        facilitySelector: {
-            cctvCount: [23, 35, 47, 60, 72, 85, 97, 110],
-            light: [68, 76, 85, 94, 103, 112, 121, 130],
-            foreign: [123, 125, 127, 130, 132, 135, 137, 140],
-            pub: [65, 78, 92, 105, 119, 132, 146, 160],
-        },
-        crimeData: {
-            murder: [444, 402, 360, 318, 276, 234, 192, 150],
-            robbery: [65, 78, 92, 105, 119, 132, 146, 160],
-            sexualAssault: [34, 34, 35, 36, 37, 38, 39, 40],
-            assault: [865, 750, 635, 520, 405, 290, 175, 60],
-            theft: [87, 76, 65, 54, 43, 32, 21, 10]
-        },
-        grade: 3,
-        population: 374920
-    },
-    seodaemun: {
-        facilitySelector: {
-            cctvCount: [65, 78, 92, 105, 119, 132, 146, 160],
-            light: [123, 125, 127, 130, 132, 135, 137, 140],
-            policeStationCount: [23, 35, 47, 60, 72, 85, 97, 110],
-            pub: [65, 78, 92, 105, 119, 132, 146, 160],
-            single: [150, 160, 170, 180, 190, 200, 210, 220]
-        },
-        crimeData: {
-            murder: [88, 86, 85, 84, 83, 82, 81, 80],
-            robbery: [612, 537, 462, 388, 313, 239, 164, 90],
-            sexualAssault: [23, 35, 47, 60, 72, 85, 97, 110],
-            assault: [124, 113, 102, 92, 81, 71, 60, 50],
-            theft: [87, 76, 65, 54, 43, 32, 21, 10]
-        },
-        grade: 1,
-        population: 305541
-    }
-};
-
-console.log("gangnam" + districtData["gangnam"]["facilitySelector"]["cctvCount"]);
+function getData(dropdownValue) {
+    return new Promise((resolve, reject) => {
+        fetch("./callPredict.do?region=" + dropdownValue)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                resolve(data);
+            });
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     const button = document.getElementById('showHideButton');
@@ -99,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, 300);
             } else {
                 crBox.style.display = 'none'
-                crBox.classList.remove('show');
+                crBox.classList.remove('show'); // class 'show' has css element
             }
         });
     });
@@ -107,22 +37,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-function showchart(local, facil) {
+function showchart() {
     var ctx = document.getElementById('chart').getContext('2d');
-
-    const crimes = ['murder', 'robbery', 'sexualAssault', 'assault', 'theft'];
-
+    const crimes = ['homicide', 'robber', 'sexual', 'theft', 'violence'];
     myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: districtData[local].facilitySelector[facil], // X축 레이블
+            labels: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
             datasets: crimes.map(crime => {
                 return {
                     label: crime,
-                    data: districtData[local].crimeData[crime],
-                    borderColor: getColor(crime), // 각 범죄별 색상 함수
+                    data: districtData2["crimeData"][0][crime],
+                    Color: getColor(crime), // 각 범죄별 색상 함수
                     borderWidth: 1,
-
                 };
             })
         },
@@ -133,27 +60,27 @@ function showchart(local, facil) {
     });
 }
 
-showchart('gangnam', "cctvCount")
-
-
 function getColor(crime) {
     switch (crime) {
-        case 'murder': return 'blue';
-        case 'robbery': return 'red';
-        case 'sexualAssault': return 'green';
-        case 'assault': return 'violet';
-        case 'theft': return 'orange';
+        case 'homicide': return '##FF7D63';
+        case 'robber': return '#C6EA46';
+        case 'sexual': return '#73EFFB';
+        case 'theft': return '#FFCA67';
+        case 'violence': return '#046B99';
         default: return 'black';
     }
 }
 
-
-function removeChart() {
-    if (myChart) {
-        myChart.destroy();
-    }
+function changeChartLabels(facility) {
+    myChart.data.labels = districtData["facilitySelector"][0][facility];
+    myChart.update();
 }
 
+function removeChart() {
+    if (typeof myChart !== 'undefined' && myChart !== null) {
+        myChart.destroy();
+    } else { return }
+}
 
 new Swiper('.swiper', {
     autoplay: {
@@ -173,136 +100,285 @@ new Swiper('.swiper', {
     }
 })
 
-
-
-
-var btnCount;
+var TotalBtnCount;
+var plusBtnCount;
+var minusBtnCount;
 var valuesArray;
-var dropdownValue = "gangnam";
-
-var guName = "강남구";
+var dropdownValue = "강남구";
+var guName;
+var newhomicide;
+var newrobber;
+var newsexual;
+var newtheft;
+var newviolence;
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 dropdownItems.forEach(item => {
-    item.addEventListener('click', function () {
-        btnCount = 0;
+    item.addEventListener('click', async function () {
+        chartLabelData = [];
+        TotalBtnCount = 0;
+        plusBtnCount = 0;
+        minusBtnCount = 0;
         dropdownValue = this.value;
         guName = this.innerText;
+
+        districtData = await PredData(dropdownValue);
+        districtData2 = await PredData(dropdownValue);
+        await removeChart();
+        await showchart();
+        await setCCData();
 
         document.querySelectorAll('.guName').forEach(item => {
             item.innerText = guName;
         })
 
-        document.getElementById('grade').innerText = districtData[dropdownValue].grade
-        document.getElementById('population').innerText = districtData[dropdownValue].population.toString()
+
+        document.getElementById('grade').innerText = districtData["grade"]
+        document.getElementById('population').innerText = districtData["population"][9].toString()
             .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 명";
-
-
 
         const crBoxes = document.querySelectorAll('.crBox');
         const compos = document.querySelectorAll('.compo');
-        const facilitySelectors = districtData[dropdownValue].facilitySelector;
+        const counts = document.querySelectorAll('.count');
+
+        const facilitySelectors = districtData["facilitySelector"][0];
         crBoxes.forEach(box => {
             box.setAttribute('data-condition', 0);
             box.style.display = 'none';
             box.classList.remove('show')
         })
-
         //valuesArray 치안시설 배열
         valuesArray = Object.keys(facilitySelectors);
         valuesArray.forEach((value, index) => {
 
-            if (value == "cctvCount") {
+            if (value == "cctv") {
                 compos[index].textContent = "CCTV";
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
                 crBoxes[index].setAttribute('data-condition', 1)
-            } else if (value == "light") {
+            } else if (value == "lights") {
                 compos[index].textContent = "보안등";
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
                 crBoxes[index].setAttribute('data-condition', 1)
-            } else if (value == "policeStationCount") {
+            } else if (value == "policeStation") {
                 compos[index].textContent = "경찰관서"
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
                 crBoxes[index].setAttribute('data-condition', 1)
             } else if (value == "pub") {
                 compos[index].textContent = "주점";
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
                 crBoxes[index].setAttribute('data-condition', 1)
             } else if (value == "single") {
                 compos[index].textContent = "1인가구";
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
+                crBoxes[index].setAttribute('data-condition', 1)
+            } else if (value == "policeman") {
+                compos[index].textContent = "경찰관";
+                counts[index].innerText = facilitySelectors[value][facilitySelectors[value].length - 1]
                 crBoxes[index].setAttribute('data-condition', 1)
             }
         })
 
-
-
-        compos.forEach(box => {
-            var factitle;
-            var text = box.textContent.trim()
-            if (text == "CCTV") {
-                factitle = "cctvCount"
-            } else if (text == "보안등") {
-                factitle = "light"
-            } else if (text == "경찰관서") {
-                factitle = "policeStationCount"
-            } else if (text == "주점") {
-                factitle = "pub"
-            } else if (text == "1인가구") {
-                factitle = "single"
-            }
-            box.addEventListener('click', function () {
-
-                removeChart();
-                showchart(dropdownValue, factitle)
-                btnCount = 0;
-
+        document.getElementById('resetButton').addEventListener('click', function () {
+            const facilitySelectors2 = districtData2["facilitySelector"][0];
+            valuesArray = Object.keys(facilitySelectors2);
+            valuesArray.forEach((value, index) => {
+                if (value == "cctv") {
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                } else if (value == "lights") {
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                } else if (value == "policeStation") {
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                } else if (value == "pub") {
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                } else if (value == "single") {
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                } else if (value == "policeman") {
+                    counts[index].innerText = facilitySelectors2[value][facilitySelectors2[value].length - 1]
+                }
             })
+            TotalBtnCountCount = 0;
+            plusBtnCount = 0;
+            minusBtnCount = 0;
+            FacilityData = [];
+            facilityLabels = {};
+            chartLabelData = [];
+            setCCData();
+            removeChart();
+            showchart();
         })
 
+        compos.forEach(box => {
+            var text = box.textContent.trim()
+            var facility = changeFacilName(text);
+            box.addEventListener('click', function () {
+                removeChart();
+                showchart();
+                changeChartLabels(facility)
+                TotalBtnCountCount = 0;
+                plusBtnCount = 0;
+                minusBtnCount = 0;
+                chartLabelData = [];
+            })
+        })
     });
-
-
 });
 
+function changeFacilName(text) {
+    if (text == "CCTV") {
+        return facility = "cctv"
+    } else if (text == "보안등") {
+        return facility = "lights"
+    } else if (text == "경찰관서") {
+        return facility = "policeStation"
+    } else if (text == "주점") {
+        return facility = "pub"
+    } else if (text == "1인가구") {
+        return facility = "single"
+    } else if (text == "경찰관") {
+        return facility = "policeman"
+    }
+}
+
+
+function setCCData() {
+    var districtFacil = districtData["facilitySelector"][0];
+    if (districtFacil.cctv) { cctv = districtFacil["cctv"][districtFacil["cctv"].length - 1]; }
+    if (districtFacil.lights) { lights = districtFacil["lights"][districtFacil["lights"].length - 1]; }
+    if (districtFacil.policeStation) { ps = districtFacil["policeStation"][districtFacil["policeStation"].length - 1]; }
+    if (districtFacil.pub) { pub = districtFacil["pub"][districtFacil["pub"].length - 1]; }
+    if (districtFacil.single) { single = districtFacil["single"][districtFacil["single"].length - 1]; }
+    if (districtFacil.policeman) { pm = districtFacil["policeman"][districtFacil["policeman"].length - 1]; }
+}
+
+function linearFomula(dropdownValue) {
+    if (dropdownValue == "강남구") {
+        newhomicide = Math.round((-0.01386 * pm) + 30.4354, 2)
+        newrobber = Math.round((0.2219 * pub) + (-0.002662 * single) + 150, 2)
+        newsexual = Math.round((-0.4881 * pub) + (0.023 * cctv) + 721.1480, 2)
+        newtheft = Math.round((-10.1851 * pub) + (-0.9912 * cctv) + 12945, 2)
+        newviolence = Math.round((2.40490 * pub) + (-0.11438 * cctv) + 3240.66897, 2)
+    } else if (dropdownValue == "송파구") {
+        newhomicide = Math.round((0.02 * pm) - 0.55, 2)
+        newrobber = Math.round((0.868217 * pub) + (0.038574 * cctv) + (-0.249687 * pm), 2)
+        newsexual = Math.round((-28.27 * ps) + 884.73, 2)
+        newtheft = Math.round((-0.40439 * lights) + 7713.99518, 2)
+        newviolence = Math.round((-0.09266 * lights) + (6.64268 * pub) + 2466.36834, 2)
+    } else if (dropdownValue == "영등포구") {
+        newhomicide = Math.round((0.01207 * lights) + (0.1288 * pub) - 151.3, 2)
+        newrobber = Math.round((0.21563 * pub) - 71.86629, 2)
+        newsexual = Math.round((-36.60834 * ps) + (-0.01625 * cctv) + (0.23162 * pm) + 736.69621, 2)
+        newtheft = Math.round((-280.6012 * ps) + (-0.5272 * cctv) + (-2.5739 * pm) + 10950.4520, 2)
+        newviolence = Math.round((0.3071 * lights) + (-0.6646 * cctv) + (3.10 * pm) - 1364, 2)
+    } else if (dropdownValue == "성동구") {
+        newhomicide = Math.round((0.0074954 * cctv) + (-0.0011057 * single) + 54.0135106, 2)
+        newrobber = Math.round((0.02709 * cctv) + (-0.01248 * lights) + (-0.004272 * single) + 230.9, 2)
+        newsexual = Math.round((-0.0128024 * cctv) + (0.0035218 * single) + 9.3096545, 2)
+        newtheft = Math.round((-0.51652 * cctv) + (17.22919 * pub) + (-6.14257 * pm) + (0.08810 * single) + 1816.62870, 2)
+        newviolence = Math.round((-0.03876 * single) + 2924, 2)
+    } else if (dropdownValue == "노원구") {
+        newhomicide = Math.round((-0.011215 * lights) + (0.005730 * cctv) + 100.566202, 2)
+        newrobber = Math.round((-4.313 * ps) + (-0.001470 * single) + 194.1, 2)
+        newsexual = Math.round((-0.014380 * lights) + (-0.086534 * cctv) + (0.008263 * single) + 12.740479, 2)
+        newtheft = Math.round((-0.04215 * single) + (-4.95164 * pm) + 8055.75584, 2)
+        newviolence = Math.round((-0.31102 * cctv) + 2856.35701, 2)
+    } else if (dropdownValue == "강북구") {
+        newhomicide = Math.round((0.01246 * lights) + (-0.236 * pub) + (-0.00872 * cctv) + (0.001041 * single) - 31.21, 2)
+        newrobber = Math.round((-9.12 * ps) + (-0.002169 * single) + +298.3, 2)
+        newsexual = Math.round((-0.05327 * cctv) + (0.006781 * single) - 19.91, 2)
+        newtheft = Math.round((-0.68294 * lights) + (-0.28357 * cctv) + 4622.58705, 2)
+        newviolence = Math.round((15.108 * pub) - 634.928, 2)
+    }
+}
 
 var plusBtns = document.querySelectorAll('.btnplus');
 var minusBtns = document.querySelectorAll('.btnminus');
 var FacilityData;
+var chartLabelData;
 var crimeData;
+var cctv;
+var lights;
+var ps;
+var pub;
+var single;
+var pm;
+var facilityLabels = {};
 plusBtns.forEach(function (plusBtn) {
     plusBtn.addEventListener('click', function () {
+        console.log("single값 2차확인" + single)
+        var text = plusBtn.parentElement.parentElement.querySelector('.compo').textContent.trim();
+        var facility = changeFacilName(text);
 
-        var text = plusBtn.parentElement.querySelector('.compo').textContent.trim();
-        var facility;
-        if (text == "CCTV") {
-            facility = "cctvCount"
-        } else if (text == "보안등") {
-            facility = "light"
-        } else if (text == "경찰관서") {
-            facility = "policeStationCount"
-        } else if (text == "주점") {
-            facility = "pub"
-        } else if (text == "1인가구") {
-            facility = "single"
+        if (myChart.data.labels[0] == 2013) {
+            changeChartLabels(facility);
         }
 
-        if (btnCount < 5) {
-            FacilityData = myChart.data.labels.slice();
-            myChart.data.labels = FacilityData;
+        //clicked facility's multiple rate '+5%'
+        var multipleNum = Math.round(districtData["facilitySelector"][0][facility][districtData["facilitySelector"][0][facility].length - 1] * 0.05, 2)
+
+        if (plusBtnCount < 5) {
+            if (facilityLabels[facility] === undefined) {
+                // facilityLabels = {};
+                console.log("퍼실라벨실행됨?" + facilityLabels)
+                if (facility == "cctv") {
+                    facilityLabels.cctv = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "lights") {
+                    facilityLabels.lights = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "policeStation") {
+                    facilityLabels.policeStation = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "pub") {
+                    facilityLabels.pub = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "single") {
+                    facilityLabels.single = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "policeman") {
+                    facilityLabels.policeman = districtData["facilitySelector"][0][facility].slice();
+                }
+            }
+            chartLabelData = myChart.data.labels.slice();
+
+            FacilityData = facilityLabels[facility];
+            var newFacilData = FacilityData[(FacilityData.length - 1)] + multipleNum;
+            if (facility == "cctv") {
+                cctv = newFacilData;
+            } else if (facility == "lights") {
+                lights = newFacilData;
+            } else if (facility == "policeStation") {
+                ps = newFacilData;
+            } else if (facility == "pub") {
+                pub = newFacilData;
+            } else if (facility == "single") {
+                single = newFacilData;
+            } else if (facility == "policeman") {
+                pm = newFacilData;
+            }
+            plusBtn.parentElement.parentElement.querySelector('.count').innerText = newFacilData;
+            FacilityData.push(newFacilData);
+            chartLabelData.push(newFacilData);
+            myChart.data.labels = chartLabelData;
+
             myChart.update();
-            FacilityData.push(FacilityData[(FacilityData.length - 1)] + 10);
-            myChart.update();
-            btnCount++;
+            plusBtnCount++;
+            TotalBtnCount++;
 
-
-
-
-
+            linearFomula(dropdownValue);
+            var newCrimeData = [newhomicide, newrobber, newsexual, newtheft, newviolence];
             const datasets = myChart.data.datasets;
             datasets.forEach((dataset, index) => {
                 crimeData = dataset.data.slice();
                 dataset.data = crimeData;
                 myChart.update();
-                crimeData.push(crimeData[(crimeData.length - 1)] - 5);
+                crimeData.push(newCrimeData[index]);
                 myChart.update();
                 const crimeafter = dataset.data[(dataset.data.length - 1)];
 
-
+                /*-----standard num for compare before -----*/
+                districtCrime = districtData2["crimeData"][0];
+                homiStd = districtCrime["homicide"][(districtCrime["homicide"].length - 1)]
+                robStd = districtCrime["robber"][(districtCrime["robber"].length - 1)]
+                sexStd = districtCrime["sexual"][(districtCrime["sexual"].length - 1)]
+                violStd = districtCrime["violence"][(districtCrime["violence"].length - 1)]
+                theStd = districtCrime["theft"][(districtCrime["theft"].length - 1)]
+                crimestd = [homiStd, robStd, sexStd, theStd, violStd];
+                console.log("범죄기준값" + crimestd)
+                console.log("나중범죄값" + crimeafter)
                 var results = document.querySelectorAll('#result');
                 var flucs = document.querySelectorAll('#fluc');
 
@@ -317,44 +393,93 @@ plusBtns.forEach(function (plusBtn) {
                     flucs[index].innerText = "감소"
                 }
             })
-
-        };
+        }
     });
 });
+
+
+
 minusBtns.forEach(function (minusBtn) {
     minusBtn.addEventListener('click', function () {
-        var text = minusBtn.parentElement.querySelector('.compo').textContent.trim();
-        var facility;
-        if (text == "CCTV") {
-            facility = "cctvCount"
-        } else if (text == "보안등") {
-            facility = "light"
-        } else if (text == "경찰관서") {
-            facility = "policeStationCount"
-        } else if (text == "주점") {
-            facility = "pub"
-        } else if (text == "1인가구") {
-            facility = "single"
+        var text = minusBtn.parentElement.parentElement.querySelector('.compo').textContent.trim();
+        facility = changeFacilName(text);
+        if (myChart.data.labels[0] == 2013) {
+            changeChartLabels(facility);
         }
 
-        if (btnCount > 0) {
-            FacilityData.pop();
+
+        multipleNum = Math.round(districtData["facilitySelector"][0][facility][districtData["facilitySelector"][0][facility].length - 1] * 0.05, 2)
+
+
+        if (minusBtnCount < 5) {
+
+            if (facilityLabels[facility] === undefined) {
+                // facilityLabels = {};
+                console.log("퍼실라벨실행됨?" + facilityLabels)
+                if (facility == "cctv") {
+                    facilityLabels.cctv = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "lights") {
+                    facilityLabels.lights = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "policeStation") {
+                    facilityLabels.policeStation = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "pub") {
+                    facilityLabels.pub = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "single") {
+                    facilityLabels.single = districtData["facilitySelector"][0][facility].slice();
+                } else if (facility == "policeman") {
+                    facilityLabels.policeman = districtData["facilitySelector"][0][facility].slice();
+                }
+            }
+
+            FacilityData = facilityLabels[facility];
+            newFacilData = FacilityData[(FacilityData.length - 1)] - multipleNum;
+
+            if (facility == "cctv") {
+                cctv = newFacilData;
+            } else if (facility == "lights") {
+                lights = newFacilData;
+            } else if (facility == "policeStation") {
+                ps = newFacilData;
+            } else if (facility == "pub") {
+                pub = newFacilData;
+            } else if (facility == "single") {
+                single = newFacilData;
+            } else if (facility == "policeman") {
+                pm = newFacilData;
+            }
+            console.log("single3차확인" + single)
+
+            minusBtn.parentElement.parentElement.querySelector('.count').innerText = newFacilData;
+            FacilityData.push(newFacilData);
+            chartLabelData.push(newFacilData);
+
             myChart.update();
-            btnCount--;
+            minusBtnCount++;
+            TotalBtnCount++;
 
-
-            const datasets = myChart.data.datasets;
+            linearFomula(dropdownValue);
+            newCrimeData = [newhomicide, newrobber, newsexual, newtheft, newviolence];
+            datasets = myChart.data.datasets;
             datasets.forEach((dataset, index) => {
-
                 crimeData = dataset.data.slice();
                 dataset.data = crimeData;
-                crimeData.pop();
                 myChart.update();
+                crimeData.push(newCrimeData[index]);
+                myChart.update();
+                crimeafter = dataset.data[(dataset.data.length - 1)];
 
+                /*-----standard num for compare before -----*/
+                districtCrime = districtData2["crimeData"][0];
+                homiStd = districtCrime["homicide"][(districtCrime["homicide"].length - 1)]
+                robStd = districtCrime["robber"][(districtCrime["robber"].length - 1)]
+                sexStd = districtCrime["sexual"][(districtCrime["sexual"].length - 1)]
+                violStd = districtCrime["violence"][(districtCrime["violence"].length - 1)]
+                theStd = districtCrime["theft"][(districtCrime["theft"].length - 1)]
+                crimestd = [homiStd, robStd, sexStd, theStd, violStd];
 
-                var results = document.querySelectorAll('#result');
-                var flucs = document.querySelectorAll('#fluc');
-                const crimeafter = dataset.data[(dataset.data.length - 1)];
+                results = document.querySelectorAll('#result');
+                flucs = document.querySelectorAll('#fluc');
+
                 if (crimeafter - crimestd[index] > 0) {
                     results[index].innerText = Math.round((crimeafter - crimestd[index]) / crimestd[index] * 100) + "%"
                     flucs[index].innerText = "증가"
@@ -372,21 +497,27 @@ minusBtns.forEach(function (minusBtn) {
 
 
 
+    })
 
-    });
+
+
+
+
+    var homiStd;
+    var robStd;
+    var sexStd;
+    var violStd;
+    var theStd;
+
+    var crimestd;
+
 })
 
 
 
 
 
-var murderstd = districtData[dropdownValue].crimeData.murder[(districtData[dropdownValue].crimeData.murder.length - 1)]
-var robstd = districtData[dropdownValue].crimeData.robbery[(districtData[dropdownValue].crimeData.robbery.length - 1)];
-var sexstd = districtData[dropdownValue].crimeData.sexualAssault[(districtData[dropdownValue].crimeData.sexualAssault.length - 1)];
-var assstd = districtData[dropdownValue].crimeData.assault[(districtData[dropdownValue].crimeData.assault.length - 1)];
-var thestd = districtData[dropdownValue].crimeData.theft[(districtData[dropdownValue].crimeData.theft.length - 1)];
 
-var crimestd = [murderstd, robstd, sexstd, assstd, thestd]
 
 
 
@@ -411,4 +542,31 @@ sidebar.addEventListener('mouseenter', function () {
     upIcon.className = 'fa-solid fa-arrow-up';
     rankIcon.className = 'fa-solid fa-chart-column';
     siteIcon.className = 'fa-solid fa-link';
+});
+
+
+$(document).ready(function () {
+    // Function to handle the tooltip text
+    function getTooltipText(operation) {
+        return operation === 'plus' ? '+5%' : '-5%';
+    }
+
+    // Function to add tooltip to the buttons
+    function addTooltip(button, operation) {
+        $(button).tooltip({
+            title: getTooltipText(operation),
+            placement: 'top',
+            trigger: 'hover',
+            template: '<div class="tooltip custom-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+        });
+    }
+
+    // Add tooltips to btnplus and btnminus buttons
+    $('.btnplus').each(function () {
+        addTooltip(this, 'plus');
+    });
+
+    $('.btnminus').each(function () {
+        addTooltip(this, 'minus');
+    });
 });
