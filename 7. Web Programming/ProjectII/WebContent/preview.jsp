@@ -70,13 +70,19 @@
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><button class="dropdown-item" type="button" value="강남구">강남구</button></li>
+								<li><button class="dropdown-item" type="button" value="강남구"
+										onclick="getPoliceData(this.value)">강남구</button></li>
 								<!-- <li><button class="dropdown-item" type="button" value="서초구">서초구</button></li> -->
-								<li><button class="dropdown-item" type="button" value="송파구">송파구</button></li>
-								<li><button class="dropdown-item" type="button" value="영등포구">영등포구</button></li>
-								<li><button class="dropdown-item" type="button" value="성동구">성동구</button></li>
-								<li><button class="dropdown-item" type="button" value="노원구">노원구</button></li>
-								<li><button class="dropdown-item" type="button" value="강북구">강북구</button></li>
+								<li><button class="dropdown-item" type="button" value="송파구"
+										onclick="getPoliceData(this.value)">송파구</button></li>
+								<li><button class="dropdown-item" type="button" value="영등포구"
+										onclick="getPoliceData(this.value)">영등포구</button></li>
+								<li><button class="dropdown-item" type="button" value="성동구"
+										onclick="getPoliceData(this.value)">성동구</button></li>
+								<li><button class="dropdown-item" type="button" value="노원구"
+										onclick="getPoliceData(this.value)">노원구</button></li>
+								<li><button class="dropdown-item" type="button" value="강북구"
+										onclick="getPoliceData(this.value)">강북구</button></li>
 							</ul>
 						</div>
 						<div class="box-1-gu">
@@ -182,7 +188,8 @@
 						<div class="resultTitle col-md-12 col-lg-5">결과해석</div>
 					</div>
 
-					<br><br><!-- <div>마지막값으로부터</div> -->
+					<br>
+					<br> <!-- <div>마지막값으로부터</div> -->
 					<div>
 
 						<div class="resultbox row">
@@ -227,12 +234,40 @@
 							</div>
 							<div id="hidden" class="col-md-12 col-lg-5" style="-bs-border-opacity: 20%;"></div>
 						</div>
-						<div><br><br>
-							위 해석은 인과관계를 설명하지 않습니다.
-
+						<div>
+							<br>
+							<br> 위 해석은 인과관계를 설명하지 않습니다.
 						</div>
 					</div>
 				</div>
+
+
+
+				<!-- policeStation table -->
+				<div id="policeStationBox">
+					<span id="policeAddr">
+						<h3>가까운 경찰서 알아보기</h3>
+					</span>
+				</div>
+
+				<table id="policeStationTable">
+					<thead id="policeStationTitle">
+						<tr>
+							<td>지역</td>
+							<td>주소</td>
+							<td>부서</td>
+							<td>구</td>
+							<td>전화번호</td>
+							<td>번호</td>
+							<td>소속</td>
+						</tr>
+					</thead>
+					<tbody id="policeStationData">
+						<tr>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<div id="text">
 					<i class="bi-bell"></i><span> 안전한 우리동네를 위한 추천 사이트</span>
