@@ -14,16 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import chartCommand.CCommand;
-
-import chartCommand.PredictChart;
-
 import chartCommand.GuPageChart;
 import chartCommand.GuPagePerceivedSafety;
 import chartCommand.GuPageSecuGrade;
 import chartCommand.GuPageSecufacil;
-
+import chartCommand.PredictChart;
 import chartCommand.SeoulArrestChart;
 import chartCommand.SeoulCrimelChart;
+import chartCommand.SeoulSecuInfo;
 
 /**
  * Servlet implementation class ServiceController
@@ -120,6 +118,10 @@ public class ChartController extends HttpServlet {
 			out.print(secuGrade.toString());
 			out.flush();
 
+		}else if (com.contains("/secuInfo.do")) {
+			System.out.println("secuInfo서비스 시작=====");
+			SeoulSecuInfo sSI = new SeoulSecuInfo();
+			sSI.execute(request, response);
 		}
 		
 		
