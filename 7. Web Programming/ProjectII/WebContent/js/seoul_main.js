@@ -865,61 +865,139 @@ document.getElementById("yearThree").addEventListener("click", function () {
 function secuInfoChart(guname, secuValue) {
     var ctx = document.getElementById("infoCanvas").getContext('2d');
     infoChart = new Chart(ctx, {
-        type: 'horizontalBar',
+        type: 'bar',
         data: {
             labels: guname,
             datasets: [{
                 label: 'SecuIndex Score',
                 data: secuValue,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)'],
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         },
         options: {
-            scales: {
-                x: {
-                    beginAtZero: true
-                }
-            }
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+
         }
     });
 }
 
+let guname = [];
+let secuValue = [];
 var secuRanks = document.querySelectorAll('.s_guName')
-secuRanks.forEach(secuRank => {
-    let guname = [];
-    let secuValue = [];
-    secuRank.addEventListener("mouseover", async function (e) {
-        document.getElementById('secuInfo').style.display = 'block';
-        document.getElementById('secuInfo').innerText = secuRank.textContent.trim();
+secuInfoChart(guname, secuValue)
+document.addEventListener("DOMContentLoaded", function () {
+    secuRanks.forEach(secuRank => {
+        secuRank.addEventListener("mouseover", async function (e) {
+            document.getElementById('secuInfo').style.display = 'block';
+            document.getElementById('secuInfoText').innerText = secuRank.textContent.trim();
 
-        var activeTabButton = document.querySelector('.nav-tabs .nav-link.active');
-        var selectedYearValue = activeTabButton.getAttribute('value');
+            var activeTabButton = document.querySelector('.nav-tabs .nav-link.active');
+            var selectedYearValue = activeTabButton.getAttribute('value');
+            const response = await fetch("./secuInfo.do?year=" + selectedYearValue);
+            const jsonArray = await response.text();
+            const jsonData = JSON.parse(jsonArray);
 
-        const response = await fetch("./secuInfo.do?year=" + selectedYearValue);
-        const jsonArray = await response.text();
-        const jsonData = JSON.parse(jsonArray);
+            jsonData.forEach(json => {
+                guname.push(json["guName"]);
+                secuValue.push(json["secuValue"]);
+            });
 
-        jsonData.forEach(json => {
-            console.log(json)
-            guname.push(json["guName"]);
-            secuValue.push(json["secuValue"]);
-        });
-        secuInfoChart(guname, secuValue);
-        console.log("canvas check" + document.getElementById('infoCanvas'))
+            if (infoChart.data.datasets[0].data[0] != 65.63) {
+                infoChart.data.datasets[0].backgroundColor = ['rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)'];
+                infoChart.data.datasets[0].borderColor = 'rgba(75, 192, 192, 1)';
+                infoChart.update();
+            }
 
-        document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
-        document.getElementById('secuInfo').style.top = e.clientY - 20 + 'px';
+            infoChart.data.datasets[0].backgroundColor[guname.indexOf(secuRank.textContent.trim())] = 'rbga(173, 216, 230, 0.2)';
+            infoChart.data.labels = guname;
+            infoChart.update();
+            // secuInfoChart(guname, secuValue)
+
+
+            document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
+            document.getElementById('secuInfo').style.top = e.clientY - 220 + 'px';
+        })
+        secuRank.addEventListener("mousemove", function (e) {
+            document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
+            document.getElementById('secuInfo').style.top = e.clientY - 220 + 'px';
+        })
+        secuRank.addEventListener("mouseout", function (e) {
+            guname = [];
+            secuValue = [];
+            infoChart.data.datasets[0].backgroundColor = ['rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)'];
+            infoChart.update();
+            document.getElementById('secuInfo').style.display = 'none';
+
+        })
+
+        secuRank.addEventListener("click", function () {
+            window.location.href = './gu_page.jsp';
+        })
     })
-    secuRank.addEventListener("mousemove", function (e) {
-        document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
-        document.getElementById('secuInfo').style.top = e.clientY - 20 + 'px';
-    })
-    secuRank.addEventListener("mouseout", function (e) {
-        document.getElementById('secuInfo').style.display = 'none';
+
+});
+
+
+
+
+let guname2 = [];
+let secuValue2 = [];
+var secuRanks2 = document.querySelectorAll('.s_guName1')
+
+document.addEventListener("DOMContentLoaded", function () {
+    secuRanks2.forEach(secuRank2 => {
+        secuRank2.addEventListener("mouseover", async function (e) {
+            document.getElementById('secuInfo').style.display = 'block';
+            document.getElementById('secuInfoText').innerText = secuRank2.textContent.trim();
+
+            var activeTabButton = document.querySelector('.nav-tabs .nav-link.active');
+            var selectedYearValue = activeTabButton.getAttribute('value');
+            const response = await fetch("./perceivedSecuInfo.do?year=" + selectedYearValue);
+            const jsonArray = await response.text();
+            const jsonData = JSON.parse(jsonArray);
+
+            jsonData.forEach(json => {
+                guname2.push(json["guName"]);
+                secuValue2.push(json["secuValue"]);
+            });
+
+            if (infoChart.data.datasets[0].data[0] != 81.6) {
+                infoChart.data.datasets[0].backgroundColor = ['rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)'];
+                infoChart.data.datasets[0].borderColor = 'rgba(144,238,144,1)';
+                infoChart.update();
+            }
+
+            infoChart.data.datasets[0].backgroundColor[guname2.indexOf(secuRank2.textContent.trim())] = 'rbga(50,205,50,0.2)';
+            infoChart.data.datasets[0].data = secuValue2;
+            infoChart.data.labels = guname2;
+            infoChart.update();
+
+            document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
+            document.getElementById('secuInfo').style.top = e.clientY - 220 + 'px';
+        })
+        secuRank2.addEventListener("mousemove", function (e) {
+            document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
+            document.getElementById('secuInfo').style.top = e.clientY - 220 + 'px';
+        })
+        secuRank2.addEventListener("mouseout", function (e) {
+            guname2 = [];
+            secuValue2 = [];
+            infoChart.data.datasets[0].backgroundColor = ['rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)', 'rgba(144,238,144,0.2)'];
+            infoChart.data.datasets[0].borderColor = 'rgba(144,238,144,1)';
+            infoChart.update();
+            document.getElementById('secuInfo').style.display = 'none';
+
+        })
+
+        secuRank2.addEventListener("click", function () {
+            window.location.href = './gu_page.jsp';
+        })
 
     })
-})
+
+});
 
 

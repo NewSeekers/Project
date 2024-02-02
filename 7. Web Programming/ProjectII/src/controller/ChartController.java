@@ -18,6 +18,7 @@ import chartCommand.GuPageChart;
 import chartCommand.GuPagePerceivedSafety;
 import chartCommand.GuPageSecuGrade;
 import chartCommand.GuPageSecufacil;
+import chartCommand.PerceivedSecuInfo;
 import chartCommand.PredictChart;
 import chartCommand.SeoulArrestChart;
 import chartCommand.SeoulCrimelChart;
@@ -122,6 +123,10 @@ public class ChartController extends HttpServlet {
 			System.out.println("secuInfo서비스 시작=====");
 			SeoulSecuInfo sSI = new SeoulSecuInfo();
 			sSI.execute(request, response);
+		}else if(com.contains("/perceivedSecuInfo")) {
+			System.out.println("perceivedSecuInfo 서비스 시작===");
+			PerceivedSecuInfo psi = new PerceivedSecuInfo();
+			psi.execute(request, response);
 		}
 		
 		

@@ -1,4 +1,4 @@
-package infoModel;
+package chartModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,12 +12,10 @@ import javax.sql.DataSource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class SecuInfoDao {
-	
-			
-			DataSource dataSource;
+public class PerceivedSecuDao {
+	DataSource dataSource;
 
-	public SecuInfoDao() {
+	public PerceivedSecuDao() {
 		System.out.println("=[DB]====SecuIndexDao 실행");
 		try {
 			Context context = new InitialContext();
@@ -27,7 +25,7 @@ public class SecuInfoDao {
 		}
 	}
 
-	public JSONArray getSecuInfo(String year) throws SQLException {
+	public JSONArray getPerceivedInfo(String year) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		JSONArray lists = new JSONArray();
@@ -36,7 +34,7 @@ public class SecuInfoDao {
 		con = dataSource.getConnection();
 		String query = "SELECT row_number, guname, "+year;
 		query += " FROM (SELECT row_number() OVER (ORDER BY si."+year+" DESC) AS row_number, gu.guname, si."+year;
-		query += " FROM gu_name gu JOIN secuIndex si ON gu.local = si.local) gu_query WHERE row_number <= 5";
+		query += " FROM gu_name gu JOIN PERCEIVEDSAFETY si ON gu.local = si.local) gu_query WHERE row_number <= 5";
 		
 		pstmt = con.prepareStatement(query);
 		
@@ -59,5 +57,4 @@ public class SecuInfoDao {
 		}
 		return lists;
 	}
-			
 }

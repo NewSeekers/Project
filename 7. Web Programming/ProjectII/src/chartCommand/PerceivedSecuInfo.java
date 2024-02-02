@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 
-import chartModel.SecuInfoDao;
+import chartModel.PerceivedSecuDao;
 
-public class SeoulSecuInfo implements CCommand {
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+public class PerceivedSecuInfo implements CCommand{
+public void execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		
 		String year = request.getParameter("year");
 		
 		System.out.println(year);
-		SecuInfoDao sidao = new SecuInfoDao();
-		JSONArray array = sidao.getSecuInfo(year);
+		PerceivedSecuDao sidao = new PerceivedSecuDao();
+		JSONArray array = sidao.getPerceivedInfo(year);
 				
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -26,4 +26,3 @@ public class SeoulSecuInfo implements CCommand {
 				
 	}
 }
-
