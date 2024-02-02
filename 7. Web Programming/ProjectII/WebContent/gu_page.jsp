@@ -60,7 +60,6 @@
 						guList.add("영등포구");
 					%>
 					<div id="local_box">
-						<!-- <label for="local">dsf</label> -->
 						<select name="selectbox" id="selectbox" onchange="guChange()">
 							<c:forEach var="gu" items="<%=guList%>">
 								<c:set var="selected" value="${gu eq region ? 'selected' : ''}" />
@@ -68,13 +67,8 @@
 							</c:forEach>
 						</select>
 					</div>
-
-
-					<div>치안등급 : <div id="gu_rank">치안등급 : 1</div></div>
-					<div>인구 수 : <div id="gu_people">5421</div></div>
-					<!-- <div id="gu_rank">치안등급 : 1</div>
-					<div id="gu_people">인구 수 : 5421</div> -->
-
+					<div id="gu_rankBox">치안등급 : <span id="gu_rank">1</span></div>
+					<div id="gu_peopleBox">인구 수 : <span id="gu_people">5421</span></div>
 				</div>
 			</div>
 
@@ -101,7 +95,6 @@
 					</c:choose>
 				</span>&nbsp;&nbsp;의 안전 알아보기
 			</div>
-
 		</div>
 	</div>
 
@@ -129,7 +122,6 @@
 					<canvas id="myChart3"></canvas>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
@@ -141,13 +133,11 @@
 
 	<div id="screen2" class="container-fluid">
 		<div id="screen2_container" class="row">
-
 			<span id="safety_rank"> 우리 동네의 체감안전도 알아보기 </span>
 			<div id="screen2_chartBox" class="col-md-12 col-lg-7">
 				<canvas id="safetyChart"></canvas>
 			</div>
 			<div id="chart_result" class="col-md-12 col-lg-4">
-
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary" id="bt2019">2019</button>
 					<button type="button" class="btn btn-secondary" id="bt2020">2020</button>
@@ -167,9 +157,7 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
 
 
@@ -197,11 +185,6 @@
 				</div>
 			</div>
 
-
-
-
-
-
 			<div id="park_mapBox" class="col-lg-12 row">
 				<div id="map" class="col-lg-12">
 					<div id="modal">
@@ -227,9 +210,7 @@
 						경찰서 수 : <span id="park_police"></span>
 					</div>
 				</div>
-
 			</div>
-
 
 			<div id="park_list" class="col-lg-12">
 				<div id="park_information">
@@ -263,7 +244,6 @@
 		</div>
 	</div>
 
-
 	<!--sidebar-->
 	<div id="sidebar">
 		<a href="./Index.html" id="home" data-bs-toggle="tooltip"
@@ -284,11 +264,8 @@
 <br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-
 	<!-- ---------footer--------------------------->
 	<jsp:include page="./include/footer.jsp" />
-
-
 	<!-- -------------- script ---------------- -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
