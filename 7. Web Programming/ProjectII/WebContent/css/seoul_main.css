@@ -26,7 +26,7 @@
     text-decoration: none;
     font-family: NPSfontBold;
     color: #252525;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 
@@ -679,6 +679,8 @@ datalist {
     #s_slide {
         display: none;
     }
+    #numBox {
+        width: 100%;}
 }
 
 @media screen and (min-width:1200px) {
@@ -775,4 +777,14 @@ datalist {
     display: flex;
     /* background-color: aqua; */
     width: 100%;
+}
+
+
+#secuInfo{
+
+    position: fixed;
+    width: 500px;
+    height: 400px;
+    display: none;
+    
 }

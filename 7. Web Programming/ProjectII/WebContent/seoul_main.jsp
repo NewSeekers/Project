@@ -47,12 +47,12 @@
 
 
 
-
 			<!--adjust space-->
 			<!-- <div class="s_space"></div> -->
 
 			<!--responsive layout start-->
 			<div class="container-fluid">
+
 				<div class="row" id="map_box">
 					<!--security grade layout-->
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-1" id="gradeBox">
@@ -320,6 +320,7 @@
 								<div class="s_rank col-5">5위</div>
 								<div id="sFifth" name="SIR5" class="s_guName col-7">도봉구&nbsp;&nbsp;&nbsp;</div>
 							</div>
+
 						</div>
 					</div>
 
@@ -384,6 +385,13 @@
 					</div>
 				</div>
 			</div>
+
+
+			<div id="secuInfo">테스트중
+				<canvas id="infoCanvas"></canvas>
+			</div>
+
+
 
 			<!--sidebar-->
 			<div id="sidebar">

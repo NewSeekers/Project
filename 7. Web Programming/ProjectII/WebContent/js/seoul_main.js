@@ -76,6 +76,10 @@ async function guGradeData() {
     }
 }
 
+
+
+
+
 // 자치구 연도별 범죄발생 수 DB pull
 async function fetchData() {
     try {
@@ -363,6 +367,7 @@ function displayArea(area) {
 
 }
 
+
 // 단계구분도 폴리곤 삭제
 function deletePolygon(polygons) {
     for (var i = 0; i < polygons.length; i++) {
@@ -544,13 +549,13 @@ selectbox.addEventListener("input", function () {
 
     document.getElementById("cctvNum").innerText =
         cctvCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
-        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("lightNum").innerText =
         lightCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
-        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     document.getElementById("policeNum").innerText =
         policeCount[(parseInt(currentValue) - 2001) / 3 - 1].toString()
-        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
     document.getElementById("cctvNumHead").style.backgroundColor =
         gradeColors[(parseInt(currentValue) - 2001) / 3 - 1][0];
@@ -854,5 +859,67 @@ document.getElementById("yearThree").addEventListener("click", function () {
     secuIndex(year);
     safety(year);
 });
+
+
+
+function secuInfoChart(guname, secuValue) {
+    var ctx = document.getElementById("infoCanvas").getContext('2d');
+    infoChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: guname,
+            datasets: [{
+                label: 'SecuIndex Score',
+                data: secuValue,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+var secuRanks = document.querySelectorAll('.s_guName')
+secuRanks.forEach(secuRank => {
+    let guname = [];
+    let secuValue = [];
+    secuRank.addEventListener("mouseover", async function (e) {
+        document.getElementById('secuInfo').style.display = 'block';
+        document.getElementById('secuInfo').innerText = secuRank.textContent.trim();
+
+        var activeTabButton = document.querySelector('.nav-tabs .nav-link.active');
+        var selectedYearValue = activeTabButton.getAttribute('value');
+
+        const response = await fetch("./secuInfo.do?year=" + selectedYearValue);
+        const jsonArray = await response.text();
+        const jsonData = JSON.parse(jsonArray);
+
+        jsonData.forEach(json => {
+            console.log(json)
+            guname.push(json["guName"]);
+            secuValue.push(json["secuValue"]);
+        });
+        secuInfoChart(guname, secuValue);
+        console.log("canvas check" + document.getElementById('infoCanvas'))
+
+        document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
+        document.getElementById('secuInfo').style.top = e.clientY - 20 + 'px';
+    })
+    secuRank.addEventListener("mousemove", function (e) {
+        document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
+        document.getElementById('secuInfo').style.top = e.clientY - 20 + 'px';
+    })
+    secuRank.addEventListener("mouseout", function (e) {
+        document.getElementById('secuInfo').style.display = 'none';
+
+    })
+})
 
 
