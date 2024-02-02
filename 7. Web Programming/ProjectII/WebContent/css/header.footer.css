@@ -70,7 +70,7 @@
 	border-bottom: 3px solid #8a8a8a;
 }
 
-@media ( max-width : 500px) {
+@media ( max-width : 767px) {
 	/* .headbar {
         text-align: center;
         background: rgba(255, 255, 255, 1);
@@ -80,7 +80,7 @@
 	}
 	#navMenu {
 		margin-top: 20px;
-		height: 160px;
+		height: 190px;
 	}
 	#navMenu li {
 		margin-left: 30%;

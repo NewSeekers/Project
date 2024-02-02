@@ -60,14 +60,22 @@
     font-size: 1.8rem;
 }
 
-
-
-
-#gu_rank {
-    font-size: 1.6rem;
-    margin: 10px 0px 10px 0px;
-
+#gu_rankBox{
+	margin-top:15px;
 }
+#gu_rank{
+  	font-size: 1.6rem;
+    margin: 10px 0px 10px 15px;
+    font-weight: bold;
+}
+#gu_peopleBox{
+	margin-top:15px;
+}
+#gu_people{
+	margin-left:15px;
+	font-weight: bold;
+}
+
 
 #gu_nameBox {
     /* background-color: aquamarine; */

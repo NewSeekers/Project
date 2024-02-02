@@ -481,6 +481,7 @@ function guChange() {
       console.error("Fetch error: " + error);
     });
 
+  //패치문을 아래에 아작스로 바꿔서 불러오기
   // fetch('http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue='
 	// + guNameValue, {
   // method: 'Get',
@@ -512,8 +513,8 @@ function guChange() {
       type: 'get',
       success: function (result) {
         console.log(result);
-        $('#gu_rank').text(JSON.stringify(result.secugrade));
-        $('#gu_people').text(JSON.stringify(result.population));
+        $('#gu_rank').text(result.secugrade);
+        $('#gu_people').text(result.population);
       },
       error: function () {
         alert('ajax 통신 실패');
