@@ -57,12 +57,14 @@ window.onload = function () {
     })
     .then(data => {
       console.log(data);
-      document.getElementById("gu_rank").innerHTML =  data.secugrade
-      document.getElementById("gu_people").innerHTML = data.population
-// document.getElementById("gu_rank").innerHTML = "<div> 치안등급 : " +
-// data.secugrade + "<div>"
-// document.getElementById("gu_people").innerHTML = "<div> 인구 수 : " +
-// data.population + "<div>"
+
+      document.getElementById("gu_rank").innerHTML = data.secugrade
+      document.getElementById("gu_people").innerHTML = data.population.toString()
+        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      // document.getElementById("gu_rank").innerHTML = "<div> 치안등급 : " +
+      // data.secugrade + "<div>"
+      // document.getElementById("gu_people").innerHTML = "<div> 인구 수 : " +
+      // data.population + "<div>"
     })
     .catch(error => {
       console.error("Fetch error: " + error);
@@ -126,55 +128,55 @@ window.onload = function () {
 
 
 
-  
-  
-  
-  
-  
-  fetch('https://data.ojp.usdoj.gov/resource/6c73-b7iq.json', {
-	    method: 'Get',
-	    headers: {
-	      'Content-Type': 'application/json'
-	    }
-	  })
-	    .then(response => {
-	      if (!response.ok) {
-	        throw new Error('Network response was not ok' + response.statusText);
-	      }
-	      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-	      return response.json();
-	    })
-	    .then(data => {
-	      
-	      console.log(data);
 
-	    })
-	    .catch(error => {
-	      console.error("Fetch error: " + error);
-	    });
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+  fetch('https://data.ojp.usdoj.gov/resource/6c73-b7iq.json', {
+    method: 'Get',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok' + response.statusText);
+      }
+      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
+      return response.json();
+    })
+    .then(data => {
+
+      console.log(data);
+
+    })
+    .catch(error => {
+      console.error("Fetch error: " + error);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const addData = (chart, data1, data2, guNameValue) => {
     // removeData(chart);
@@ -452,7 +454,7 @@ window.onload = function () {
 function guChange() {
   guName = document.getElementById("selectbox");
   guNameValue = guName.options[guName.selectedIndex].value;
-  
+
   document.getElementById("gu_name").innerText = "<" + guNameValue + ">  ";
 
   // json 패치
@@ -483,7 +485,7 @@ function guChange() {
 
   //패치문을 아래에 아작스로 바꿔서 불러오기
   // fetch('http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue='
-	// + guNameValue, {
+  // + guNameValue, {
   // method: 'Get',
   // headers: {
   // 'Content-Type': 'application/json'
@@ -499,30 +501,30 @@ function guChange() {
   // .then(data => {
   // console.log(data);
   // document.getElementById("gu_rank").innerHTML = "<div> 치안등급 :
-	// "+data.secugrade+"<div>"
+  // "+data.secugrade+"<div>"
   // document.getElementById("gu_people").innerHTML = "<div> 인구 수 :
-	// "+data.population+"<div>"
+  // "+data.population+"<div>"
   // })
   // .catch(error => {
   // console.error("Fetch error: " + error);
   // });
 
-  
+
   $.ajax({
-      url: 'http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue=' + guNameValue,
-      type: 'get',
-      success: function (result) {
-        console.log(result);
-        $('#gu_rank').text(result.secugrade);
-        $('#gu_people').text(result.population);
-      },
-      error: function () {
-        alert('ajax 통신 실패');
-      },
-      complete: function () {
-        console.log('asdgawe4rg');
-      }
-    });
+    url: 'http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue=' + guNameValue,
+    type: 'get',
+    success: function (result) {
+      console.log(result);
+      $('#gu_rank').text(result.secugrade);
+      $('#gu_people').text(result.population);
+    },
+    error: function () {
+      alert('ajax 통신 실패');
+    },
+    complete: function () {
+      console.log('asdgawe4rg');
+    }
+  });
 
 }
 

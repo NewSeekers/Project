@@ -79,6 +79,9 @@ public class FrontController extends HttpServlet {
 		}else if(com.equals("/secuInfo.do")) {
 			System.out.println("프론트 secuInfo.do 항목 실행");
 			viewPage="/chart"+com;
+		}else if(com.equals("/perceivedSecuInfo.do")) {
+			System.out.println("프론트 perceivedSecuInfo 항목 실행");
+			viewPage="/chart"+com;
 		}else if(com.equals("/write.do")) {
 			System.out.println("프론트 write.do 항목 실행");
 			viewPage="/board"+com;
