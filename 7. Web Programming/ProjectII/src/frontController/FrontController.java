@@ -54,7 +54,6 @@ public class FrontController extends HttpServlet {
 				
 		if(com.equals("/list.do")) {
 			System.out.println("프론트 list.do 항목 실행");
-//			BoardController boardController = new BoardController(request,response);
 			viewPage="/board"+com;
 		}else if(com.equals("/callCrime.do")) {
 			System.out.println("프론트 callCrime.do 항목 실행");
@@ -103,11 +102,9 @@ public class FrontController extends HttpServlet {
 		}else if(com.equals("/reply_view.do")) {
 			System.out.println("프론트 reply_view.do 항목 실행");
 			viewPage="/board"+com;
-
 		}else if(com.equals("/callPredict.do")) {
 			System.out.println("프론트 callPredict.do 항목 실행");
 			viewPage="/chart"+com;
-
 		}else if(com.equals("/guPage_chart.do")) {
 			System.out.println("프론트 guPage_chart.do 항목 실행");
 			viewPage="/chart"+com;
