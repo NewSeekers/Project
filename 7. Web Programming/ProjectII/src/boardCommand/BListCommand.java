@@ -23,17 +23,21 @@ public class BListCommand implements BCommand {
 		int pageBtnNum= 0; 
 		if(listSize != 0) {
 			pageBtnNum = (int) Math.ceil(listSize/showListNum);
+			if(listSize % showListNum != 0) {
+				pageBtnNum += 1;
+			}
+			
 		}
 		ArrayList<BDto> dtos = dao.list(currentPage);
 		
 		int startPage = Math.max(1, currentPage - showPBtnNum / 2);
-		int endPage = Math.min(listSize, startPage + showPBtnNum -1);
+//		int endPage = Math.min(listSize, startPage + showPBtnNum -1);
 		
 		request.setAttribute("list", dtos);
 		request.setAttribute("pageBtnNum", pageBtnNum);
 		request.setAttribute("showPBtnNum", showPBtnNum);
 		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
+//		request.setAttribute("endPage", endPage);
 		
 		
 		

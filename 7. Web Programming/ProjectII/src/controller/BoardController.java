@@ -67,7 +67,8 @@ public class BoardController extends HttpServlet {
 			System.out.println("board 컨트롤러 : list 실행");
 			bc = new BListCommand();
 			bc.execute(request, response);
-			viewPage="../list.jsp?page=1";
+//			System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + request.getAttribute("pageBtnNum"));
+			viewPage="../list.jsp?page=" + request.getParameter("page");
 		} else if (com.contains("/modify.do")) {
 			System.out.println("board 컨트롤러 : modify 실행");
 			BModifyCommand bmc = new BModifyCommand();
