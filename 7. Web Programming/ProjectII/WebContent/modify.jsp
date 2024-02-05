@@ -17,6 +17,7 @@
 <!-- css -->
 <link rel="stylesheet" href="./css/board.css">
 <link rel="stylesheet" href="./css/header.footer.css">
+
 <!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
