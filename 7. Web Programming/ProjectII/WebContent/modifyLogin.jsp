@@ -24,7 +24,7 @@
 </head>
 <body>
 	<form action="modifyOk.jsp" method="post" name="reg_frm">
-		<div class="container">
+		<div id="container">
 			<h2>
 				회원정보 수정을 위한<br>정보를 입력해주세요.
 			</h2>

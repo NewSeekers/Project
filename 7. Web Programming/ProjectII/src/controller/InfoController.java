@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import infoCommand.GuGrade;
 import infoCommand.ICommand;
+import infoCommand.PoliceStationTable;
 import infoCommand.Safety;
 import infoCommand.SecuFaci;
 import infoCommand.SecuIndex;
@@ -73,6 +74,10 @@ public class InfoController extends HttpServlet {
 		}else if (com.contains("/secuFaci.do")) {
 			System.out.println("secufaci서비스 시작====");
 			ic = new SecuFaci();
+			ic.execute(request, response);
+		} else if (com.contains("/policeStation.do")) {
+			System.out.println("policeStation서비스 시작====");
+			ic = new PoliceStationTable();
 			ic.execute(request, response);
 		}
 	}

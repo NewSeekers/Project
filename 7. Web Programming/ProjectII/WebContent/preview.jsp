@@ -81,13 +81,13 @@
 							<li>
 								<hr class="dropdown-divider">
 							</li>
-							<li><button class="dropdown-item" type="button" value="강남구">강남구</button></li>
+							<li><button class="dropdown-item" type="button" value="강남구" onclick="getPoliceData(this.value)">강남구</button></li>
 							<!-- <li><button class="dropdown-item" type="button" value="서초구">서초구</button></li> -->
-							<li><button class="dropdown-item" type="button" value="송파구">송파구</button></li>
-							<li><button class="dropdown-item" type="button" value="영등포구">영등포구</button></li>
-							<li><button class="dropdown-item" type="button" value="성동구">성동구</button></li>
-							<li><button class="dropdown-item" type="button" value="노원구">노원구</button></li>
-							<li><button class="dropdown-item" type="button" value="강북구">강북구</button></li>
+							<li><button class="dropdown-item" type="button" value="송파구" onclick="getPoliceData(this.value)">송파구</button></li>
+							<li><button class="dropdown-item" type="button" value="영등포구" onclick="getPoliceData(this.value)">영등포구</button></li>
+							<li><button class="dropdown-item" type="button" value="성동구" onclick="getPoliceData(this.value)">성동구</button></li>
+							<li><button class="dropdown-item" type="button" value="노원구" onclick="getPoliceData(this.value)">노원구</button></li>
+							<li><button class="dropdown-item" type="button" value="강북구" onclick="getPoliceData(this.value)">강북구</button></li>
 						</ul>
 					</div>
 					<div class="box-1-gu">
@@ -267,13 +267,42 @@
 				</div>
 			</div>
 			<br>
+
+
+					<!-- policeStation table -->
+				<div id="policeStationBox">
+					<span id="policeAddr">
+						<h3>가까운 경찰서 알아보기</h3>
+					</span>
+				</div>
+
+				<table id="policeStationTable">
+					<thead id="policeStationTitle">
+						<tr>
+							<td>지역</td>
+							<td>주소</td>
+							<td>부서</td>
+							<td>구</td>
+							<td>전화번호</td>
+							<td>소속</td>
+						</tr>
+					</thead>
+					<tbody id="policeStationData">
+						<tr>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 			<br>
 			<br><div id="text">
 				<span> 안전 더하기 </span>
 			</div>
-
-
-
+			
+			<!-- 
+				<div id="text">
+					<i class="bi-bell"></i><span> 안전한 우리동네를 위한 추천 사이트</span>
+				</div>
+			 -->
 
 			<div id="re" class="swiper">
 				<div class="swiper-wrapper">
