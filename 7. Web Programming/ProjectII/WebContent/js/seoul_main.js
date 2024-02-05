@@ -913,6 +913,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             infoChart.data.datasets[0].backgroundColor[guname.indexOf(secuRank.textContent.trim())] = 'rbga(173, 216, 230, 0.2)';
             infoChart.data.labels = guname;
+            infoChart.data.datasets[0].data = secuValue;
             infoChart.update();
             // secuInfoChart(guname, secuValue)
 

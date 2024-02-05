@@ -577,7 +577,7 @@ datalist {
 
 .s_guName {
     text-align: right;
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     font-weight: 1000;
     color: rgb(66, 65, 65);
 }
@@ -585,7 +585,7 @@ datalist {
 .s_guName:hover
  {
     color: rgb(51, 160, 96);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     transition: 0.2s;
     cursor: pointer;
 }
@@ -651,14 +651,14 @@ datalist {
 
 .s_guName1 {
     text-align: right;
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     font-weight: 1000;
     color: rgb(66, 65, 65);
 }
 
 .s_guName1:hover {
     color: rgb(241, 135, 0);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     transition: 0.2s;
     cursor: pointer;
 }

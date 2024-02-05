@@ -72,7 +72,7 @@
 						<button type="button"
 							class="btn btn-success btn-sm dropdown-toggle"
 							data-bs-title="자치구" data-bs-toggle="dropdown"
-							aria-expanded="false">자치구 선택</button>
+							aria-expanded="false" id=guDropdown>자치구 선택</button>
 
 						<ul class="dropdown-menu">
 							<li>
@@ -106,7 +106,7 @@
 				<div class="box-2">
 					<div class="col-sm-12" id="box2-text">
 						<span class="guName">자치구</span><span>의 범죄발생에 밀접한 요인들</span>
-						<button id="showHideButton" class="btn btn-success btn-sm">확인하기</button>
+						<!-- <button id="showHideButton" class="btn btn-success btn-sm">확인하기</button> -->
 						<button id="resetButton" class="btn btn-success btn-sm">초기화</button>
 					</div>
 					<div class="col-sm-12">
@@ -191,16 +191,10 @@
 			<div class="container result">
 				<div class="row" id="abc">
 					<div class="rank col-md-12 col-lg-5 p-3">
-						<div id="rankbox"
-							class=" bg-info bg-opacity-10 border border-info  border-3 rounded-pill">
-							<span class="guName"></span><span>예상 치안 등급:</span><span
-								id="predGuGrade"></span>
-						</div>
-						<div class="gradingButton btn-sm">
-							<button type="button" onclick="openPopup()">
-								<!-- <input type="button" value="등급산정기준 자세히보기" onclick="openPopup()"> -->
-								등급산정기준 자세히보기
-							</button>
+						<div id="rankbox" class=" bg-info bg-opacity-10 border border-info  border-3 rounded-pill">
+							<span class="guName"></span><span>예상 치안 등급:</span><span id="predGuGrade"></span>
+							
+						
 						</div>
 					</div>
 
@@ -262,7 +256,15 @@
 					</div>
 					<div>
 						<br>
-						<br> 위 해석은 인과관계를 설명하지 않습니다. 
+						<br> &nbsp; &nbsp; &nbsp; 위 해석은 인과관계를 설명하지 않습니다.
+						<br>
+						
+						<div class="gradingButton col-md-12 col-lg-12 btn-sm"><br>
+							<button type="button" onclick="openPopup()">
+								<!-- <input type="button" value="등급산정기준 자세히보기" onclick="openPopup()"> -->
+								등급산정기준 자세히보기
+							</button>
+						</div> 
 					</div>
 				</div>
 			</div>
