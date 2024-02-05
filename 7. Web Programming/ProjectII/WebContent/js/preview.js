@@ -15,30 +15,6 @@ function getData(dropdownValue) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const button = document.getElementById('showHideButton');
-    const boxes = document.querySelectorAll('.crBox');
-
-    button.addEventListener('click', function () {
-        boxes.forEach(crBox => {
-            const condition = parseInt(crBox.getAttribute('data-condition'));
-            if (condition === 1) {
-                crBox.style.display = 'block'
-                setTimeout(function () {
-                    crBox.classList.add('show')
-                }, 300);
-            } else {
-                crBox.style.display = 'none'
-                crBox.classList.remove('show'); // class 'show' has css element
-            }
-        });
-        document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
-        document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
-    });
-});
-
-
-
 function showchart() {
     var ctx = document.getElementById('chart').getContext('2d');
     const crimes = ['homicide', 'robber', 'sexual', 'theft', 'violence'];
@@ -102,6 +78,17 @@ new Swiper('.swiper', {
     }
 })
 
+document.addEventListener('DOMContentLoaded', function () {
+    var guDropdown = document.getElementById('guDropdown');
+    var dropdownMenu = document.querySelector('.btn-group .dropdown-menu');
+    guDropdown.click();
+    if (dropdownMenu && dropdownMenu.children.length > 2) {
+        var firstItem = dropdownMenu.children[2].firstElementChild;
+        firstItem.click();
+    }
+});
+
+
 var TotalBtnCount;
 var plusBtnCount;
 var minusBtnCount;
@@ -116,6 +103,7 @@ var newviolence;
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 dropdownItems.forEach(item => {
     item.addEventListener('click', async function () {
+
         chartLabelData = [];
         TotalBtnCount = 0;
         plusBtnCount = 0;
@@ -188,6 +176,31 @@ dropdownItems.forEach(item => {
             }
         })
 
+
+
+        //==============================================================================
+        const boxes = document.querySelectorAll('.crBox');
+        boxes.forEach(crBox => {
+            const condition = parseInt(crBox.getAttribute('data-condition'));
+            if (condition === 1) {
+                crBox.style.display = 'block'
+                setTimeout(function () {
+                    crBox.classList.add('show')
+                }, 300);
+            } else {
+                crBox.style.display = 'none'
+                crBox.classList.remove('show'); // class 'show' has css element
+            }
+        });
+        document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
+        document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
+        //==============================================================================
+
+
+
+
+
+
         document.getElementById('resetButton').addEventListener('click', function () {
             const facilitySelectors2 = districtData2["facilitySelector"][0];
             valuesArray = Object.keys(facilitySelectors2);
@@ -230,6 +243,7 @@ dropdownItems.forEach(item => {
                 results[i].innerText = "";
                 flucs[i].innerText = "";
             }
+
         })
 
         compos.forEach(box => {
@@ -470,9 +484,7 @@ minusBtns.forEach(function (minusBtn) {
             changeChartLabels(facility);
         }
 
-
         multipleNum = Math.round(districtData["facilitySelector"][0][facility][districtData["facilitySelector"][0][facility].length - 1] * 0.05, 2)
-
 
         if (minusBtnCount < 5) {
 
@@ -583,24 +595,15 @@ minusBtns.forEach(function (minusBtn) {
             } else {
                 newGrade = 5;
             }
-
             document.getElementById('predGuGrade').innerText = newGrade;
-
-
         }
-
-
-
-
     })
-
     var homiStd;
     var robStd;
     var sexStd;
     var violStd;
     var theStd;
     var crimestd;
-
 })
 
 var modal = document.querySelector("#exp_img")
@@ -649,18 +652,6 @@ $(document).ready(function () {
     });
 });
 
-
-
-
-
-
-
-//popup 띄우는 함수
 function openPopup() {
-    // 함수 동작 테스트 
-    //alert("팝업 테스트");
-
-    //window.open("[팝업을 띄울 파일명 path]", "[별칭]", "[팝업 옵션]")
     window.open("previewPopup.jsp", "mypopup", "width=800, height=650, top=200, left=100, resizeable = no");
 }
-
