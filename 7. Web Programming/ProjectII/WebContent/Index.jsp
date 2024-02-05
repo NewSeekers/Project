@@ -170,7 +170,7 @@ st/css/bootstrap.min.css"
 							</p>
                         </div>
                             <button type="button" class="btn">
-							<a href="./gu_page.jsp?region=영등포구">[ 영등포구 ] 영등포공원
+							<a href="./gu_page.jsp?region=영등포구">[ 영등포구 ] 영등포 공원
                             </a>
 						</button>
                     </div>
@@ -180,13 +180,12 @@ st/css/bootstrap.min.css"
                     <div id="recommend_img3"></div>
                     <div class="menu">
                         <div>
-                            <p>산내음과 졸졸졸 흐르는 물소리와 함께<br>마음과 정신이 힐링이 되는 곳
-                                <br>서울에 있는 청정계곡.
-                            
+                            <p>서울시에서는 서울의 우수한 경관을 알리자는 취지로 우수 경관 조망 명소 50개소를 선정했다. <br>
+                          	  도심의 마천루와 아름다운 호수를 배경으로 추억을 남겨보는 것도 좋다.
 							</p>
                         </div>
 							<button type="button" class="btn">
-							<a href="./gu_page.jsp?region=관악구">[ 관악구 ] 관악산 호수공원
+							<a href="./gu_page.jsp?region=송파구">[ 송파구 ] 석촌 호수 공원
                             </a>
 						</button>
                     </div>
@@ -199,25 +198,25 @@ st/css/bootstrap.min.css"
                     <div id="recommend_img4"></div>
                     <div class="menu">
                         <div>
-                            <p>전통정자와 산책로·주민 휴식 체육시설</p>
-                            <p>연희동 둘레길.</p>
+                            <p>서울숲은 네 가지의 특색 있는 공간들로 구성되어 있으며,<br>
+                            	한강과 맞닿아 있어 다양한 문화여가공간을 제공한다.</p>
                         </div>
                         <button type="button" class="btn">
-							<a href="./gu_page.jsp?region=서대문구">[ 서대문구 ] 궁동근린공원
+							<a href="./gu_page.jsp?region=성동구">[ 성동구 ] 서울 숲 공원
                             </a>
 						</button>
                     </div>
                 </div>
-
+아예 댕기고 고칠까햇는데 그냥 브랜치 새로 하나 만들고 푸시한다음에 떙길게용
                 <div class="recommend col-lg-4">
                     <div id="recommend_img5"></div>
                     <div class="menu">
                         <div>
-                            <p>서울시 최초로 조성되는 시립수목원</p>
-                            <p>도심 속 생태공원.</p>
+                            <p>오동공원은 수림이 잘 형성되어 있어 인근 주택단지에 주거하고 있는 <br>
+                            	주민들의 휴식과 운동장소로 이용되고 있다.</p>
                         </div>
                         <button type="button" class="btn">
-							<a href="./gu_page.jsp">[ 구로구 ] 서울푸른수목원
+							<a href="./gu_page.jsp">[ 강북구 ] 오동 공원
                             </a>
 						</button>
                     </div>

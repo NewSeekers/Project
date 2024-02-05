@@ -89,7 +89,7 @@ public class ChartController extends HttpServlet {
 			out.print(ar_rate.toString());
 			out.flush();
 		}else if(com.equals("/guPage_perceivedSafety.do")) {
-//			System.out.println("guPage_perceivedSafety.do 받음");
+			System.out.println("guPage_perceivedSafety.do 받음");
 			response.setHeader("Access-Control-Allow-Origin","*");
 			response.setContentType("application/json");
 			GuPagePerceivedSafety guPage = new GuPagePerceivedSafety();
