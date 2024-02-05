@@ -28,7 +28,7 @@ public class FrontController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		actionDo(request, response);
-	}
+	} 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

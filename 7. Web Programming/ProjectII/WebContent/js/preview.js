@@ -572,7 +572,7 @@ minusBtns.forEach(function (minusBtn) {
             if (!cctv) { cctv = 1042.6 }
             if (!single) { single = 40495.1 }
             if (!pm) { pm = 802.1 }
-
+ 
             var popCount = districtData["population"][9];
             var sumCrimeData = newhomicide + newrobber + newsexual + newtheft + newviolence;
             var crimeScore = 50 - (((sumCrimeData / popCount * 100000) - 525.13) / (3831.84 - 525.13) * 50);
