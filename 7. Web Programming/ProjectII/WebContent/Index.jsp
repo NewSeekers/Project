@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
-<html lang="en">
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -108,7 +106,7 @@ st/css/bootstrap.min.css"
 
                         <div id="j_board_list">
 
-                            <table id="board-table"
+                                <table id="board-table"
 								class=" table table-bordered table-condensed table-hover">
                                 <thead>
                                     <tr class="success">
@@ -122,10 +120,18 @@ st/css/bootstrap.min.css"
 											href="./edit.jsp">작성일</a></th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody >
+                                	<c:forEach items="${indexList}" var="dto">
+                                		<tr>
+                                			<td>${dto.bId}</td>
+                                			<td>${dto.bTitle}</td>
+                                			<td>${dto.bName}</td>
+                                			<td>${dto.bDate}</td>
+                                		</tr>
+                                	</c:forEach>
+                                </tbody>
                             </table>
                             <br>
-                        
 						</div>
                     </div>
                 </div>
@@ -180,8 +186,8 @@ st/css/bootstrap.min.css"
                     <div id="recommend_img3"></div>
                     <div class="menu">
                         <div>
-                            <p>서울시에서는 서울의 우수한 경관을 알리자는 취지로 우수 경관 조망 명소 50개소를 선정했다. <br>
-                          	  도심의 마천루와 아름다운 호수를 배경으로 추억을 남겨보는 것도 좋다.
+                            <p>서울시에서는 서울의 우수한 경관을<br>알리자는 취지로<br>우수 경관 조망 명소 50개소를 선정했다.<br>
+                          	  석촌호수의 '포토 아일랜드'도 그 가운데 한 곳. 
 							</p>
                         </div>
 							<button type="button" class="btn">
@@ -198,8 +204,8 @@ st/css/bootstrap.min.css"
                     <div id="recommend_img4"></div>
                     <div class="menu">
                         <div>
-                            <p>서울숲은 네 가지의 특색 있는 공간들로 구성되어 있으며,<br>
-                            	한강과 맞닿아 있어 다양한 문화여가공간을 제공한다.</p>
+                            <p>서울숲은 네 가지의 특색 있는 공간들로<br>구성되어 있으며,<br>
+                            	한강과 맞닿아 있어<br>다양한 문화여가공간을 제공</p>
                         </div>
                         <button type="button" class="btn">
 							<a href="./gu_page.jsp?region=성동구">[ 성동구 ] 서울 숲 공원
@@ -207,16 +213,16 @@ st/css/bootstrap.min.css"
 						</button>
                     </div>
                 </div>
-아예 댕기고 고칠까햇는데 그냥 브랜치 새로 하나 만들고 푸시한다음에 떙길게용
+
                 <div class="recommend col-lg-4">
                     <div id="recommend_img5"></div>
                     <div class="menu">
                         <div>
                             <p>오동공원은 수림이 잘 형성되어 있어 인근 주택단지에 주거하고 있는 <br>
-                            	주민들의 휴식과 운동장소로 이용되고 있다.</p>
+                            	주민들의 휴식과 운동장소로 이용</p>
                         </div>
                         <button type="button" class="btn">
-							<a href="./gu_page.jsp">[ 강북구 ] 오동 공원
+							<a href="./gu_page.jsp?region=강북구">[ 강북구 ] 오동 공원
                             </a>
 						</button>
                     </div>
@@ -296,7 +302,6 @@ st/css/bootstrap.min.css"
 		integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
 		crossorigin="anonymous"></script>
         <SCRIPT type="./js/index.js"></SCRIPT>
-    <script src="./js/list.js"></script>
     <script src="./js/wow.min.js"></script>
 	<script>
 		new WOW().init();

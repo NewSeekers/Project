@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import boardCommand.BCommand;
 import boardCommand.BContentCommand;
 import boardCommand.BDeleteCommand;
+import boardCommand.BIndexBoardCommand;
 import boardCommand.BListCommand;
 import boardCommand.BModifyCommand;
 import boardCommand.BReplyCommand;
@@ -90,18 +91,22 @@ public class BoardController extends HttpServlet {
 			System.out.println("board 컨트롤러 : content_view 실행");
 			bc = new BContentCommand();
 			bc.execute(request, response);
-			
 			viewPage ="../content_view.jsp";
 		} else if (com.contains("reply_view.do")) {
 			System.out.println("board 컨트롤러 : reply_view 실행");
 			viewPage ="../reply_view.do";
-		} 
+		} else if(com.contains("/")){
+			// 페이지 로딩되는 순간 리스트 뿌려주려고. 
+			System.out.println("board 컨트롤러 : index.do 실행");
+			bc = new BIndexBoardCommand();
+			bc.execute(request, response);
+			viewPage = "../Index.jsp";
+		}
 			
 
 		if (viewPage != null) {
 			System.out.println("Forwarding to " + viewPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-
 			dispatcher.forward(request, response);
 		}
 	}

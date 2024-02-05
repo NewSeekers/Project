@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.BoardController;
+import infoCommand.PoliceStationApiData;
 
 /**
  * Servlet implementation class FrontController
@@ -18,10 +19,11 @@ import controller.BoardController;
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
+	public void init() throws ServletException {
+		PoliceStationApiData policeStation = new PoliceStationApiData();
+		
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -55,7 +57,10 @@ public class FrontController extends HttpServlet {
 		if(com.equals("/list.do")) {
 			System.out.println("프론트 list.do 항목 실행");
 			viewPage="/board"+com;
-		}else if(com.equals("/callCrime.do")) {
+		} else if(com.equals("/")||com.equals("/index.do")) {
+			System.out.println("프론트 index.do 항목 실행");
+			viewPage="/board"+com;
+		} else if(com.equals("/callCrime.do")) {
 			System.out.println("프론트 callCrime.do 항목 실행");
 			viewPage="/chart"+com;
 			System.out.println("/chart"+com);
@@ -74,6 +79,9 @@ public class FrontController extends HttpServlet {
 			viewPage="/info"+com;
 		}else if(com.equals("/secuFaci.do")) {
 			System.out.println("프론트 secuFaci.do 항목 실행");
+			viewPage="/info"+com;
+		}else if(com.equals("/policeStation.do")) {
+			System.out.println("프론트 policeStation.do 항목 실행");
 			viewPage="/info"+com;
 		}else if(com.equals("/secuInfo.do")) {
 			System.out.println("프론트 secuInfo.do 항목 실행");

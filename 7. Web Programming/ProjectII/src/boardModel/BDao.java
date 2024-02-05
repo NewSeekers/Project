@@ -99,7 +99,48 @@ public class BDao {
 		}
 		return dtos;
 	}
-	
+	public ArrayList<BDto> indexList(){
+		ArrayList<BDto> dtos = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = dataSource.getConnection();
+			String query = "SELECT * FROM ( SELECT * FROM mvc_board ORDER BY bid DESC " + 
+					") WHERE ROWNUM <= 5";
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BDto dto = new BDto();
+				int id = rs.getInt("bId");
+				String title = rs.getString("bTitle");
+				String user = rs.getString("bName");
+				Timestamp dbDate = rs.getTimestamp("bDate");
+				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
+				String bDate = simpleDate.format(dbDate);
+				
+				dto.setbId(id);
+				dto.setbTitle(title);
+				dto.setbName(user);
+				dto.setbDate(bDate);
+				dtos.add(dto);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt !=null) pstmt.close();
+				if(con != null) con.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return dtos;
+	}
 	public BDto contentView(String strID) {
 		upHit(strID);
 		
