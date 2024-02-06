@@ -26,7 +26,7 @@
     text-decoration: none;
     font-family: NPSfontBold;
     color: #252525;
-    /* border: 1px solid black; */
+    border: 1px solid black;
 }
 
 
@@ -177,10 +177,10 @@
 
 
 
-/* .s_space {
+.s_space {
     height: 100px;
-    background-color: rgb(255, 255, 255);
-} */
+    
+}
 
 
 #map_box {
@@ -458,6 +458,9 @@ datalist {
 }
 
 
+
+
+
 /* chart start*/
 #chartBox {
     width: 80%;
@@ -507,6 +510,47 @@ datalist {
     font-size: 1.4rem;
     text-decoration: line-through 15px rgba(96, 129, 167, 0.274)
 }
+
+
+
+.globalTitle{
+    margin: 20px 0px 20px 80px;
+    text-align: left;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.globalBox{
+    display: flex;
+    height: 600px;
+    justify-content: center;
+}
+
+.global{
+    height: 550px;
+    width: 90%;
+    align-items: center;
+    text-align: center;
+    
+}
+
+#globalChart{
+    height: 500px;
+    width: 80%;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.global > button {
+    background-color: #54b1c9;
+    border: 0px solid #54b1c9;
+    box-shadow: 1px 1px 3px 3px grey;
+    border-radius: 6px;
+    margin: 0px 5px 0px 5px;
+    width: 80px;
+    height: 40px;
+}
+
 
 
 /* button tap */

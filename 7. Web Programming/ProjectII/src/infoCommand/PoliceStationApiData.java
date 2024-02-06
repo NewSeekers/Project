@@ -24,7 +24,7 @@ public class PoliceStationApiData {
               JSONObject policeStationDataJson = new JSONObject(policeStationData);
               JSONArray policeStationArray = policeStationDataJson.getJSONArray("data");
          
-              System.out.println(policeStationArray);
+//              System.out.println(policeStationArray);
      
        
               

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import infoCommand.GuGrade;
 import infoCommand.ICommand;
 import infoCommand.PoliceStationTable;
+import infoCommand.ReqGlobalCrime;
 import infoCommand.Safety;
 import infoCommand.SecuFaci;
 import infoCommand.SecuIndex;
+import infoModel.GlobalCrimeDao;
 
 /**
  * Servlet implementation class InfoController
@@ -65,6 +67,7 @@ public class InfoController extends HttpServlet {
 			ic.execute(request, response);
 		}else if (com.contains("/secuIndex.do")) {
 			System.out.println("si서비스 시작=====");
+			ReqGlobalCrime rgc = new ReqGlobalCrime();
 			ic = new SecuIndex();
 			ic.execute(request, response);
 		}else if (com.contains("/safety.do")) {

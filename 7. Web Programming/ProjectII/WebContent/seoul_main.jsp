@@ -258,6 +258,22 @@
 			<div class="s_space"></div>
 
 
+			<div class="container-fluid globalBox">
+				<div class="global">
+					<div class="globalTitle">세계 주요 국가와 비교하는 10만명당 범죄 발생 수</div>
+					<button id="homiBtn">살인</button>
+					<button id="robbBtn">강도</button>
+					<button id="sexuBtn">성범죄</button>
+					<button id="thefBtn">절도</button>
+					<button id="violBtn">폭력</button>
+					<canvas id="globalChart"></canvas>
+
+
+				</div>
+
+
+				<div class="s_space"></div>
+			</div>
 
 
 			<!--button tap-->
