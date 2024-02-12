@@ -572,7 +572,7 @@ minusBtns.forEach(function (minusBtn) {
             if (!cctv) { cctv = 1042.6 }
             if (!single) { single = 40495.1 }
             if (!pm) { pm = 802.1 }
- 
+
             var popCount = districtData["population"][9];
             var sumCrimeData = newhomicide + newrobber + newsexual + newtheft + newviolence;
             var crimeScore = 50 - (((sumCrimeData / popCount * 100000) - 525.13) / (3831.84 - 525.13) * 50);
@@ -660,56 +660,56 @@ function openPopup() {
 
 //policeStation 부르는 patch문
 
-function getPoliceData(guNameValue){
-	
-	
-fetch('http://localhost:8181/ProjectII/info/policeStation.do?guNameValue=' + guNameValue, {
-  method: 'Get',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok' + response.statusText);
-    }
-    // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    
-    // 받은 JSON 데이터를 테이블로 만들기
-    createTable(data);
-  })
-  .catch(error => {
-    console.error("Fetch error: " + error);
-  });
+function getPoliceData(guNameValue) {
+
+
+    fetch('http://localhost:8181/ProjectII/info/policeStation.do?guNameValue=' + guNameValue, {
+        method: 'Get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok' + response.statusText);
+            }
+            // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+
+            // 받은 JSON 데이터를 테이블로 만들기
+            createTable(data);
+        })
+        .catch(error => {
+            console.error("Fetch error: " + error);
+        });
 }
 
 //JSON 데이터를 테이블로 만드는 함수
 function createTable(data) {
-  var tableBody = document.getElementById('policeStationData');
+    var tableBody = document.getElementById('policeStationData');
 
-  // 테이블 본문 초기화
-  tableBody.innerHTML = '';
+    // 테이블 본문 초기화
+    tableBody.innerHTML = '';
 
-  // 데이터가 없을 경우 처리
-  if (data.length === 0) {
-      var noDataRow = tableBody.insertRow();
-      var noDataCell = noDataRow.insertCell();
-      noDataCell.colSpan = 6; // 테이블 셀이 6개이므로
-      noDataCell.textContent = '데이터가 없습니다.';
-      return;
-  }
+    // 데이터가 없을 경우 처리
+    if (data.length === 0) {
+        var noDataRow = tableBody.insertRow();
+        var noDataCell = noDataRow.insertCell();
+        noDataCell.colSpan = 6; // 테이블 셀이 6개이므로
+        noDataCell.textContent = '데이터가 없습니다.';
+        return;
+    }
 
-  // 테이블 본문에 데이터 추가
-  data.forEach(function(item) {
-      var row = tableBody.insertRow();
-      for (var key in item) {
-          var cell = row.insertCell();
-          cell.textContent = item[key];
-      }
-  });
+    // 테이블 본문에 데이터 추가
+    data.forEach(function (item) {
+        var row = tableBody.insertRow();
+        for (var key in item) {
+            var cell = row.insertCell();
+            cell.textContent = item[key];
+        }
+    });
 }
 
