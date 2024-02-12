@@ -68,7 +68,6 @@ public class ChartController extends HttpServlet {
 		String com = uri.substring(servPath.length()+conPath.length());
 		System.out.println("com: "+com);
 		
-		 
 		if(com.equals("/callCrime.do")) {
 			CCommand seoulcc = new SeoulCrimelChart();
 			seoulcc.execute(request, response);
@@ -116,7 +115,6 @@ public class ChartController extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(secuGrade.toString());
 			out.flush();
-
 		}else if (com.contains("/secuInfo.do")) {
 //			System.out.println("secuInfo서비스 시작=====");
 			SeoulSecuInfo sSI = new SeoulSecuInfo();

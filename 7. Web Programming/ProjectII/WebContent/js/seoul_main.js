@@ -45,11 +45,11 @@ var gradeColors = [
     await ajaxArData();
     await secuFaciData();
     await guGradeData();
+    await globalData();
     await readyToPolygon();
     await extractGuName();
     await guNamesSet();
     await displayAllArea();
-    await globalData();
     yearArrest(currentValue);
     chart1draw(currentValue);
     chart2draw(currentValue);
@@ -79,7 +79,7 @@ async function guGradeData() {
 
 
 
-
+// 세계 주요국 범죄 발생 수 API DB pull
 async function globalData() {
     try {
         const response = await fetch("./callGlobal.do");
@@ -89,7 +89,6 @@ async function globalData() {
         var gerHomi = [], gerRobb = [], gerSexu = [], gerThef = [], gerViol = [];
         var japHomi = [], japRobb = [], japSexu = [], japThef = [], japViol = [];
         var fraHomi = [], fraRobb = [], fraSexu = [], fraThef = [], fraViol = [];
-        var homi = [], robb = [], sexu = [], thef = [], viol = [];
         console.log(jsonData);
 
         jsonData.forEach(json => {
@@ -119,9 +118,7 @@ async function globalData() {
                 fraViol.push(json.violence)
             }
         });
-
         var ctx = document.getElementById("globalChart").getContext("2d");
-
         var myChart4 = new Chart(ctx, {
             type: "line",
             data: {
@@ -130,29 +127,29 @@ async function globalData() {
                     {
                         label: "대한민국",
                         data: korHomi,
-                        borderColor: "darkorange",
-                        borderWidth: 1,
+                        borderColor: '#03045e',
+                        borderWidth: 5,
                         tension: 0.2
                     },
                     {
                         label: "독일",
                         data: gerHomi,
-                        borderColor: "blue",
-                        borderWidth: 1,
+                        borderColor: "#0077b6",
+                        borderWidth: 2,
                         tension: 0.2
                     },
                     {
                         label: "일본",
                         data: japHomi,
-                        borderColor: "green",
-                        borderWidth: 1,
+                        borderColor: "#00b4d8",
+                        borderWidth: 2,
                         tension: 0.2
                     },
                     {
                         label: "프랑스",
                         data: fraHomi,
-                        borderColor: "navy",
-                        borderWidth: 1,
+                        borderColor: "#90e0ef",
+                        borderWidth: 2,
                         tension: 0.2
                     },
                 ],
@@ -161,11 +158,6 @@ async function globalData() {
                 maintainAspectRatio: false,
             },
         })
-
-        console.log("잘컷어" + myChart4.data.datasets[0].data)
-        console.log("잘컷어" + myChart4.data.datasets[1].data)
-        console.log("잘컷어" + myChart4.data.datasets[2].data)
-        console.log("잘컷어" + myChart4.data.datasets[3].data)
 
         document.getElementById('homiBtn').addEventListener('click', function () {
             myChart4.data.datasets[0].data = korHomi;
@@ -204,7 +196,6 @@ async function globalData() {
         })
 
 
-        console.log("한국살인" + korHomi);
 
         return guGradeArr;
     } catch (error) {
@@ -1046,13 +1037,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 infoChart.data.datasets[0].borderColor = 'rgba(75, 192, 192, 1)';
                 infoChart.update();
             }
-
             infoChart.data.datasets[0].backgroundColor[guname.indexOf(secuRank.textContent.trim())] = 'rbga(173, 216, 230, 0.2)';
             infoChart.data.labels = guname;
             infoChart.data.datasets[0].data = secuValue;
             infoChart.update();
-            // secuInfoChart(guname, secuValue)
-
 
             document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
             document.getElementById('secuInfo').style.top = e.clientY - 220 + 'px';

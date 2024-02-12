@@ -26,7 +26,7 @@
     text-decoration: none;
     font-family: NPSfontBold;
     color: #252525;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 
@@ -179,7 +179,7 @@
 
 .s_space {
     height: 100px;
-    
+
 }
 
 
@@ -513,35 +513,35 @@ datalist {
 
 
 
-.globalTitle{
+.globalTitle {
     margin: 20px 0px 20px 80px;
     text-align: left;
     font-size: 1.6rem;
     font-weight: bold;
 }
 
-.globalBox{
+.globalBox {
     display: flex;
     height: 600px;
     justify-content: center;
 }
 
-.global{
+.global {
     height: 550px;
     width: 90%;
     align-items: center;
     text-align: center;
-    
+
 }
 
-#globalChart{
+#globalChart {
     height: 500px;
     width: 80%;
     align-items: center;
     margin-top: 30px;
 }
 
-.global > button {
+.global>button {
     background-color: #54b1c9;
     border: 0px solid #54b1c9;
     box-shadow: 1px 1px 3px 3px grey;
@@ -599,7 +599,7 @@ datalist {
 
 .s_rank {
     /* background-image: url(../img/rank.png); */
- 
+
     /* background-size: 100% 100%; */
     height: 40px;
     /*width: 50px; */
@@ -626,8 +626,7 @@ datalist {
     color: rgb(66, 65, 65);
 }
 
-.s_guName:hover
- {
+.s_guName:hover {
     color: rgb(51, 160, 96);
     font-size: 1.5rem;
     transition: 0.2s;
@@ -725,8 +724,10 @@ datalist {
     #s_slide {
         display: none;
     }
+
     #numBox {
-        width: 100%;}
+        width: 100%;
+    }
 }
 
 @media screen and (min-width:1200px) {
@@ -826,7 +827,7 @@ datalist {
 }
 
 
-#secuInfo{
+#secuInfo {
     background-color: rgba(255, 255, 255, 0.918);
     border-radius: 10px;
     box-shadow: 0px 0px 4px 2px grey;
@@ -836,12 +837,12 @@ datalist {
     display: none;
 }
 
-#secuInfoText{
-    margin-top : 10px;
+#secuInfoText {
+    margin-top: 10px;
     margin-left: 160px;
 }
 
-#icbox{
+#icbox {
     width: 320px;
     height: 300px;
 }
