@@ -6,8 +6,8 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title>고객의견 목록</title>
 			<!-- css -->
-			<link rel="stylesheet" href="./css/board.css">
 			<link rel="stylesheet" href="./css/header.footer.css">
+			<link rel="stylesheet" href="./css/board.css">
 			<!-- bootstrap -->
 			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
 				integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
@@ -17,10 +17,7 @@
 				crossorigin="anonymous" referrerpolicy="no-referrer" />
 		</head>
 
-
-
 		<body>
-
 			<!-- header  -->
 			<jsp:include page="./include/nav.jsp" />
 
@@ -28,8 +25,8 @@
 
 			<div class="board_wrap">
 				<div class="board_title">
-					<strong>고객의견</strong>
-					<p>고객님의 의견을 빠르게 안내해드리겠습니다.</p>
+					<strong>커뮤니티</strong>
+					<p>공유하고 싶은 정보를 작성해주세요.</p>
 				</div>
 				<div class="board_list_wrap">
 

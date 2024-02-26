@@ -79,46 +79,22 @@ public class ChartController extends HttpServlet {
 		}else if(com.contains("/callPredict.do")) {
 			CCommand pred = new PredictChart();
 			pred.execute(request, response);
-
 		}else if(com.equals("/guPage_chart.do")) {
-			response.setHeader("Access-Control-Allow-Origin","*");
-			response.setContentType("application/json");
+			System.out.println("guPage_chart.do 받음");
 			GuPageChart guPage = new GuPageChart();
-			JSONArray ar_rate = guPage.execute(request, response);
-			PrintWriter out = response.getWriter();
-			out.print(ar_rate.toString());
-			out.flush();
+			guPage.execute(request, response);
 		}else if(com.equals("/guPage_perceivedSafety.do")) {
 			System.out.println("guPage_perceivedSafety.do 받음");
-			response.setHeader("Access-Control-Allow-Origin","*");
-			response.setContentType("application/json");
 			GuPagePerceivedSafety guPage = new GuPagePerceivedSafety();
-			JSONObject safety = guPage.execute(request, response);
-			System.out.println("safety"+safety);
-			PrintWriter out = response.getWriter();
-			out.print(safety.toString());
-			out.flush();
+			guPage.execute(request, response);
 		}else if(com.equals("/guPage_secufacil.do")) {
 			System.out.println("guPage_secufacil.do 받음");
-			response.setHeader("Access-Control-Allow-Origin","*");
-			response.setContentType("application/json");
 			GuPageSecufacil guPage = new GuPageSecufacil();
-			JSONObject secufacil = guPage.execute(request, response);
-			System.out.println("secufacil"+secufacil);
-			PrintWriter out = response.getWriter();
-			out.print(secufacil.toString());
-			out.flush();
+			guPage.execute(request, response);
 		}else if(com.equals("/guPage_secuGrade.do")) {
 			System.out.println("guPage_secufacil.do 받음");
-			response.setHeader("Access-Control-Allow-Origin","*");
-			response.setContentType("application/json");
 			GuPageSecuGrade guPage = new GuPageSecuGrade();
-			JSONObject secuGrade = guPage.execute(request, response);
-			System.out.println("secufacil"+secuGrade);
-			PrintWriter out = response.getWriter();
-			out.print(secuGrade.toString());
-			out.flush();
-
+			guPage.execute(request, response);
 		}else if (com.contains("/secuInfo.do")) {
 			System.out.println("secuInfo서비스 시작=====");
 			SeoulSecuInfo sSI = new SeoulSecuInfo();
