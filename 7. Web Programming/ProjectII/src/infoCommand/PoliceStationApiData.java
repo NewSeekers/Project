@@ -33,6 +33,7 @@ public class PoliceStationApiData {
               dao.saveDataToDatabase(policeStationArray);
           } catch (Exception e) {
               e.printStackTrace();
+              
           }
       }
 

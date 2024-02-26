@@ -118,7 +118,11 @@ public class CGuPageDao {
 	   
 	    try {
 	        con = dataSource.getConnection();
-	        String query = "SELECT  trunc(AVG(cctv)) as avg_cctv, trunc(AVG(policestation))as avg_policestation, trunc(AVG(lights))as avg_lights, MAX(CASE WHEN guname = ? THEN cctv END)as cctv, MAX(CASE WHEN guname = ? THEN policestation END) as policestation, MAX(CASE WHEN guname = ? THEN lights END) as lights FROM  gu_secufacil JOIN  gu_name ON gu_secufacil.local = gu_name.local WHERE  year = 2022";
+	        String query = "SELECT  trunc(AVG(cctv)) as avg_cctv, trunc(AVG(policestation))as avg_policestation,"
+	        		+ " trunc(AVG(lights))as avg_lights, MAX(CASE WHEN guname = ? THEN cctv END)as cctv,"
+	        		+ " MAX(CASE WHEN guname = ? THEN policestation END) as policestation,"
+	        		+ " MAX(CASE WHEN guname = ? THEN lights END) as lights FROM  gu_secufacil"
+	        		+ " JOIN  gu_name ON gu_secufacil.local = gu_name.local WHERE  year = 2022";
 	        pstmt = con.prepareStatement(query);
 	        pstmt.setString(1, guNameValue);
 	        pstmt.setString(2, guNameValue);
@@ -133,11 +137,9 @@ public class CGuPageDao {
 	        	secufacil.put("avg_lights", rs.getString("avg_lights"));
 	        	secufacil.put("avg_policestation", rs.getString("avg_policestation"));
 	        }
-	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    } finally {
-	        // Close resources in the finally block to ensure proper cleanup
 	        try {
 	            if (rs != null) rs.close();
 	            if (pstmt != null) pstmt.close();

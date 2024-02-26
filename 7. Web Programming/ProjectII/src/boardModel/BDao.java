@@ -383,7 +383,7 @@ public class BDao {
 		}
 	}
 	
-	
+	//list의 총 게시글 수
 	public int getLIstSize() {
 		Connection con = null;
 		PreparedStatement pstmt = null;

@@ -22,7 +22,6 @@ public class PoliceStationDao {
 			Context context = new InitialContext();
 			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/Oracle11g");
 		} catch (Exception e) {
-			System.out.println("policeDao 실패::::::::");
 			e.printStackTrace();
 		}
 	}
@@ -84,23 +83,7 @@ public class PoliceStationDao {
 	        	 int id = policeStation.getInt("연번");
 	        	
 	        	 String police_office = policeStation.getString("시도청");
-	        	 String district="";
-	        	 if("서울강남".equals(policeStation.getString("경찰서"))) {
-	        		 district = "강남구";
-	        	 } else if("서울송파".equals(policeStation.getString("경찰서"))) {
-	        		 district = "송파구";
-	        	 } else if("서울영등포".equals(policeStation.getString("경찰서"))) {
-	        		 district = "영등포구";
-	        	 } else if("서울성동".equals(policeStation.getString("경찰서"))) {
-	        		 district = "성동구";
-	        	 } else if("서울노원".equals(policeStation.getString("경찰서"))) {
-	        		 district = "노원구";
-	        	 } else if("서울강북".equals(policeStation.getString("경찰서"))) {
-	        		 district = "강북구";
-	        	 } else {
-	        		 district = policeStation.getString("경찰서"); 
-	        	 }
-	        	 
+	        	 String district=getDistrict(policeStation.getString("경찰서"));
 	        	 String sub_district = policeStation.getString("관서명");
 	        	 String department = policeStation.getString("구분");
 	        	 String tel = policeStation.getString("전화번호");
@@ -134,5 +117,25 @@ public class PoliceStationDao {
 	         }
 	      }
 	   }
+	
+	// 경찰서에서 district 가져오는 메서드
+	private String getDistrict(String policeStation) {
+	    // 각각의 경찰서에 따른 district 로직을 추가
+	    if ("서울강남".equals(policeStation)) {
+	        return "강남구";
+	    } else if ("서울송파".equals(policeStation)) {
+	        return "송파구";
+	    } else if ("서울영등포".equals(policeStation)) {
+	        return "영등포구";
+	    } else if ("서울성동".equals(policeStation)) {
+	        return "성동구";
+	    } else if ("서울노원".equals(policeStation)) {
+	        return "노원구";
+	    } else if ("서울강북".equals(policeStation)) {
+	        return "강북구";
+	    } else {
+	        return policeStation;
+	    }
+	}
 	
 }

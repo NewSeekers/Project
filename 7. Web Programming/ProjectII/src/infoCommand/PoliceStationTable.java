@@ -17,6 +17,7 @@ public class PoliceStationTable implements ICommand{
 		PoliceStationDao dao = PoliceStationDao.getInstance();
 		String guNameValue = request.getParameter("guNameValue");
 		JSONArray policeStationList = dao.getPoliceStations(guNameValue);
+		response.setHeader("Access-Control-Allow-Origin","*");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
