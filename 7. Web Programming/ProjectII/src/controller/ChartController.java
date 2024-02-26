@@ -22,6 +22,7 @@ import chartCommand.PerceivedSecuInfo;
 import chartCommand.PredictChart;
 import chartCommand.SeoulArrestChart;
 import chartCommand.SeoulCrimelChart;
+import chartCommand.SeoulGlobal;
 import chartCommand.SeoulSecuInfo;
 
 /**
@@ -67,15 +68,12 @@ public class ChartController extends HttpServlet {
 		String com = uri.substring(servPath.length()+conPath.length());
 		System.out.println("com: "+com);
 		
-		 
 		if(com.equals("/callCrime.do")) {
 			CCommand seoulcc = new SeoulCrimelChart();
 			seoulcc.execute(request, response);
-			
 		}else if(com.equals("/callArrest.do")) {
 			CCommand seoulac = new SeoulArrestChart();
 			seoulac.execute(request, response);
-
 		}else if(com.contains("/callPredict.do")) {
 			CCommand pred = new PredictChart();
 			pred.execute(request, response);
@@ -96,13 +94,16 @@ public class ChartController extends HttpServlet {
 			GuPageSecuGrade guPage = new GuPageSecuGrade();
 			guPage.execute(request, response);
 		}else if (com.contains("/secuInfo.do")) {
-			System.out.println("secuInfo서비스 시작=====");
+//			System.out.println("secuInfo서비스 시작=====");
 			SeoulSecuInfo sSI = new SeoulSecuInfo();
 			sSI.execute(request, response);
 		}else if(com.contains("/perceivedSecuInfo")) {
-			System.out.println("perceivedSecuInfo 서비스 시작===");
+//			System.out.println("perceivedSecuInfo 서비스 시작===");
 			PerceivedSecuInfo psi = new PerceivedSecuInfo();
 			psi.execute(request, response);
+		}else if(com.contains("/callGlobal.do")) {
+			SeoulGlobal sg = new SeoulGlobal();
+			sg.execute(request, response);
 		}
 		
 		

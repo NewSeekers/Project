@@ -45,6 +45,7 @@ var gradeColors = [
     await ajaxArData();
     await secuFaciData();
     await guGradeData();
+    await globalData();
     await readyToPolygon();
     await extractGuName();
     await guNamesSet();
@@ -69,6 +70,132 @@ async function guGradeData() {
             guGradeArr.push([json["y2004"], json["y2007"], json["y2010"], json["y2013"], json["y2016"], json["y2019"], json["y2022"]]);
 
         });
+
+        return guGradeArr;
+    } catch (error) {
+        console.error("데이터를 불러오는 중 에러 발생: ", error);
+    }
+}
+
+
+
+// 세계 주요국 범죄 발생 수 API DB pull
+async function globalData() {
+    try {
+        const response = await fetch("./callGlobal.do");
+        const jsonArray = await response.text();
+        const jsonData = JSON.parse(jsonArray);
+        var korHomi = [], korRobb = [], korSexu = [], korThef = [], korViol = [];
+        var gerHomi = [], gerRobb = [], gerSexu = [], gerThef = [], gerViol = [];
+        var japHomi = [], japRobb = [], japSexu = [], japThef = [], japViol = [];
+        var fraHomi = [], fraRobb = [], fraSexu = [], fraThef = [], fraViol = [];
+        console.log(jsonData);
+
+        jsonData.forEach(json => {
+            if (json.name == "대한민국") {
+                korHomi.push(json.homicide);
+                korRobb.push(json.robber)
+                korSexu.push(json.sexual)
+                korThef.push(json.theft)
+                korViol.push(json.violence)
+            } else if (json.name == "독일") {
+                gerHomi.push(json.homicide);
+                gerRobb.push(json.robber)
+                gerSexu.push(json.sexual)
+                gerThef.push(json.theft)
+                gerViol.push(json.violence)
+            } else if (json.name == "일본") {
+                japHomi.push(json.homicide);
+                japRobb.push(json.robber)
+                japSexu.push(json.sexual)
+                japThef.push(json.theft)
+                japViol.push(json.violence)
+            } else if (json.name == "프랑스") {
+                fraHomi.push(json.homicide);
+                fraRobb.push(json.robber)
+                fraSexu.push(json.sexual)
+                fraThef.push(json.theft)
+                fraViol.push(json.violence)
+            }
+        });
+        var ctx = document.getElementById("globalChart").getContext("2d");
+        var myChart4 = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+                datasets: [
+                    {
+                        label: "대한민국",
+                        data: korHomi,
+                        borderColor: '#03045e',
+                        borderWidth: 5,
+                        tension: 0.2
+                    },
+                    {
+                        label: "독일",
+                        data: gerHomi,
+                        borderColor: "#0077b6",
+                        borderWidth: 2,
+                        tension: 0.2
+                    },
+                    {
+                        label: "일본",
+                        data: japHomi,
+                        borderColor: "#00b4d8",
+                        borderWidth: 2,
+                        tension: 0.2
+                    },
+                    {
+                        label: "프랑스",
+                        data: fraHomi,
+                        borderColor: "#90e0ef",
+                        borderWidth: 2,
+                        tension: 0.2
+                    },
+                ],
+            },
+            options: {
+                maintainAspectRatio: false,
+            },
+        })
+
+        document.getElementById('homiBtn').addEventListener('click', function () {
+            myChart4.data.datasets[0].data = korHomi;
+            myChart4.data.datasets[1].data = gerHomi;
+            myChart4.data.datasets[2].data = japHomi;
+            myChart4.data.datasets[3].data = fraHomi;
+            myChart4.update();
+        })
+        document.getElementById('robbBtn').addEventListener('click', function () {
+            myChart4.data.datasets[0].data = korRobb;
+            myChart4.data.datasets[1].data = gerRobb;
+            myChart4.data.datasets[2].data = japRobb;
+            myChart4.data.datasets[3].data = fraRobb;
+            myChart4.update();
+        })
+        document.getElementById('sexuBtn').addEventListener('click', function () {
+            myChart4.data.datasets[0].data = korSexu;
+            myChart4.data.datasets[1].data = gerSexu;
+            myChart4.data.datasets[2].data = japSexu;
+            myChart4.data.datasets[3].data = fraSexu;
+            myChart4.update();
+        })
+        document.getElementById('thefBtn').addEventListener('click', function () {
+            myChart4.data.datasets[0].data = korThef;
+            myChart4.data.datasets[1].data = gerThef;
+            myChart4.data.datasets[2].data = japThef;
+            myChart4.data.datasets[3].data = fraThef;
+            myChart4.update();
+        })
+        document.getElementById('violBtn').addEventListener('click', function () {
+            myChart4.data.datasets[0].data = korViol;
+            myChart4.data.datasets[1].data = gerViol;
+            myChart4.data.datasets[2].data = japViol;
+            myChart4.data.datasets[3].data = fraViol;
+            myChart4.update();
+        })
+
+
 
         return guGradeArr;
     } catch (error) {
@@ -910,13 +1037,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 infoChart.data.datasets[0].borderColor = 'rgba(75, 192, 192, 1)';
                 infoChart.update();
             }
-
             infoChart.data.datasets[0].backgroundColor[guname.indexOf(secuRank.textContent.trim())] = 'rbga(173, 216, 230, 0.2)';
             infoChart.data.labels = guname;
             infoChart.data.datasets[0].data = secuValue;
             infoChart.update();
-            // secuInfoChart(guname, secuValue)
-
 
             document.getElementById('secuInfo').style.left = e.clientX + 20 + 'px';
             document.getElementById('secuInfo').style.top = e.clientY - 220 + 'px';
