@@ -16,7 +16,6 @@ public class PoliceStationApiData {
          PoliceStationDao dao = PoliceStationDao.getInstance();
          try {
               // Open API에서 JSON 데이터 가져오기
-            //고혈압
               String policeStationApiUrl = "https://api.odcloud.kr/api/15054711/v1/uddi:9097ad1f-3471-42c6-a390-d85b5121816a?page=1&perPage=243&serviceKey=ZMC3yM4jjMpWPdEfL3Hl2BlzqhQUeN8herjSp2HWSNyV4aUEh7HaJliCLEyGGi2Fn38GRXeQeCiE1WAPXDJljA%3D%3D";
               String policeStationData = fetchDataFromApi(policeStationApiUrl);
          
@@ -24,16 +23,10 @@ public class PoliceStationApiData {
               JSONObject policeStationDataJson = new JSONObject(policeStationData);
               JSONArray policeStationArray = policeStationDataJson.getJSONArray("data");
          
-//              System.out.println(policeStationArray);
-     
-       
-              
-              
               // 데이터베이스에 저장
               dao.saveDataToDatabase(policeStationArray);
           } catch (Exception e) {
               e.printStackTrace();
-              
           }
       }
 
