@@ -23,7 +23,6 @@ public class BContentCommand implements BCommand{
 		String loggedInUserId = (String)request.getSession().getAttribute("id");
 		System.out.println("ture로 들어가기전"+loggedInUserId);
 		if(loggedInUserId != null && loggedInUserId.equals(contentName)) {
-			System.out.println("ture로 보냄 버튼 나와라진짜");
 			request.setAttribute("showEditButton", true);
 		}
 	}

@@ -18,6 +18,4 @@ public class BIndexBoardCommand implements BCommand{
 		System.out.println("인덱스 리스트 불러옴 : "+dtos.get(0).getbName());
 		request.setAttribute("indexList", dtos);
 	}
-	
-
 }

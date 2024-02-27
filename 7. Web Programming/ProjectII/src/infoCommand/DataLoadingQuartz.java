@@ -16,6 +16,7 @@ public class DataLoadingQuartz implements Job{
 		// TODO Auto-generated method stub
 		try {
 			new GlobalCrimeDao().setGlobalCrime();
+			new PoliceStationApiData();
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

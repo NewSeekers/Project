@@ -38,20 +38,20 @@ function fetchDataAndProcess(url, callback) {
 
 
 // 예제로 fetchDataAndProcess 함수를 사용하는 방법
-fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_chart.do', function(data) {
+fetchDataAndProcess('./guPage_chart.do', function(data) {
   console.log(data);
   const ar_rateDatas = data.map(item => item.total_ar_rate);
   ar_rateChart(ar_rateDatas);
 });
 
-fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secuGrade.do', function(data) {
+fetchDataAndProcess('./guPage_secuGrade.do', function(data) {
 	console.log(data);
   document.getElementById("gu_rank").innerHTML = data.secugrade;
   document.getElementById("gu_people").innerHTML = data.population.toString()
   .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 });
 
-fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do', function(data) {
+fetchDataAndProcess('./guPage_secufacil.do', function(data) {
 	  console.log(data);
     addData(securityChart1, data.avg_cctv, data.cctv, guNameValue);
     addData(securityChart2, data.avg_lights, data.lights, guNameValue);
@@ -59,7 +59,7 @@ fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do',
 });
 
 
- fetch('http://localhost:8181/ProjectII/chart/guPage_perceivedSafety.do?year=y2023&guNameValue='
+ fetch('./guPage_perceivedSafety.do?year=y2023&guNameValue='
  + guNameValue, {
  method: 'Get',
  headers: {
@@ -98,28 +98,28 @@ fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do',
     guName = document.getElementById("selectbox");
     guNameValue = guName.options[guName.selectedIndex].value;
 
-    fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secuGrade.do', function(data) {
+    fetchDataAndProcess('./guPage_secuGrade.do', function(data) {
     	console.log(data);
       document.getElementById("gu_rank").innerHTML = data.secugrade;
       document.getElementById("gu_people").innerHTML = data.population.toString()
       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     });
     
-    fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do', function(data) {
+    fetchDataAndProcess('./guPage_secufacil.do', function(data) {
     	  console.log(data);
         addData(securityChart1, data.avg_cctv, data.cctv, guNameValue);
         addData(securityChart2, data.avg_lights, data.lights, guNameValue);
         addData(securityChart3, data.avg_policestation, data.policestation, guNameValue);
         
     });
-    fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_chart.do', function(data) {
+    fetchDataAndProcess('./guPage_chart.do', function(data) {
   	  console.log(data);
   	 safetyChart.destroy();
    	  const ar_rateDatas = data.map(item => item.total_ar_rate);
     	  ar_rateChart(ar_rateDatas);
     });
 
-    fetch('http://localhost:8181/ProjectII/chart/guPage_perceivedSafety.do?year=y2023&guNameValue=' + guNameValue, {
+    fetch('./guPage_perceivedSafety.do?year=y2023&guNameValue=' + guNameValue, {
       method: 'Get',
       headers: {
         'Content-Type': 'application/json'
@@ -192,13 +192,6 @@ fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do',
     type: 'bar',
     data: security_CCTV,
     options: {
-
-      x: {
-        // 차트 옵션, css같은 느낌 양식다름,
-      },
-      y: {
-
-      },
       plugins: {
         legend: {
           display: false,
@@ -216,13 +209,7 @@ fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do',
     type: 'bar',
     data: security_light,
     options: {
-      x: {
-        // 차트 옵션, css같은 느낌 양식다름,
-      },
-      y: {
-
-      },
-      plugins: {
+       plugins: {
         legend: {
           display: false,
         }
@@ -239,12 +226,6 @@ fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do',
     type: 'bar',
     data: security_police,
     options: {
-      x: {
-        // 차트 옵션, css같은 느낌 양식다름,
-      },
-      y: {
-
-      },
       plugins: {
         legend: {
           display: false,
@@ -294,7 +275,7 @@ fetchDataAndProcess('http://localhost:8181/ProjectII/chart/guPage_secufacil.do',
       console.log("Button Value: " + buttonValue);
       guName = document.getElementById("selectbox");
       guNameValue = guName.options[guName.selectedIndex].value;
-      fetch('http://localhost:8181/ProjectII/chart/guPage_perceivedSafety.do?year=y' + buttonValue + "&guNameValue=" + guNameValue, {
+      fetch('./guPage_perceivedSafety.do?year=y' + buttonValue + "&guNameValue=" + guNameValue, {
         method: 'Get',
         headers: {
           'Content-Type': 'application/json'
@@ -403,15 +384,5 @@ sidedar.addEventListener('mouseenter', function () {
   rankIcon.className = 'fa-solid fa-award';
   mapIcon.className = 'fa-solid fa-map-location-dot';
 });
-
-
-
-
-
-
-
-
-
-
 
 

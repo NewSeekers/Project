@@ -1,7 +1,5 @@
 package boardModel;
 
-import java.sql.Timestamp;
-
 public class BDto {
 	int bId;
 	String bTitle;
