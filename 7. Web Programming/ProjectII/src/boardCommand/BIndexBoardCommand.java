@@ -15,7 +15,9 @@ public class BIndexBoardCommand implements BCommand{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		BDao dao = new BDao();
 		ArrayList<BDto> dtos = dao.indexList();
-		System.out.println("인덱스 리스트 불러옴 : "+dtos.get(0).getbName());
+		System.out.println("인덱스 리스트 불러옴 : "+dtos.get(0).getUser_Id());
 		request.setAttribute("indexList", dtos);
 	}
+	
+
 }

@@ -27,38 +27,38 @@
 	<jsp:include page="./include/nav.jsp" />
 	<div class="board_wrap">
 		<div class="board_title">
-			<strong>고객의견</strong>
-			<p>고객님 의견의 답변을 빠르게 안내해드리겠습니다.</p>
+			<strong>커뮤니티</strong>
+			<p>공유하고 싶은 정보를 작성해주세요.</p>
 		</div>
 		<div class="board_view_wrap">
 			<form action="modify.jsp" method="post" accept-charset="utf-8">
-				<input type="hidden" name="bId" value="${content_view.bId}"><input
-					type="hidden" name="bName" value="${content_view.bName}"><input
-					type="hidden" name="bTitle" value="${content_view.bTitle}"><input
-					type="hidden" name="bDate" value="${content_view.bDate}"><input
-					type="hidden" name="bHit" value="${content_view.bHit}">
+				<input type="hidden" name="community_num" value="${content_view.community_num}"><input
+					type="hidden" name="user_Id" value="${content_view.user_Id}"><input
+					type="hidden" name="title" value="${content_view.title}"><input
+					type="hidden" name="date_created" value="${content_view.date_created}"><input
+					type="hidden" name="hit" value="${content_view.hit}">
 				<div class="board_view">
-					<div class="title">${content_view.bTitle}</div>
+					<div class="title">${content_view.title}</div>
 					<div class="info">
 						<dl>
 							<dt>번호</dt>
-							<dd>${content_view.bId}</dd>
+							<dd>${content_view.community_num}</dd>
 						</dl>
 						<dl>
 							<dt>글쓴이</dt>
-							<dd>${content_view.bName}</dd>
+							<dd>${content_view.user_Id}</dd>
 						</dl>
 						<dl>
 							<dt>작성일</dt>
-							<dd>${content_view.bDate}</dd>
+							<dd>${content_view.date_created}</dd>
 						</dl>
 						<dl>
 							<dt>조회</dt>
-							<dd>${content_view.bHit}</dd>
+							<dd>${content_view.hit}</dd>
 						</dl>
 					</div>
 					<div class="cont">
-						<div id="content_view" name="bContent">${content_view.bContent}</div>
+						<div id="content_view" name="content">${content_view.content}</div>
 					</div>
 				</div>
 
@@ -71,14 +71,14 @@
 						<c:if test="${showEditButton}">
 							<input type="submit" value="수정">&nbsp;&nbsp; &nbsp;&nbsp;
 							
-							<a href="delete.do?bId=${content_view.bId}">삭제</a>
+							<a href="delete.do?community_num=${content_view.community_num}">삭제</a>
 						</c:if>
 
 
 						<a href="list.do?page=1">목록보기</a>&nbsp;&nbsp; <a
-							href="reply_view.jsp?bId=${content_view.bId}&bName=${content_view.bName}&bTitle=${content_view.bTitle}
-						&bDate=${content_view.bDate}&bHit=${content_view.bHit}&bContent=${content_view.bContent}
-						&bGroup=${content_view.bGroup}&bIndent=${content_view.bIndent}&bStep=${content_view.bStep}">답변</a>
+							href="reply_view.jsp?community_num=${content_view.community_num}&user_Id=${content_view.user_Id}&title=${content_view.title}
+						&date_created=${content_view.date_created}&hit=${content_view.hit}&content=${content_view.content}
+						&group_num=${content_view.group_num}&indent_num=${content_view.indent_num}&step_num=${content_view.step_num}">답변</a>
 					</div>
 				</c:if>
 

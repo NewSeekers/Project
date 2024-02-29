@@ -22,17 +22,17 @@ public class BDao {
 			e.printStackTrace();
 		}
 	}
-	public void write(String bName, String bTitle, String bContent) {
+	public void write(String user_Id, String title, String content) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "insert into mvc_board(bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) values(mvc_board_seq.nextval,?,?,?,0,mvc_board_seq.currval,0,0)";
+			String query = "insert into COMMUNITY(community_num, user_Id, title, content, hit, group_num, step_num, indent_num) values(COMMUNITY_seq.nextval,?,?,?,0,COMMUNITY_seq.currval,0,0)";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, bName);
-			pstmt.setString(2, bTitle);
-			pstmt.setString(3, bContent);
+			pstmt.setString(1, user_Id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
 			
 			int rn = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -57,13 +57,12 @@ public class BDao {
 			int startRow = (currentPage -1) *showListNum + 1 ;
 			int endRow = startRow + showListNum -1;
 			con = dataSource.getConnection();
-			String query = "SELECT bId, bTitle, bContent, bDate, bHit, bName, bGroup, bStep, bIndent\r\n" + 
-					"FROM (\r\n" + 
-					"    SELECT bId, bTitle, bContent, bDate, bHit, bName, bGroup, bStep, bIndent,\r\n" + 
-					"           ROW_NUMBER() OVER (ORDER BY bId DESC) AS rnum\r\n" + 
-					"    FROM MVC_BOARD\r\n" + 
-					") \r\n" + 
-					"WHERE rnum BETWEEN ? AND ?";
+			String query = "SELECT community_num, user_Id, title, content, date_created, hit, group_num, step_num, indent_num " + 
+					"FROM (" + 
+					"    SELECT community_num, user_Id, title, content, date_created, hit, group_num, step_num, indent_num ," + 
+					"           ROW_NUMBER() OVER (ORDER BY group_num DESC, step_num ASC) AS rnum " + 
+					"    FROM COMMUNITY ) " + 
+					" WHERE rnum BETWEEN ? AND ?";
 					System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, startRow);
@@ -71,19 +70,19 @@ public class BDao {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {				
-				int bId = rs.getInt("bId");
-				String bTitle = rs.getString("bTitle");
-				String bName = rs.getString("bName");
-				String bContent = rs.getString("bContent");
-				Timestamp dbDate = rs.getTimestamp("bDate");
+				int community_num = rs.getInt("community_num");
+				String title = rs.getString("title");
+				String user_Id = rs.getString("user_Id");
+				String content = rs.getString("content");
+				Timestamp dbDate = rs.getTimestamp("date_created");
 				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
-				String bDate = simpleDate.format(dbDate);
-				int bHit = rs.getInt("bHit");
-				int bGroup = rs.getInt("bGroup");
-				int bStep = rs.getInt("bStep");
-				int bIndent = rs.getInt("bIndent");
+				String date_created = simpleDate.format(dbDate);
+				int hit = rs.getInt("hit");
+				int group_num = rs.getInt("group_num");
+				int step_num = rs.getInt("step_num");
+				int indent_num = rs.getInt("indent_num");
 				
-				BDto dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent);
+				BDto dto = new BDto(community_num, user_Id, title, content, date_created, hit, group_num, step_num, indent_num);
 				dtos.add(dto);
 			}
 		} catch (Exception e) {
@@ -107,24 +106,24 @@ public class BDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "SELECT * FROM ( SELECT * FROM mvc_board ORDER BY bid DESC " + 
+			String query = "SELECT * FROM ( SELECT * FROM COMMUNITY ORDER BY community_num DESC " + 
 					") WHERE ROWNUM <= 5";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				BDto dto = new BDto();
-				int id = rs.getInt("bId");
-				String title = rs.getString("bTitle");
-				String user = rs.getString("bName");
-				Timestamp dbDate = rs.getTimestamp("bDate");
+				int id = rs.getInt("community_num");
+				String title = rs.getString("title");
+				String user = rs.getString("user_Id");
+				Timestamp dbDate = rs.getTimestamp("date_created");
 				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
-				String bDate = simpleDate.format(dbDate);
+				String date_created = simpleDate.format(dbDate);
 				
-				dto.setbId(id);
-				dto.setbTitle(title);
-				dto.setbName(user);
-				dto.setbDate(bDate);
+				dto.setCommunity_num(id);
+				dto.setTitle(title);
+				dto.setUser_Id(user);
+				dto.setDate_created(date_created);
 				dtos.add(dto);
 			}
 			
@@ -150,25 +149,25 @@ public class BDao {
 		ResultSet rs = null;
 		try {
 			con = dataSource.getConnection();
-			String query = "select * from mvc_board where bId=?";
+			String query = "select * from COMMUNITY where community_num=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, Integer.parseInt(strID));
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int bId = rs.getInt("bId");
-				String bName = rs.getString("bName");
-				String bTitle = rs.getString("bTitle");
-				String bContent = rs.getString("bContent");
-				Timestamp dbDate = rs.getTimestamp("bDate");
+				int community_num = rs.getInt("community_num");
+				String user_Id = rs.getString("user_Id");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				Timestamp dbDate = rs.getTimestamp("date_created");
 				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
-				String bDate = simpleDate.format(dbDate);
-				int bHit = rs.getInt("bHit");
-				int bGroup = rs.getInt("bGroup");
-				int bStep = rs.getInt("bStep");
-				int bIndent = rs.getInt("bIndent");
+				String date_created = simpleDate.format(dbDate);
+				int hit = rs.getInt("hit");
+				int group_num = rs.getInt("group_num");
+				int step_num = rs.getInt("step_num");
+				int indent_num = rs.getInt("indent_num");
 				
-				dto = new BDto (bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent);
+				dto = new BDto (community_num, user_Id, title, content, date_created, hit, group_num, step_num, indent_num);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -184,15 +183,15 @@ public class BDao {
 		return dto;
 	}
 	
-	private void upHit(String bId) {
+	private void upHit(String community_num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "update mvc_board set bHit = bHit + 1 where bId=?";
+			String query = "update COMMUNITY set hit = hit + 1 where community_num=?";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, bId);
+			pstmt.setString(1, community_num);
 			
 			int rn = pstmt.executeUpdate();
 		} catch(Exception e) {
@@ -207,17 +206,17 @@ public class BDao {
 		}
 	}
 	
-	public int modify(String bId, String bTitle, String bContent) {
+	public int modify(String community_num, String title, String content) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 			con = dataSource.getConnection();
-			String query = "update mvc_board set bContent=?, bTitle=? where bId=?";
+			String query = "update COMMUNITY set content=?, title=? where community_num=?";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, bContent);
-			pstmt.setString(2, bTitle);
-			pstmt.setInt(3, Integer.parseInt(bId));
+			pstmt.setString(1, content);
+			pstmt.setString(2, title);
+			pstmt.setInt(3, Integer.parseInt(community_num));
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -232,24 +231,24 @@ public class BDao {
 		return result;
 	}
 	
-	public BDto getPostById(String bId) {
+	public BDto getPostById(String community_num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		BDto post = null;
 		try {
 			con = dataSource.getConnection();
-			String query = "select * from mvc_board where bId=?";
+			String query = "select * from COMMUNITY where community_num=?";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, bId);
+			pstmt.setString(1, community_num);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				post = new BDto();
-				post.setbId(rs.getInt("bId"));
-				post.setbTitle(rs.getString("bTitle"));
-				post.setbContent(rs.getString("bContent"));
-				post.setbName(rs.getString("bName"));
+				post.setCommunity_num(rs.getInt("community_num"));
+				post.setTitle(rs.getString("title"));
+				post.setContent(rs.getString("content"));
+				post.setUser_Id(rs.getString("user_Id"));
 			}
 			rs.close();
 			pstmt.close();
@@ -260,15 +259,15 @@ public class BDao {
 		return post;
 	}
 	
-	public void delete(String bId) {
+	public void delete(String community_num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "delete from mvc_board where bId=?";
+			String query = "delete from COMMUNITY where community_num=?";
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(bId));
+			pstmt.setInt(1, Integer.parseInt(community_num));
 			int rn = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -290,29 +289,25 @@ public class BDao {
 		
 		try {
 			con = dataSource.getConnection();
-			String query ="select * from mvc_board where bId=?";
+			String query ="select * from COMMUNITY where community_num=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, Integer.parseInt(str));
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				int bId = rs.getInt("bId");
-				String bTitle = rs.getString("bTitle");
-				String bName = rs.getString("bName");
-				String bContent = rs.getString("bContent");
-				Timestamp dbDate = rs.getTimestamp("bDate");
+				int community_num = rs.getInt("community_num");
+				String user_Id = rs.getString("user_Id");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				Timestamp dbDate = rs.getTimestamp("date_created");
 				SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); 
-				String bDate = simpleDate.format(dbDate);
-				int bHit = rs.getInt("bHit");
-				int bGroup = rs.getInt("bGroup");
-				int bStep = rs.getInt("bStep");
-				int bIndent = rs.getInt("bIndent");
+				String date_created = simpleDate.format(dbDate);
+				int hit = rs.getInt("hit");
+				int group_num = rs.getInt("group_num");
+				int step_num = rs.getInt("step_num");
+				int indent_num = rs.getInt("indent_num");
 				
-				System.out.println("bGroup : "+bGroup);
-				System.out.println("bStep : "+bStep);
-				System.out.println("bIndent : "+bIndent);
-				
-				dto = new BDto (bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent);
+				dto = new BDto (community_num, user_Id, title, content, date_created, hit, group_num, step_num, indent_num);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -328,23 +323,24 @@ public class BDao {
 		return dto;
 	}
 	
-	public void reply(String bId, String bTitle, String bName, String bContent, String bGroup, String bStep, String bIndent) {
-		replyShape(bGroup, bStep);
+	public void reply(String user_Id, String title, String content, String group_num, String step_num, String indent_num) {
+		replyShape(group_num, step_num);
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = dataSource.getConnection();
-			String query = "insert into mvc_board(bId, bTitle,  bName, bContent, bGroup, bStep, bIndent) values (mvc_board_seq.nextval,?,?,?,?,?,?)";
+			String query = "insert into COMMUNITY(community_num, user_Id, title, content, group_num, step_num, indent_num) "+ 
+					" values (COMMUNITY_seq.nextval,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setString(1, bTitle);
-			pstmt.setString(2, bName);
-			pstmt.setString(3, bContent);
-			pstmt.setInt(4, Integer.parseInt(bGroup));
-			pstmt.setInt(5, Integer.parseInt(bStep)+1);
-			pstmt.setInt(6, Integer.parseInt(bIndent)+1);
+			pstmt.setString(1, user_Id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, content);
+			pstmt.setInt(4, Integer.parseInt(group_num));
+			pstmt.setInt(5, Integer.parseInt(step_num)+1);
+			pstmt.setInt(6, Integer.parseInt(indent_num)+1);
 			
 			int rn = pstmt.executeUpdate(); 
 		} catch (Exception e) {
@@ -364,7 +360,7 @@ public class BDao {
 		PreparedStatement pstmt = null;
 		try {
 			con = dataSource.getConnection();
-			String query = "update mvc_board set bStep = bStep+1 where bGroup=? and bStep>?";
+			String query = "update COMMUNITY set step_num = step_num+1 where group_num=? and step_num >?";
 			//그룹은 같고 원래 글(step)보다 큰 것들의 step수를 하나씩 증가
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, Integer.parseInt(strGroup));
@@ -390,7 +386,7 @@ public class BDao {
 		int size = 0;
 		try {
 			con = dataSource.getConnection();
-			String query = "select count(*) from MVC_BOARD";
+			String query = "select count(*) from COMMUNITY";
 			pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {

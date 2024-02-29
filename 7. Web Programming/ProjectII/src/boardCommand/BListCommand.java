@@ -28,12 +28,11 @@ public class BListCommand implements BCommand {
 			}
 		}
 		ArrayList<BDto> dtos = dao.list(currentPage);
-		
-		int startPage = Math.max(1, currentPage - showPBtnNum / 2);
-		
 		request.setAttribute("list", dtos);
+		int startPage = Math.max(1, currentPage - showPBtnNum / 2);
 		request.setAttribute("pageBtnNum", pageBtnNum);
 		request.setAttribute("showPBtnNum", showPBtnNum);
 		request.setAttribute("startPage", startPage);
+	
 	}
 }

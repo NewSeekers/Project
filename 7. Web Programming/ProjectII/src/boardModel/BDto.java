@@ -1,104 +1,101 @@
 package boardModel;
 
 public class BDto {
-	int bId;
-	String bTitle;
-	String bName;
-	String bContent;
-	String bDate;
-	int bHit;
-	int bGroup;
-	int bStep;
-	int bIndent;
+	int community_num;
+	String title;
+	String user_Id;
+	String content;
+	String date_created;
+	int hit;
+	int group_num;
+	int step_num;
+	int indent_num;
 	
 	public BDto () {
 		
 	}
 	
-	public BDto(int bId, String bName, String bTitle, String bContent, String bDate, int bHit, int bGroup, int bStep, int bIndent) {
-		this.bId=bId;
-		this.bTitle=bTitle;
-		this.bName=bName;
-		this.bContent=bContent;
-		this.bDate=bDate;
-		this.bHit=bHit;
-		this.bGroup=bGroup;
-		this.bStep=bStep;
-		this.bIndent=bIndent;
+	public BDto(int community_num, String user_Id, String title, String content, String date_created, int hit, int group_num, int step_num, int indent_num) {
+		this.community_num=community_num;
+		this.title=title;
+		this.user_Id=user_Id;
+		this.content=content;
+		this.date_created=date_created;
+		this.hit=hit;
+		this.group_num=group_num;
+		this.step_num=step_num;
+		this.indent_num=indent_num;
 	}
 
-	public int getbId() {
-		return bId;
+	public int getCommunity_num() {
+		return community_num;
 	}
 
-	public void setbId(int bId) {
-		this.bId = bId;
+	public void setCommunity_num(int community_num) {
+		this.community_num = community_num;
 	}
 
-	public String getbTitle() {
-		return bTitle;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setbTitle(String bTitle) {
-		this.bTitle = bTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getbName() { 
-		return bName;
+	public String getUser_Id() {
+		return user_Id;
 	}
 
-	public void setbName(String bName) {
-		this.bName = bName;
+	public void setUser_Id(String user_Id) {
+		this.user_Id = user_Id;
 	}
 
-	public String getbContent() {
-		return bContent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setbContent(String bContent) {
-		this.bContent = bContent;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getbDate() {
-		return bDate;
+	public String getDate_created() {
+		return date_created;
 	}
 
-	public void setbDate(String bDate) {
-		this.bDate = bDate;
+	public void setDate_created(String date_created) {
+		this.date_created = date_created;
 	}
 
-	public int getbHit() {
-		return bHit;
+	public int getHit() {
+		return hit;
 	}
 
-	public void setbHit(int bHit) {
-		this.bHit = bHit;
+	public void setHit(int hit) {
+		this.hit = hit;
 	}
 
-	public int getbGroup() {
-		return bGroup;
+	public int getGroup_num() {
+		return group_num;
 	}
 
-	public void setbGroup(int bGroup) {
-		this.bGroup = bGroup;
+	public void setGroup_num(int group_num) {
+		this.group_num = group_num;
 	}
 
-	public int getbStep() {
-		return bStep;
+	public int getStep_num() {
+		return step_num;
 	}
 
-	public void setbStep(int bStep) {
-		this.bStep = bStep;
+	public void setStep_num(int step_num) {
+		this.step_num = step_num;
 	}
 
-	public int getbIndent() {
-		return bIndent;
+	public int getIndent_num() {
+		return indent_num;
 	}
 
-	public void setbIndent(int bIndent) {
-		this.bIndent = bIndent;
+	public void setIndent_num(int indent_num) {
+		this.indent_num = indent_num;
 	}
-
-	
-	
 }
