@@ -34,7 +34,7 @@ public class CGuPageDao {
 		return instance;
 	}
 
-	// 범죄율 차트 json
+	// 범죄 검거 비율 차트 json
 	public JSONArray getArRate(String guNameValue) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -52,15 +52,11 @@ public class CGuPageDao {
 			System.out.println("getArRate 쿼리문 실행");
 			
 			while(rs.next()) {
-				
 				JSONObject json = new JSONObject();
 				json.put("year", rs.getInt("year"));
-				//json.put("local", rs.getInt("local"));
 				json.put("total_ar_rate", rs.getInt("total_ar_rate"));
-			
 				ar_rate.put(json);
 			}
-			
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
