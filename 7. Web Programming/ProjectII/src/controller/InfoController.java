@@ -72,8 +72,8 @@ public class InfoController extends HttpServlet {
 			ic.execute(request, response);
 		} else if (com.contains("/policeStation.do")) {
 			System.out.println("policeStation서비스 시작====");
-			ic = new PoliceStationTable();
-			ic.execute(request, response);
+//			ic = new PoliceStationTable();
+//			ic.execute(request, response);
 		}
 	}
 }

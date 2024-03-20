@@ -27,12 +27,12 @@ public class GlobalCrimeDao {
 		}
 	}
 
-	@SuppressWarnings("resource")
+//	@SuppressWarnings("resource")
 	public void setGlobalCrime() throws SQLException, IOException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt2 = null;
-		PreparedStatement pstmt3 = null;
+//		PreparedStatement pstmt2 = null;
+//		PreparedStatement pstmt3 = null;
 
 		con = dataSource.getConnection();
 		System.out.println("DB테이블 존재하는지 확인 시작==================");
@@ -43,9 +43,9 @@ public class GlobalCrimeDao {
 		if (resultSet.next()) {
 			System.out.println("DB테이블 존재, 초기화 시작==================");
 			String checkDataQuery = "DELETE FROM GLOBALCRIME";
-			pstmt3 = con.prepareStatement(checkDataQuery);
-			pstmt3.executeUpdate();
-			pstmt3.close();
+			pstmt = con.prepareStatement(checkDataQuery);
+			pstmt.executeUpdate();
+			pstmt.close();
 		} else {
 			System.out.println("DB테이블 생성 시작==================");
 			String mkTableQuery = "CREATE TABLE GLOBALCRIME (" + "\"LOCAL_NM\" VARCHAR2(50 BYTE) NOT NULL ENABLE, "
@@ -53,9 +53,9 @@ public class GlobalCrimeDao {
 					+ "\"VIOLENCE\" NUMBER(10,2), " + "\"SEXUAL\" NUMBER(10,2), " + "\"ROBBER\" NUMBER(10,2), "
 					+ "\"THEFT\" NUMBER(10,2), " + "CONSTRAINT \"GLOBALCRIME_PK\" PRIMARY KEY (\"LOCAL_NM\", \"YEAR\") "
 					+ ")";
-			pstmt2 = con.prepareStatement(mkTableQuery);
-			pstmt2.executeUpdate();
-			pstmt2.close();
+			pstmt = con.prepareStatement(mkTableQuery);
+			pstmt.executeUpdate();
+			pstmt.close();
 		}
 
 		String homiDataTable = "T189403025013347";
