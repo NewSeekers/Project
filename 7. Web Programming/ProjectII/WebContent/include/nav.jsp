@@ -26,7 +26,7 @@
 						<p>예측서비스</p>
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="list.do?page=1">
-						<p>고객의견</p>
+						<p>커뮤니티</p>
 				</a></li>
 				<!-- 세션 체크 -->
 				<%

@@ -13,7 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>고객의견 작성</title>
+<title>커뮤니티</title>
 <!-- css -->
 <link rel="stylesheet" href="./css/board.css">
 <link rel="stylesheet" href="./css/header.footer.css">
@@ -33,38 +33,38 @@
 
 	<div class="board_wrap">
 		<div class="board_title">
-			<strong>고객의견 수정</strong>
-			<p>고객님 의견의 수정사항을 입력해주세요.</p>
+			<strong>의견 수정</strong>
+			<p>의견의 수정사항을 입력해주세요.</p>
 		</div>
 		<div class="board_write_wrap">
 			<form action="modify.do" method="post">
-				<input type="hidden" name="bId" value="${param.bId}"> <input
-					type="hidden" name="bName" value="${param.bName}"> <input
-					type="hidden" name="bDate" value="${param.bDate}"> <input
-					type="hidden" name="bHit" value="${param.bHit}">
+				<input type="hidden" name="community_num" value="${param.community_num}"> <input
+					type="hidden" name="user_Id" value="${param.user_Id}"> <input
+					type="hidden" name="date_created" value="${param.date_created}"> <input
+					type="hidden" name="hit" value="${param.hit}">
 				<div class="board_write">
 					<div class="title">
 						<dl>
 							<dt>제목</dt>
 							<dd>
-								<input type="text" name="bTitle" value="${param.bTitle}">
+								<input type="text" name="title" value="${param.title}">
 							</dd>
 						</dl>
 					</div>
 					<div class="info">
 						<dl>
 							<dt>글쓴이</dt>
-							<dd>${param.bName}</dd>
+							<dd>${param.user_Id}</dd>
 						</dl>
 						<dl>
 							<dt>작성일</dt>
-							<dd>${param.bDate}</dd>
+							<dd>${param.date_created}</dd>
 						</dl>
 
 
 					</div>
 					<div class="cont">
-						<textarea name="bContent">${param.bContent}</textarea>
+						<textarea name="content">${param.content}</textarea>
 					</div>
 				</div>
 				<div class="bt_wrap">

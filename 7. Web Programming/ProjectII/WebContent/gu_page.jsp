@@ -32,8 +32,7 @@
 				<jsp:include page="./include/nav.jsp" />
 
 
-				<!-- -------gu_rank ------------------------------------------------------------------- -->
-
+				<!-- gu_rank -->
 				<% request.setCharacterEncoding("UTF-8"); String region=request.getParameter("region"); %>
 
 					<div id="screen1" class="container-fluid">
@@ -53,7 +52,7 @@
 											guList.add("강북구");
 											%>
 											<div id="local_box">
-												<select name="selectbox" id="selectbox" onchange="guChange()">
+												<select name="selectbox" id="selectbox" >
 													<c:forEach var="gu" items="<%=guList%>">
 														<c:set var="selected"
 															value="${gu eq region ? 'selected' : ''}" />
@@ -124,10 +123,7 @@
 					</div>
 
 
-					<!-- -------arrest chart-------------------------------------------------------------- -->
-
-					<div>${param.region}</div>
-					${param.region }
+					<!-- arrest chart -->
 
 					<div id="screen2" class="container-fluid">
 						<div id="screen2_container" class="row">

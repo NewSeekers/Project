@@ -28,13 +28,9 @@ st/css/bootstrap.min.css"
 
 <body>
     <!-- 상단바 -->
-	
 	<jsp:include page="./include/nav.jsp" />
-
-
-
+   
     <!-- 캐러셀 -->
-
     <div id="carousel1" class="carousel carousel slide"
 		data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -113,20 +109,20 @@ st/css/bootstrap.min.css"
                                         <th class="num"><a
 											href="list.do?page=1">No</a></th>
                                         <th class="title"><a
-											href="./edit.jsp">제목</a></th>
+											href="list.do?page=1">제목</a></th>
                                         <th class="writer"><a
-											href="./edit.jsp">작성자</a></th>
+											href="list.do?page=1">작성자</a></th>
                                         <th class="date"><a
-											href="./edit.jsp">작성일</a></th>
+											href="list.do?page=1">작성일</a></th>
                                     </tr>
                                 </thead>
-                                <tbody >
+                                <tbody>
                                 	<c:forEach items="${indexList}" var="dto">
                                 		<tr>
-                                			<td>${dto.bId}</td>
-                                			<td>${dto.bTitle}</td>
-                                			<td>${dto.bName}</td>
-                                			<td>${dto.bDate}</td>
+                                			<td>${dto.community_num}</td>
+                                			<td>${dto.title}</td>
+                                			<td>${dto.user_Id}</td>
+                                			<td>${dto.date_created}</td>
                                 		</tr>
                                 	</c:forEach>
                                 </tbody>
@@ -186,9 +182,7 @@ st/css/bootstrap.min.css"
                     <div id="recommend_img3"></div>
                     <div class="menu">
                         <div>
-                            <p>서울시에서는 서울의 우수한 경관을<br>알리자는 취지로<br>우수 경관 조망 명소 50개소를 선정했다.<br>
-                          	  석촌호수의 '포토 아일랜드'도 그 가운데 한 곳. 
-							</p>
+                            <p>서울시에서는 서울의 우수한 경관을<br>알리자는 취지로<br>선정한 우수 경관 조망 명소 50개소 중의 한 곳.</p>
                         </div>
 							<button type="button" class="btn">
 							<a href="./gu_page.jsp?region=송파구">[ 송파구 ] 석촌 호수 공원

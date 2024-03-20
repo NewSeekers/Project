@@ -10,176 +10,82 @@ var safetyChart;
 
 window.onload = function () {
 
-  guName = document.getElementById("selectbox");
-  guNameValue = guName.options[guName.selectedIndex].value;
 
-  // json 패치
+function fetchDataAndProcess(url, callback) {
+   guName = document.getElementById("selectbox");
+   guNameValue = guName.options[guName.selectedIndex].value;
 
-  fetch('http://localhost:8181/ProjectII/chart/guPage_chart.do?guNameValue=' + guNameValue, {
-    method: 'Get',
+  fetch(url+'?guNameValue=' + guNameValue , {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
-      }
-      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-      return response.json();
-    })
-    .then(data => {
-      ar_rateDatas = [];
-      console.log(data);
-
-      for (let i = 0; i < data.length; i++) {
-        ar_rateDatas.push(data[i].total_ar_rate);
-      }
-      ar_rateChart(ar_rateDatas);
-    })
-    .catch(error => {
-      console.error("Fetch error: " + error);
-    });
-
-
-  fetch('http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue=' + guNameValue, {
-    method: 'Get',
-    headers: {
-      'Content-Type': 'application/json'
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok' + response.statusText);
     }
+    return response.json();
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
-      }
-      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-
-      document.getElementById("gu_rank").innerHTML = data.secugrade
-      document.getElementById("gu_people").innerHTML = data.population.toString()
-        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-      // document.getElementById("gu_rank").innerHTML = "<div> 치안등급 : " +
-      // data.secugrade + "<div>"
-      // document.getElementById("gu_people").innerHTML = "<div> 인구 수 : " +
-      // data.population + "<div>"
-    })
-    .catch(error => {
-      console.error("Fetch error: " + error);
-    });
-
-
-
-
-
-
-
-
-
-
-
-  fetch('http://localhost:8181/ProjectII/chart/guPage_secufacil.do?guNameValue=' + guNameValue, {
-    method: 'Get',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+  .then(data => {
+	
+    callback(data);
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
-      }
-      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-      addData(securityChart1, data.avg_cctv, data.cctv, guNameValue);
-      addData(securityChart2, data.avg_lights, data.lights, guNameValue);
-      addData(securityChart3, data.avg_policestation, data.policestation, guNameValue);
-    })
-    .catch(error => {
-      console.error("Fetch error: " + error);
-    });
-
-  fetch('http://localhost:8181/ProjectII/chart/guPage_perceivedSafety.do?year=y2023&guNameValue=' + guNameValue, {
-    method: 'Get',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
-      }
-      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-      document.getElementById("chart_resultMent3").innerHTML = "<p>2023 년도 " + data.rank + "위</p>";
+  .catch(error => {
+    console.error("Fetch error: " + error);
+  });
+}
 
 
-    })
-    .catch(error => {
-      console.error("Fetch error: " + error);
-    });
+// 예제로 fetchDataAndProcess 함수를 사용하는 방법
+fetchDataAndProcess('./guPage_chart.do', function(data) {
+  console.log(data);
+  const ar_rateDatas = data.map(item => item.total_ar_rate);
+  ar_rateChart(ar_rateDatas);
+});
+
+fetchDataAndProcess('./guPage_secuGrade.do', function(data) {
+	console.log(data);
+  document.getElementById("gu_rank").innerHTML = data.secugrade;
+  document.getElementById("gu_people").innerHTML = data.population.toString()
+  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+});
+
+fetchDataAndProcess('./guPage_secufacil.do', function(data) {
+	  console.log(data);
+    addData(securityChart1, data.avg_cctv, data.cctv, guNameValue);
+    addData(securityChart2, data.avg_lights, data.lights, guNameValue);
+    addData(securityChart3, data.avg_policestation, data.policestation, guNameValue);
+});
 
 
+ fetch('./guPage_perceivedSafety.do?year=y2023&guNameValue='
+ + guNameValue, {
+ method: 'Get',
+ headers: {
+ 'Content-Type': 'application/json'
+ }
+ })
+ .then(response => {
+ if (!response.ok) {
+ throw new Error('Network response was not ok' + response.statusText);
+ }
+ // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
+ return response.json();
+ })
+ .then(data => {
+ console.log(data);
+ document.getElementById("chart_resultMent3").innerHTML = "<p>2023 년도 " +
+ data.rank + "위</p>";
 
 
-
-
-
-
-  fetch('https://data.ojp.usdoj.gov/resource/6c73-b7iq.json', {
-    method: 'Get',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
-      }
-      // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-      return response.json();
-    })
-    .then(data => {
-
-      console.log(data);
-
-    })
-    .catch(error => {
-      console.error("Fetch error: " + error);
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ })
+ .catch(error => {
+ console.error("Fetch error: " + error);
+ });
 
   const addData = (chart, data1, data2, guNameValue) => {
-    // removeData(chart);
+//     removeData(chart);
     chart.data.datasets[0].data = [data1, data2];
     chart.data.labels = ['평균', guNameValue]
     chart.update();
@@ -192,32 +98,28 @@ window.onload = function () {
     guName = document.getElementById("selectbox");
     guNameValue = guName.options[guName.selectedIndex].value;
 
-    fetch('http://localhost:8181/ProjectII/chart/guPage_secufacil.do?guNameValue=' + guNameValue, {
-      method: 'Get',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok' + response.statusText);
-        }
-        // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
+    fetchDataAndProcess('./guPage_secuGrade.do', function(data) {
+    	console.log(data);
+      document.getElementById("gu_rank").innerHTML = data.secugrade;
+      document.getElementById("gu_people").innerHTML = data.population.toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    });
+    
+    fetchDataAndProcess('./guPage_secufacil.do', function(data) {
+    	  console.log(data);
         addData(securityChart1, data.avg_cctv, data.cctv, guNameValue);
         addData(securityChart2, data.avg_lights, data.lights, guNameValue);
         addData(securityChart3, data.avg_policestation, data.policestation, guNameValue);
+        
+    });
+    fetchDataAndProcess('./guPage_chart.do', function(data) {
+  	  console.log(data);
+  	 safetyChart.destroy();
+   	  const ar_rateDatas = data.map(item => item.total_ar_rate);
+    	  ar_rateChart(ar_rateDatas);
+    });
 
-
-      })
-      .catch(error => {
-        console.error("Fetch error: " + error);
-      });
-
-    fetch('http://localhost:8181/ProjectII/chart/guPage_perceivedSafety.do?year=y2023&guNameValue=' + guNameValue, {
+    fetch('./guPage_perceivedSafety.do?year=y2023&guNameValue=' + guNameValue, {
       method: 'Get',
       headers: {
         'Content-Type': 'application/json'
@@ -290,13 +192,6 @@ window.onload = function () {
     type: 'bar',
     data: security_CCTV,
     options: {
-
-      x: {
-        // 차트 옵션, css같은 느낌 양식다름,
-      },
-      y: {
-
-      },
       plugins: {
         legend: {
           display: false,
@@ -314,13 +209,7 @@ window.onload = function () {
     type: 'bar',
     data: security_light,
     options: {
-      x: {
-        // 차트 옵션, css같은 느낌 양식다름,
-      },
-      y: {
-
-      },
-      plugins: {
+       plugins: {
         legend: {
           display: false,
         }
@@ -337,12 +226,6 @@ window.onload = function () {
     type: 'bar',
     data: security_police,
     options: {
-      x: {
-        // 차트 옵션, css같은 느낌 양식다름,
-      },
-      y: {
-
-      },
       plugins: {
         legend: {
           display: false,
@@ -360,7 +243,7 @@ window.onload = function () {
 
 
 
-  // 검거비율 만드는 차트 함부
+  // 검거비율 만드는 차트 함수
   function ar_rateChart(data) {
     var ctx = document.getElementById('safetyChart').getContext('2d');
     safetyChart = new Chart(ctx, {
@@ -392,7 +275,7 @@ window.onload = function () {
       console.log("Button Value: " + buttonValue);
       guName = document.getElementById("selectbox");
       guNameValue = guName.options[guName.selectedIndex].value;
-      fetch('http://localhost:8181/ProjectII/chart/guPage_perceivedSafety.do?year=y' + buttonValue + "&guNameValue=" + guNameValue, {
+      fetch('./guPage_perceivedSafety.do?year=y' + buttonValue + "&guNameValue=" + guNameValue, {
         method: 'Get',
         headers: {
           'Content-Type': 'application/json'
@@ -450,116 +333,6 @@ window.onload = function () {
 }
 
 
-// 셀렉트박스 자치구 바뀔때마다 차트도 바꿔주는 함수
-function guChange() {
-  guName = document.getElementById("selectbox");
-  guNameValue = guName.options[guName.selectedIndex].value;
-
-  document.getElementById("gu_name").innerText = "<" + guNameValue + ">  ";
-
-  // json 패치
-  fetch('http://localhost:8181/ProjectII/chart/guPage_chart.do?guNameValue=' + guNameValue, {
-    method: 'Get',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok' + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => {
-      ar_rateDatas = [];
-      console.log(data);
-
-      for (let i = 0; i < data.length; i++) {
-        ar_rateDatas.push(data[i].total_ar_rate);
-      }
-      guChangeChart(ar_rateDatas);
-    })
-    .catch(error => {
-      console.error("Fetch error: " + error);
-    });
-
-  //패치문을 아래에 아작스로 바꿔서 불러오기
-  // fetch('http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue='
-  // + guNameValue, {
-  // method: 'Get',
-  // headers: {
-  // 'Content-Type': 'application/json'
-  // }
-  // })
-  // .then(response => {
-  // if (!response.ok) {
-  // throw new Error('Network response was not ok' + response.statusText);
-  // }
-  // // 반환된 객체를 JSON으로 전환하기 위해 json() 메서드를 사용
-  // return response.json();
-  // })
-  // .then(data => {
-  // console.log(data);
-  // document.getElementById("gu_rank").innerHTML = "<div> 치안등급 :
-  // "+data.secugrade+"<div>"
-  // document.getElementById("gu_people").innerHTML = "<div> 인구 수 :
-  // "+data.population+"<div>"
-  // })
-  // .catch(error => {
-  // console.error("Fetch error: " + error);
-  // });
-
-
-  $.ajax({
-    url: 'http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue=' + guNameValue,
-    type: 'get',
-    success: function (result) {
-      console.log(result);
-      $('#gu_rank').text(result.secugrade);
-      $('#gu_people').text(result.population);
-    },
-    error: function () {
-      alert('ajax 통신 실패');
-    },
-    complete: function () {
-      console.log('asdgawe4rg');
-    }
-  });
-
-}
-
-
-
-
-
-// $(function () {
-// $('#selectbox').onchange(function () {
-// // 동기식 통신: location.href = '요청 url?쿼리스트링';
-// // 비동기식 통신:
-// // $.ajax()메소드 호출: 객체를 하나 만들어서 {} 보낸다
-// guName = document.getElementById("selectbox");
-// guNameValue = guName.options[guName.selectedIndex].value;
-// $.ajax({
-// url: 'http://localhost:8181/ProjectII/chart/guPage_secuGrade.do?guNameValue='
-// + guNameValue,
-// type: 'get',
-// success: function (result) {
-// console.log(result);
-// $('#gu_rank').text(JSON.stringify(result.secugrade));
-// $('#gu_people').text(JSON.stringify(result.population));
-// },
-// error: function () {
-// alert('ajax 통신 실패');
-// },
-// complete: function () {
-// console.log('asdgawe4rg');
-// }
-// });
-// });
-//
-// });
-
-
 
 
 
@@ -611,15 +384,5 @@ sidedar.addEventListener('mouseenter', function () {
   rankIcon.className = 'fa-solid fa-award';
   mapIcon.className = 'fa-solid fa-map-location-dot';
 });
-
-
-
-
-
-
-
-
-
-
 
 

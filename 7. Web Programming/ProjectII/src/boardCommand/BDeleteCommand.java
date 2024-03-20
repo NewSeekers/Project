@@ -8,9 +8,8 @@ import boardModel.BDao;
 public class BDeleteCommand implements BCommand {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		String bId = request.getParameter("bId");
+		String community_num = request.getParameter("community_num");
 		BDao dao = new BDao();
-		dao.delete(bId);
-
+		dao.delete(community_num);
 	}
 }

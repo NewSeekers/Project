@@ -30,49 +30,49 @@
 
 	<div class="board_wrap">
 		<div class="board_title">
-			<strong>고객의견</strong>
-			<p>고객님 의견의 답변을 빠르게 안내해드리겠습니다.</p>
+			<strong>커뮤니티 -답변</strong>
+			<p>공유하고 싶은 정보를 작성해주세요.</p>
 		</div>
 		<div class="board_write_wrap">
 			<div class="board_view">
-				<div class="title">${param.bTitle}</div>
+				<div class="title">${param.title}</div>
 				<div class="info">
 					<dl>
 						<dt>번호</dt>
-						<dd>${param.bId}</dd>
+						<dd>${param.community_num}</dd>
 					</dl>
 					<dl>
 						<dt>글쓴이</dt>
-						<dd>${param.bName}</dd>
+						<dd>${param.user_Id}</dd>
 					</dl>
 					<dl>
 						<dt>작성일</dt>
-						<dd>${param.bDate}</dd>
+						<dd>${param.date_created}</dd>
 					</dl>
 					<dl>
 						<dt>조회</dt>
-						<dd>${param.bHit}</dd>
+						<dd>${param.hit}</dd>
 					</dl>
 				</div>
 				<div class="cont">
 					<dl>
 						<dt>내용</dt>
-						<dd>${param.bContent}</dd>
+						<dd>${param.content}</dd>
 					</dl>
 				</div>
 			</div>
 			<form action="reply.do" method="post">
-				<input type="hidden" name="bId" value="${param.bId}"> <input
-					type="hidden" name="bGroup" value="${param.bGroup}"> <input
-					type="hidden" name="bStep" value="${param.bStep}"> <input
-					type="hidden" name="bIndent" value="${param.bIndent}">
+				<input type="hidden" name="community_num" value="${param.community_num}"> <input
+					type="hidden" name="group_num" value="${param.group_num}"> <input
+					type="hidden" name="step_num" value="${param.step_num}"> <input
+					type="hidden" name="indent_num" value="${param.indent_num}">
 
 				<div class="board_write">
 					<div class="title">
 						<dl>
 							<dt>제목</dt>
 							<dd>
-								<input type="text" name="bTitle">
+								<input type="text" name="title">
 							</dd>
 						</dl>
 					</div>
@@ -80,17 +80,13 @@
 						<dl>
 							<dt>글쓴이</dt>
 							<dd>
-								<input type="hidden" name="bName" value="<%= dto.getId() %>>">
+								<input type="hidden" name="user_Id" value="<%= dto.getId() %>">
 								<%=dto.getId() %>
 							</dd>
 						</dl>
-						<!-- <dl>
-                        <dt>비밀번호</dt>
-                        <dd><input type="password" placeholder="비밀번호 입력"></dd>
-                    </dl> -->
 					</div>
 					<div class="cont">
-						<textarea name="bContent"></textarea>
+						<textarea name="content"></textarea>
 					</div>
 				</div>
 				<div class="bt_wrap">

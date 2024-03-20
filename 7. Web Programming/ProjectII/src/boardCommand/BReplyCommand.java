@@ -9,16 +9,15 @@ public class BReplyCommand implements BCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		String bId = request.getParameter("bId");
-		String bName = request.getParameter("bName");
-		String bTitle = request.getParameter("bTitle");
-		String bContent = request.getParameter("bContent");
-		String bGroup = request.getParameter("bGroup");
-		String bStep = request.getParameter("bStep");
-		String bIndent = request.getParameter("bIndent");
+		String user_Id = request.getParameter("user_Id");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String group_num = request.getParameter("group_num");
+		String step_num = request.getParameter("step_num");
+		String indent_num = request.getParameter("indent_num");
 		
 		BDao dao = new BDao();
-		dao.reply(bId, bTitle, bName, bContent, bGroup, bStep, bIndent);
+		dao.reply(user_Id, title, content, group_num, step_num, indent_num);
 		
 	}
 
