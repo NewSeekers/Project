@@ -176,8 +176,6 @@ dropdownItems.forEach(item => {
             }
         })
 
-
-
         //==============================================================================
         const boxes = document.querySelectorAll('.crBox');
         boxes.forEach(crBox => {
@@ -195,11 +193,6 @@ dropdownItems.forEach(item => {
         document.getElementById('plusBtnLeft').innerHTML = "+ 버튼 남은 수: " + (5 - plusBtnCount);
         document.getElementById('minusBtnLeft').innerHTML = "- 버튼 남은 수: " + (5 - minusBtnCount);
         //==============================================================================
-
-
-
-
-
 
         document.getElementById('resetButton').addEventListener('click', function () {
             const facilitySelectors2 = districtData2["facilitySelector"][0];
@@ -359,8 +352,7 @@ plusBtns.forEach(function (plusBtn) {
 
         if (plusBtnCount < 5) {
             if (facilityLabels[facility] === undefined) {
-                // facilityLabels = {};
-                console.log("퍼실라벨실행됨?" + facilityLabels)
+                
                 if (facility == "cctv") {
                     facilityLabels.cctv = districtData["facilitySelector"][0][facility].slice();
                 } else if (facility == "lights") {

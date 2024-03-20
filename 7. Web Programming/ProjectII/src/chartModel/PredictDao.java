@@ -160,13 +160,6 @@ public class PredictDao {
 				break;
 			}
 
-//			jsonFacilData.put("pub", pub);
-//			jsonFacilData.put("grdp", grdp);
-//			jsonFacilData.put("single", single);
-//			jsonFacilData.put("lights", lights);
-//			jsonFacilData.put("cctv", cctv);
-//			jsonFacilData.put("policeStation", policeStation);
-//			jsonFacilData.put("policeman", policeman);
 			jsonCrimeData.put("homicide", homicide);
 			jsonCrimeData.put("robber", robber);
 			jsonCrimeData.put("sexual", sexual);

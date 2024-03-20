@@ -29,6 +29,9 @@ public class FrontController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 
+	PoliceStationApiData policeStation = new PoliceStationApiData();
+
+
 		// globalData call
 		JobDetail jobDetail = JobBuilder.newJob(DataLoadingQuartz.class).withIdentity("dataLoadingQuartz", "group1")
 				.build();
@@ -165,4 +168,8 @@ public class FrontController extends HttpServlet {
 		}
 	}
 
+	public void destroy() {
+			}
+	
+	
 }
